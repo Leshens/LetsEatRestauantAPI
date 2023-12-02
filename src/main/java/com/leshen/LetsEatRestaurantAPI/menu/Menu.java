@@ -1,6 +1,20 @@
 package com.leshen.LetsEatRestaurantAPI.menu;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table
 public class Menu {
+    @Id
+    @SequenceGenerator(
+            name = "menu_sequence",
+            sequenceName = "menu_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "menu_sequence"
+    )
 
     private Integer id;
 

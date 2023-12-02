@@ -1,9 +1,21 @@
 package com.leshen.LetsEatRestaurantAPI.restaurant;
 
-import java.util.Arrays;
-import java.util.List;
+import jakarta.persistence.*;
 
+
+@Entity
+@Table
 public class Restaurant {
+    @Id
+    @SequenceGenerator(
+            name = "restaurant_sequence",
+            sequenceName = "restaurant_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "restaurant_sequence"
+    )
     private Integer id;
     private String userId;
     private String restaurantName;

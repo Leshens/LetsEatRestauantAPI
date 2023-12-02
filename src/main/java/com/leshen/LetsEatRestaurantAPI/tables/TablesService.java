@@ -1,5 +1,6 @@
 package com.leshen.LetsEatRestaurantAPI.tables;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -7,16 +8,15 @@ import java.util.List;
 @Service
 public class TablesService {
 
-    public List<Tables> getTables(){
-        return List.of(
-                new Tables(
-                        1,
-                        "Stoliki",
-                        1,
-                        1,
-                        1,
-                        1
-                )
-        );
+    private final TablesRepository tablesRepository;
+
+    @Autowired
+    public TablesService(TablesRepository tablesRepository) {
+        this.tablesRepository = tablesRepository;
+    }
+
+
+    public List<Tables> getTables() {
+        return tablesRepository.findAll();
     }
 }

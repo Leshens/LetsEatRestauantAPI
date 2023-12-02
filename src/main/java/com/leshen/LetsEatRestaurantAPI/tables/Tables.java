@@ -1,7 +1,21 @@
 package com.leshen.LetsEatRestaurantAPI.tables;
 
-public class Tables {
 
+import jakarta.persistence.*;
+
+@Entity
+@Table
+public class Tables {
+    @Id
+    @SequenceGenerator(
+            name = "tables_sequence",
+            sequenceName = "tables_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "tables_sequence"
+    )
     private Integer id;
     private String Name;
 
