@@ -1,9 +1,7 @@
 package com.leshen.LetsEatRestaurantAPI.restaurant;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,4 +20,11 @@ public class RestaurantController {
         return restaurantService.getRestaurants();
     }
 
+    @PutMapping(path = "{restaurantId}")
+    public void updateRestaurant(
+            @PathVariable("restaurantId") Integer restaurantId,
+            @RequestParam(required = false) String restaurantName,
+            @RequestParam(required = false) String location) {
+        restaurantService.updateRestaurant(restaurantId, restaurantName , location);
+    }
 }

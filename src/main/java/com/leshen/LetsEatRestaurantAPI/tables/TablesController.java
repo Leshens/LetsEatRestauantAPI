@@ -2,9 +2,7 @@ package com.leshen.LetsEatRestaurantAPI.tables;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,4 +16,14 @@ public class TablesController {
 
     @GetMapping
     public List<Tables> getTables() {return tablesService.getTables(); }
+
+//    @PutMapping(path = "{tablesId}")
+//    public void updateTables(
+//            @PathVariable("tablesId") Integer tablesId,
+//            @RequestParam(required = false) Integer twoOs,
+//            @RequestParam(required = false) Integer fourOs,
+//            @RequestParam(required = false) Integer sixOs,
+//            @RequestParam(required = false) Integer eightOs){
+//        TablesService.updateTables(tablesId, twoOs , fourOs, sixOs, eightOs );
+//    }
 }
