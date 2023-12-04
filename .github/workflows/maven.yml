@@ -14,9 +14,10 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      # Docker Compose Steps
+      # Alternative Docker Compose Action
       - name: Set up Docker Compose
-        uses: docker/compose-cli-action@v0
+        uses: docker/compose@v1  # Use an appropriate version or tag
+
       - name: Build and run Docker Compose
         run: |
           docker-compose up -d
