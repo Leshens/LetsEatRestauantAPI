@@ -16,7 +16,7 @@ jobs:
 
       # Docker Compose Steps
       - name: Set up Docker Compose
-        uses: docker/compose-cli-action@v0.1.0
+        uses: docker/compose-cli-action@v0
       - name: Build and run Docker Compose
         run: |
           docker-compose up -d
