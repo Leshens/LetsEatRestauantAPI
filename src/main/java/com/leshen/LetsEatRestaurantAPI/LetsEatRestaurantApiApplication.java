@@ -1,13 +1,15 @@
-package com.leshen.LetsEatRestauantAPI;
+package com.leshen.LetsEatRestaurantAPI;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class LetsEatRestauantApiApplication {
+
+public class LetsEatRestaurantApiApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(LetsEatRestauantApiApplication.class, args);
+
+		SpringApplication.run(LetsEatRestaurantApiApplication.class, args);
 	}
 
 }

@@ -1,10 +1,10 @@
-package com.leshen.LetsEatRestauantAPI;
+package com.leshen.LetsEatRestaurantAPI;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class LetsEatRestauantApiApplicationTests {
+class LetsEatRestaurantApiApplicationTests {
 
 	@Test
 	void contextLoads() {
