@@ -15,7 +15,6 @@ public class Restaurant {
     private Long token;
     private String restaurantName;
     private String location;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "restaurant_category", length = 32)
     private RestaurantCategory restaurantCategory;

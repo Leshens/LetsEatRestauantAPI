@@ -1,0 +1,51 @@
+###
+POST http://localhost:8080/restaurant
+Content-Type: application/json
+
+{
+  "restaurantName": "Kamm's Restrant",
+  "token": 11234567899009,
+  "location": "Klonowicza 71A",
+  "restaurantCategory": "AMERICAN"
+}
+
+<> 2023-12-05T145746.200.json
+
+###
+GET http://localhost:8080/restaurants
+
+<> 2023-12-05T145916.200.json
+<> 2023-12-05T145358.200.json
+
+###
+PUT http://localhost:8080/updateRestaurant/2
+Content-Type: application/json
+
+{
+  "restaurantName": "Kamm's Restaurant",
+  "token": 11234567899009,
+  "location": "Klonowicza 71A",
+  "restaurantCategory": "MEXICAN"
+}
+
+<> 2023-12-05T150052.200.json
+<> 2023-12-05T150013.400.json
+<> 2023-12-05T150003.400.json
+<> 2023-12-05T145931.200.json
+<> 2023-12-05T145918.404.json
+<> 2023-12-05T145539.404.json
+<> 2023-12-05T145426.400.json
+<> 2023-12-05T145418.400.json
+<> 2023-12-05T145358-1.400.json
+<> 2023-12-05T145344.400.json
+
+###
+GET http://localhost:8080/restaurant/2
+
+<> 2023-12-05T145944.200.json
+<> 2023-12-05T145358-1.200.json
+
+###
+DELETE http://localhost:8080/deleteRestaurant/2
+
+<> 2023-12-05T145358-2.200.json
