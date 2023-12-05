@@ -56,7 +56,6 @@ public class RestaurantController {
     @DeleteMapping(value = "/deleteRestaurant/{id}")
     public ResponseEntity<Long> deleteRestaurant(@PathVariable Long id) {
 
-
         if (!restaurantRepository.existsById(id)) {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, "Restaurant not found"
