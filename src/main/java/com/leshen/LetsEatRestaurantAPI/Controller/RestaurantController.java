@@ -44,7 +44,8 @@ public class RestaurantController {
                 .orElseThrow(() -> new ResponseStatusException(
                         HttpStatus.NOT_FOUND, "Restaurant not found"
                 ));
-
+        
+        updateRestaurant.setToken(restaurant.getToken());
         updateRestaurant.setRestaurantName(restaurant.getRestaurantName());
         updateRestaurant.setLocation(restaurant.getLocation());
         updateRestaurant.setRestaurantCategory(restaurant.getRestaurantCategory());

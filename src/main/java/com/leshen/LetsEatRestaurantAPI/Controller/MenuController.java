@@ -18,16 +18,16 @@ public class MenuController {
     @Autowired
     private MenuRepository menuRepository;
 
-    @PostMapping("/Menu")
+    @PostMapping("/menu")
     Menu newMenu(@RequestBody Menu newMenu){
         return menuRepository.save(newMenu);
     }
 
-    @GetMapping("/Menu")
-    public ResponseEntity<List<Menu>> getAllMenu(){
+    @GetMapping("/menus")
+    public ResponseEntity<List<Menu>> getAllMenus(){
         return new ResponseEntity<>(menuRepository.findAll(), HttpStatus.OK);
     }
-    @GetMapping("/Menu/{id}")
+    @GetMapping("/menu/{id}")
     public ResponseEntity<Menu> getById(@PathVariable long id) {
 
         Optional<Menu> menu = menuRepository.findById(id);
@@ -35,31 +35,32 @@ public class MenuController {
             return new ResponseEntity<>(menu.get(), HttpStatus.OK);
         } else {
             throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "Dish not found"
+                    HttpStatus.NOT_FOUND, "Menu not found"
             );
         }
     }
-    @PutMapping("updateDish/{id}")
-    public ResponseEntity<Menu> updateDish(@PathVariable long id,@RequestBody Menu menu) {
-        Menu updateDish = menuRepository.findById(id)
+    @PutMapping("updateMenu/{id}")
+    public ResponseEntity<Menu> updateMenu(@PathVariable long id,@RequestBody Menu menu) {
+        Menu updateMenu = menuRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(
-                        HttpStatus.NOT_FOUND, "Dish not found"
+                        HttpStatus.NOT_FOUND, "Menu not found"
                 ));
+        updateMenu.setToken(menu.getToken());
+        updateMenu.setRestaurantId(menu.getRestaurantId());
+        updateMenu.setName(menu.getName());
+        updateMenu.setPrice(menu.getPrice());
 
-        updateDish.setName(menu.getName());
-        updateDish.setPrice(menu.getPrice());
+        menuRepository.save(updateMenu);
 
-        menuRepository.save(updateDish);
-
-        return ResponseEntity.ok(updateDish);
+        return ResponseEntity.ok(updateMenu);
     }
 
-    @DeleteMapping(value = "/deleteDish/{id}")
+    @DeleteMapping(value = "/deleteMenu/{id}")
     public ResponseEntity<Long> deleteDish(@PathVariable Long id) {
 
         if (!menuRepository.existsById(id)) {
             throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "Dish not found"
+                    HttpStatus.NOT_FOUND, "Menu not found"
             );
         }
         menuRepository.deleteById(id);

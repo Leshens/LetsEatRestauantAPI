@@ -48,7 +48,8 @@ public class TablesController {
                         HttpStatus.NOT_FOUND, "Table not found"
                 ));
 
-        updateTables.setName(tables.getName());
+        updateTables.setToken(tables.getToken());
+        updateTables.setRestaurantId(tables.getRestaurantId());
         updateTables.setTwoOs(tables.getTwoOs());
         updateTables.setFourOs(tables.getFourOs());
         updateTables.setSixOs(tables.getSixOs());
