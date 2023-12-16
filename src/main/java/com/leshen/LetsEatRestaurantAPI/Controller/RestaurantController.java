@@ -55,11 +55,18 @@ public class RestaurantController {
 
 
     @PutMapping("updateRestaurant/{id}")
-    public ResponseEntity<Restaurant> updateRestaurant(@PathVariable long id,@RequestBody Restaurant updatedRestaurant) {
+    public ResponseEntity<Restaurant> updateRestaurant(@PathVariable long id,@RequestBody Restaurant updatedRestaurant,
+                                                       @RequestHeader("Authorization") Long requestToken) {
         Restaurant existingRestaurant = restaurantRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(
                         HttpStatus.NOT_FOUND, "Restaurant not found"
                 ));
+
+        if (!existingRestaurant.getToken().equals(requestToken)) {
+            throw new ResponseStatusException(
+                    HttpStatus.UNAUTHORIZED, "Invalid token"
+            );
+        }
 
         existingRestaurant.setToken(updatedRestaurant.getToken());
         existingRestaurant.setRestaurantName(updatedRestaurant.getRestaurantName());
@@ -77,13 +84,27 @@ public class RestaurantController {
         return ResponseEntity.ok(existingRestaurant);
     }
     @DeleteMapping(value = "/deleteRestaurant/{id}")
-    public ResponseEntity<Long> deleteRestaurant(@PathVariable Long id) {
+    public ResponseEntity<Long> deleteRestaurant(@PathVariable Long id,
+                                                 @RequestHeader("Authorization") Long requestToken) {
+
+        Restaurant restaurant = restaurantRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, "Restaurant not found"
+                ));
+
+        if (!restaurant.getToken().equals(requestToken)) {
+            throw new ResponseStatusException(
+                    HttpStatus.UNAUTHORIZED, "Invalid token"
+            );
+        }
+
 
         if (!restaurantRepository.existsById(id)) {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, "Restaurant not found"
             );
         }
+
         restaurantRepository.deleteById(id);
         return new ResponseEntity<>(id, HttpStatus.OK);
 
