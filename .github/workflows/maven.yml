@@ -16,10 +16,7 @@ jobs:
         uses: actions/checkout@v1
 
       - name: "Build and run Docker Compose"
-        run: docker compose -f docker-compose.yml up -d
-        
-      - name: "Wait for docker to finish building"
-        run: sleep 30
+        run: docker compose up -d --wait
         
       - name: "Set up JDK 17"
         uses: actions/setup-java@v3
@@ -30,6 +27,3 @@ jobs:
 
       - name: "Build with Maven"
         run: mvn -B package --file pom.xml
-
-      - name: "Update dependency graph"
-        uses: advanced-security/maven-dependency-submission-action@571e99aab1055c2e71a1e2309b9691de18d6b7d6
