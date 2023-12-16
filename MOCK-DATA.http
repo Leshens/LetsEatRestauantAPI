@@ -2,49 +2,216 @@
 POST http://localhost:8080/restaurant
 Content-Type: application/json
 
-{"restaurantId":1,"token":"5989968884","restaurantName":"Hickle-Goldner","location":"46 Mariners Cove Drive","restaurantCategory":"ITALIAN"}
+{"restaurantId":1,"token":"7545897939","restaurantName":"Cummings and Sons","location":"58 Lyons Street","restaurantCategory":"JAPANESE","openingHours":"1AM - 4PM","photoLink":"http://dummyimage.com/244x100.png/cc0000/ffffff","websiteLink":"http://123-reg.co.uk","longitude":-91.141982,"latitude":14.637422,"phoneNumber":"1583893425"}
 ###
 POST http://localhost:8080/restaurant
 Content-Type: application/json
 
-{"restaurantId":2,"token":"4435615320","restaurantName":"Reilly Inc","location":"277 Commercial Hill","restaurantCategory":"CHINESE"}
+{"restaurantId":2,"token":"5567329317","restaurantName":"Ferry, Morar and Rolfson","location":"9 Glacier Hill Crossing","restaurantCategory":"AMERICAN","openingHours":"1AM - 7PM","photoLink":"http://dummyimage.com/159x100.png/5fa2dd/ffffff","websiteLink":"http://vistaprint.com","longitude":-73.868176,"latitude":8.27533,"phoneNumber":"3906761090"}
 ###
 POST http://localhost:8080/restaurant
 Content-Type: application/json
 
-{"restaurantId":3,"token":"0497179350","restaurantName":"Skiles, Sawayn and Bradtke","location":"76 Stone Corner Alley","restaurantCategory":"MEXICAN"}
+{"restaurantId":3,"token":"8472611680","restaurantName":"Bins LLC","location":"515 Vera Alley","restaurantCategory":"CHINESE","openingHours":"5AM - 2PM","photoLink":"http://dummyimage.com/163x100.png/5fa2dd/ffffff","websiteLink":"https://ft.com","longitude":88.3929616,"latitude":24.4314126,"phoneNumber":"2525966277"}
 ###
 POST http://localhost:8080/restaurant
 Content-Type: application/json
 
-{"restaurantId":4,"token":"8338317543","restaurantName":"Koss, Mohr and Hintz","location":"167 Southridge Alley","restaurantCategory":"MEXICAN"}
+{"restaurantId":4,"token":"5618917977","restaurantName":"Lemke, Roob and Berge","location":"965 Waubesa Crossing","restaurantCategory":"JAPANESE","openingHours":"3AM - 6PM","photoLink":"http://dummyimage.com/204x100.png/dddddd/000000","websiteLink":"http://behance.net","longitude":-38.612338,"latitude":-3.879263,"phoneNumber":"9046457214"}
 ###
 POST http://localhost:8080/restaurant
 Content-Type: application/json
 
-{"restaurantId":5,"token":"4918121810","restaurantName":"McDermott, Hintz and Leannon","location":"434 Warbler Park","restaurantCategory":"AMERICAN"}
+{"restaurantId":5,"token":"1520218166","restaurantName":"Brekke-Roob","location":"652 Brown Lane","restaurantCategory":"FRENCH","openingHours":"9AM - 1PM","photoLink":"http://dummyimage.com/204x100.png/5fa2dd/ffffff","websiteLink":"https://nydailynews.com","longitude":114.255942,"latitude":23.723418,"phoneNumber":"7373439504"}
 ###
 POST http://localhost:8080/restaurant
 Content-Type: application/json
 
-{"restaurantId":6,"token":"8556587739","restaurantName":"Skiles, Smith and Borer","location":"39741 Esch Alley","restaurantCategory":"INDIAN"}
+{"restaurantId":6,"token":"8241246179","restaurantName":"Schmitt Group","location":"95564 Blackbird Way","restaurantCategory":"MEXICAN","openingHours":"5AM - 4PM","photoLink":"http://dummyimage.com/190x100.png/5fa2dd/ffffff","websiteLink":"http://so-net.ne.jp","longitude":116.951541,"latitude":24.646975,"phoneNumber":"8983743717"}
 ###
 POST http://localhost:8080/restaurant
 Content-Type: application/json
 
-{"restaurantId":7,"token":"3604804515","restaurantName":"Rempel-Jones","location":"48333 Talmadge Avenue","restaurantCategory":"JAPANESE"}
+{"restaurantId":7,"token":"7572642293","restaurantName":"Pfeffer LLC","location":"1243 La Follette Place","restaurantCategory":"CHINESE","openingHours":"7AM - 1PM","photoLink":"http://dummyimage.com/173x100.png/dddddd/000000","websiteLink":"https://prlog.org","longitude":112.3456985,"latitude":-8.2127777,"phoneNumber":"1554364113"}
 ###
 POST http://localhost:8080/restaurant
 Content-Type: application/json
 
-{"restaurantId":8,"token":"8692548154","restaurantName":"Bruen, Wyman and Boyer","location":"68 Chinook Center","restaurantCategory":"FRENCH"}
+{"restaurantId":8,"token":"9246576806","restaurantName":"Feeney-Leffler","location":"14164 Mariners Cove Terrace","restaurantCategory":"AMERICAN","openingHours":"3AM - 3PM","photoLink":"http://dummyimage.com/139x100.png/dddddd/000000","websiteLink":"https://house.gov","longitude":28.2513674,"latitude":62.2956257,"phoneNumber":"9575323949"}
 ###
 POST http://localhost:8080/restaurant
 Content-Type: application/json
 
-{"restaurantId":9,"token":"0718020898","restaurantName":"Brown, Daniel and Nolan","location":"922 Westport Center","restaurantCategory":"OTHER"}
+{"restaurantId":9,"token":"2637708961","restaurantName":"Bradtke-Marvin","location":"079 Chive Pass","restaurantCategory":"MEXICAN","openingHours":"3AM - 9PM","photoLink":"http://dummyimage.com/182x100.png/dddddd/000000","websiteLink":"http://twitpic.com","longitude":111.6556388,"latitude":-7.5450262,"phoneNumber":"9279351399"}
 ###
 POST http://localhost:8080/restaurant
 Content-Type: application/json
 
-{"restaurantId":10,"token":"1962822559","restaurantName":"Hauck-Haag","location":"9904 Miller Junction","restaurantCategory":"OTHER"}
+{"restaurantId":10,"token":"8878249619","restaurantName":"Gulgowski, Davis and Hickle","location":"1324 Burrows Road","restaurantCategory":"MEXICAN","openingHours":"4AM - 1PM","photoLink":"http://dummyimage.com/149x100.png/dddddd/000000","websiteLink":"https://ted.com","longitude":103.817356,"latitude":25.60162,"phoneNumber":"1313130426"}
+###
+POST http://localhost:8080/restaurant
+Content-Type: application/json
+
+{"restaurantId":11,"token":"7529941830","restaurantName":"Bernier, Sanford and Langosh","location":"54 Redwing Hill","restaurantCategory":"FRENCH","openingHours":"4AM - 3PM","photoLink":"http://dummyimage.com/190x100.png/dddddd/000000","websiteLink":"http://taobao.com","longitude":33.7517723,"latitude":-0.2803575,"phoneNumber":"5859297756"}
+###
+POST http://localhost:8080/restaurant
+Content-Type: application/json
+
+{"restaurantId":12,"token":"2028509530","restaurantName":"Kassulke and Sons","location":"411 Bluejay Terrace","restaurantCategory":"JAPANESE","openingHours":"1AM - 8PM","photoLink":"http://dummyimage.com/147x100.png/dddddd/000000","websiteLink":"http://netvibes.com","longitude":26.6912362,"latitude":48.7911354,"phoneNumber":"9205207115"}
+###
+POST http://localhost:8080/restaurant
+Content-Type: application/json
+
+{"restaurantId":13,"token":"4749427247","restaurantName":"Friesen and Sons","location":"02808 Morning Hill","restaurantCategory":"OTHER","openingHours":"6AM - 4PM","photoLink":"http://dummyimage.com/199x100.png/cc0000/ffffff","websiteLink":"http://webeden.co.uk","longitude":3.179389,"latitude":9.462591,"phoneNumber":"3304861659"}
+###
+POST http://localhost:8080/restaurant
+Content-Type: application/json
+
+{"restaurantId":14,"token":"0404870359","restaurantName":"Reilly, Ledner and Stamm","location":"203 Bluejay Crossing","restaurantCategory":"MEXICAN","openingHours":"5AM - 8PM","photoLink":"http://dummyimage.com/187x100.png/ff4444/ffffff","websiteLink":"https://vkontakte.ru","longitude":121.018975,"latitude":14.55647,"phoneNumber":"4309990289"}
+###
+POST http://localhost:8080/restaurant
+Content-Type: application/json
+
+{"restaurantId":15,"token":"2308451809","restaurantName":"Murray-Dietrich","location":"6 Michigan Crossing","restaurantCategory":"ITALIAN","openingHours":"9AM - 8PM","photoLink":"http://dummyimage.com/169x100.png/5fa2dd/ffffff","websiteLink":"http://networksolutions.com","longitude":-72.6125,"latitude":-14.10472,"phoneNumber":"1396620912"}
+###
+POST http://localhost:8080/restaurant
+Content-Type: application/json
+
+{"restaurantId":16,"token":"3072322631","restaurantName":"Hegmann, Hermiston and Connelly","location":"66482 Truax Way","restaurantCategory":"INDIAN","openingHours":"4AM - 3PM","photoLink":"http://dummyimage.com/162x100.png/cc0000/ffffff","websiteLink":"http://harvard.edu","longitude":-48.925516,"latitude":-23.1072154,"phoneNumber":"8169605847"}
+###
+POST http://localhost:8080/restaurant
+Content-Type: application/json
+
+{"restaurantId":17,"token":"5878757949","restaurantName":"Ratke and Sons","location":"42258 Mcguire Crossing","restaurantCategory":"CHINESE","openingHours":"0AM - 9PM","photoLink":"http://dummyimage.com/245x100.png/dddddd/000000","websiteLink":"http://yale.edu","longitude":111.746261,"latitude":23.498459,"phoneNumber":"7334440681"}
+###
+POST http://localhost:8080/restaurant
+Content-Type: application/json
+
+{"restaurantId":18,"token":"6003466489","restaurantName":"Muller, Schiller and Keeling","location":"757 Mifflin Street","restaurantCategory":"FRENCH","openingHours":"4AM - 5PM","photoLink":"http://dummyimage.com/154x100.png/dddddd/000000","websiteLink":"http://yellowpages.com","longitude":14.4205698,"latitude":49.2234017,"phoneNumber":"6544333126"}
+###
+POST http://localhost:8080/restaurant
+Content-Type: application/json
+
+{"restaurantId":19,"token":"8117786229","restaurantName":"Brown Group","location":"845 Lunder Trail","restaurantCategory":"ITALIAN","openingHours":"7AM - 8PM","photoLink":"http://dummyimage.com/210x100.png/dddddd/000000","websiteLink":"http://google.com.br","longitude":69.3504869,"latitude":24.9104797,"phoneNumber":"8783769710"}
+###
+POST http://localhost:8080/restaurant
+Content-Type: application/json
+
+{"restaurantId":20,"token":"5833020985","restaurantName":"Medhurst-Spencer","location":"07 Vidon Circle","restaurantCategory":"AMERICAN","openingHours":"1AM - 5PM","photoLink":"http://dummyimage.com/167x100.png/5fa2dd/ffffff","websiteLink":"https://google.ca","longitude":60.166299,"latitude":57.9093249,"phoneNumber":"2672596722"}
+###
+POST http://localhost:8080/restaurant
+Content-Type: application/json
+
+{"restaurantId":21,"token":"0070445733","restaurantName":"Kassulke Inc","location":"5 Namekagon Pass","restaurantCategory":"MEXICAN","openingHours":"7AM - 5PM","photoLink":"http://dummyimage.com/209x100.png/5fa2dd/ffffff","websiteLink":"http://blogger.com","longitude":107.1781769,"latitude":-6.8008183,"phoneNumber":"7777968650"}
+###
+POST http://localhost:8080/restaurant
+Content-Type: application/json
+
+{"restaurantId":22,"token":"0551015667","restaurantName":"Denesik Inc","location":"83 Badeau Terrace","restaurantCategory":"AMERICAN","openingHours":"9AM - 9PM","photoLink":"http://dummyimage.com/230x100.png/ff4444/ffffff","websiteLink":"http://prnewswire.com","longitude":-39.0459316,"latitude":-14.7929927,"phoneNumber":"6142735641"}
+###
+POST http://localhost:8080/restaurant
+Content-Type: application/json
+
+{"restaurantId":23,"token":"1647217542","restaurantName":"Marvin-Hoeger","location":"6 Burrows Hill","restaurantCategory":"FRENCH","openingHours":"5AM - 5PM","photoLink":"http://dummyimage.com/118x100.png/dddddd/000000","websiteLink":"http://linkedin.com","longitude":-16.990321,"latitude":32.680703,"phoneNumber":"8103920852"}
+###
+
+POST http://localhost:8080/restaurant
+Content-Type: application/json
+
+{"restaurantId":24,"token":"2333666332","restaurantName":"Brakus LLC","location":"415 Fieldstone Terrace","restaurantCategory":"ITALIAN","openingHours":"4AM - 1PM","photoLink":"http://dummyimage.com/219x100.png/5fa2dd/ffffff","websiteLink":"https://msu.edu","longitude":139.8961591,"latitude":36.229138,"phoneNumber":"4647064553"}
+###
+
+POST http://localhost:8080/restaurant
+Content-Type: application/json
+
+{"restaurantId":25,"token":"8741716847","restaurantName":"Miller and Sons","location":"78 Namekagon Center","restaurantCategory":"OTHER","openingHours":"4AM - 4PM","photoLink":"http://dummyimage.com/223x100.png/cc0000/ffffff","websiteLink":"http://mac.com","longitude":-8.6217146,"latitude":41.4287634,"phoneNumber":"9392774334"}
+###
+
+POST http://localhost:8080/restaurant
+Content-Type: application/json
+
+{"restaurantId":26,"token":"6072962398","restaurantName":"Wisozk Group","location":"139 Mcbride Place","restaurantCategory":"JAPANESE","openingHours":"9AM - 1PM","photoLink":"http://dummyimage.com/215x100.png/5fa2dd/ffffff","websiteLink":"http://wufoo.com","longitude":-52.3760103,"latitude":-29.984393,"phoneNumber":"9804228852"}
+###
+
+POST http://localhost:8080/restaurant
+Content-Type: application/json
+
+{"restaurantId":27,"token":"9192339419","restaurantName":"Satterfield and Sons","location":"8082 Corscot Circle","restaurantCategory":"INDIAN","openingHours":"9AM - 1PM","photoLink":"http://dummyimage.com/203x100.png/dddddd/000000","websiteLink":"http://theatlantic.com","longitude":31.8512437,"latitude":59.1308951,"phoneNumber":"6315753915"}
+###
+
+POST http://localhost:8080/restaurant
+Content-Type: application/json
+
+{"restaurantId":28,"token":"5672995500","restaurantName":"Ankunding Inc","location":"3 Ryan Drive","restaurantCategory":"MEXICAN","openingHours":"9AM - 9PM","photoLink":"http://dummyimage.com/244x100.png/ff4444/ffffff","websiteLink":"https://sitemeter.com","longitude":96.2004383,"latitude":19.7413519,"phoneNumber":"3536696001"}
+###
+
+POST http://localhost:8080/restaurant
+Content-Type: application/json
+
+{"restaurantId":29,"token":"1517401207","restaurantName":"McKenzie Inc","location":"260 Schiller Way","restaurantCategory":"CHINESE","openingHours":"7AM - 8PM","photoLink":"http://dummyimage.com/239x100.png/dddddd/000000","websiteLink":"https://hexun.com","longitude":-55.7872944,"latitude":-20.4670046,"phoneNumber":"6226398971"}
+###
+
+POST http://localhost:8080/restaurant
+Content-Type: application/json
+
+{"restaurantId":30,"token":"2668800410","restaurantName":"Von LLC","location":"6 Ludington Junction","restaurantCategory":"JAPANESE","openingHours":"9AM - 4PM","photoLink":"http://dummyimage.com/171x100.png/cc0000/ffffff","websiteLink":"https://yellowbook.com","longitude":18.3453989,"latitude":59.7411336,"phoneNumber":"5863473585"}
+###
+
+POST http://localhost:8080/restaurant
+Content-Type: application/json
+
+{"restaurantId":31,"token":"4304238149","restaurantName":"Batz, Tillman and Doyle","location":"361 Hermina Junction","restaurantCategory":"MEXICAN","openingHours":"3AM - 2PM","photoLink":"http://dummyimage.com/179x100.png/dddddd/000000","websiteLink":"http://pen.io","longitude":113.6487,"latitude":-6.9524,"phoneNumber":"2401593149"}
+###
+
+POST http://localhost:8080/restaurant
+Content-Type: application/json
+
+{"restaurantId":32,"token":"0088035156","restaurantName":"Waelchi-Wehner","location":"23656 Briar Crest Way","restaurantCategory":"JAPANESE","openingHours":"1AM - 2PM","photoLink":"http://dummyimage.com/169x100.png/cc0000/ffffff","websiteLink":"https://is.gd","longitude":116.814536,"latitude":28.474171,"phoneNumber":"2621701039"}
+###
+
+POST http://localhost:8080/restaurant
+Content-Type: application/json
+
+{"restaurantId":33,"token":"6017438900","restaurantName":"Brekke LLC","location":"327 Cordelia Plaza","restaurantCategory":"INDIAN","openingHours":"3AM - 1PM","photoLink":"http://dummyimage.com/204x100.png/dddddd/000000","websiteLink":"http://ca.gov","longitude":113.525165,"latitude":22.801624,"phoneNumber":"1905831877"}
+###
+
+POST http://localhost:8080/restaurant
+Content-Type: application/json
+
+{"restaurantId":34,"token":"8897646946","restaurantName":"Hand and Sons","location":"7808 Caliangt Center","restaurantCategory":"CHINESE","openingHours":"2AM - 0PM","photoLink":"http://dummyimage.com/206x100.png/dddddd/000000","websiteLink":"https://bloglovin.com","longitude":-102.1943485,"latitude":17.9567646,"phoneNumber":"9728625365"}
+###
+
+POST http://localhost:8080/restaurant
+Content-Type: application/json
+
+{"restaurantId":35,"token":"4163356520","restaurantName":"Daugherty, Morissette and Ritchie","location":"24942 Sherman Parkway","restaurantCategory":"ITALIAN","openingHours":"3AM - 1PM","photoLink":"http://dummyimage.com/162x100.png/cc0000/ffffff","websiteLink":"https://goo.ne.jp","longitude":121.9311073,"latitude":11.9528558,"phoneNumber":"6136046962"}
+###
+
+POST http://localhost:8080/restaurant
+Content-Type: application/json
+
+{"restaurantId":36,"token":"0752584399","restaurantName":"Christiansen-Watsica","location":"391 Novick Point","restaurantCategory":"INDIAN","openingHours":"2AM - 1PM","photoLink":"http://dummyimage.com/195x100.png/ff4444/ffffff","websiteLink":"http://tiny.cc","longitude":5.942257,"latitude":48.2044234,"phoneNumber":"5805135833"}
+###
+
+POST http://localhost:8080/restaurant
+Content-Type: application/json
+
+{"restaurantId":37,"token":"7867374394","restaurantName":"Strosin, Moore and Jacobson","location":"184 Oneill Court","restaurantCategory":"FRENCH","openingHours":"2AM - 4PM","photoLink":"http://dummyimage.com/155x100.png/cc0000/ffffff","websiteLink":"http://marriott.com","longitude":120.167297,"latitude":-0.819175,"phoneNumber":"2063333457"}
+###
+
+POST http://localhost:8080/restaurant
+Content-Type: application/json
+
+{"restaurantId":38,"token":"8834745230","restaurantName":"Hyatt, Schmeler and Goodwin","location":"33 Cherokee Place","restaurantCategory":"AMERICAN","openingHours":"3AM - 2PM","photoLink":"http://dummyimage.com/223x100.png/dddddd/000000","websiteLink":"http://indiegogo.com","longitude":22.287883,"latitude":48.6208,"phoneNumber":"7127978965"}
+###
+
+POST http://localhost:8080/restaurant
+Content-Type: application/json
+
+{"restaurantId":39,"token":"4165288317","restaurantName":"Volkman-Vandervort","location":"937 American Ash Alley","restaurantCategory":"OTHER","openingHours":"5AM - 0PM","photoLink":"http://dummyimage.com/193x100.png/ff4444/ffffff","websiteLink":"http://discovery.com","longitude":26.2092274,"latitude":55.3734577,"phoneNumber":"9121433648"}
+###
+
+POST http://localhost:8080/restaurant
+Content-Type: application/json
+
+{"restaurantId":40,"token":"0863287662","restaurantName":"Lang Inc","location":"95341 Mccormick Parkway","restaurantCategory":"FRENCH","openingHours":"1AM - 6PM","photoLink":"http://dummyimage.com/232x100.png/dddddd/000000","websiteLink":"https://mapquest.com","longitude":18.0313123,"latitude":50.893024,"phoneNumber":"6025076729"}

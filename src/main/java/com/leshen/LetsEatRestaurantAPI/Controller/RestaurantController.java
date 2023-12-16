@@ -38,21 +38,43 @@ public class RestaurantController {
             );
         }
     }
+
+
+    @GetMapping("/restaurant/{token}")
+    public ResponseEntity<Restaurant> getByToken(@PathVariable Long token) {
+
+        Optional<Restaurant> restaurant = restaurantRepository.findByToken(token);
+        if (restaurant.isPresent()) {
+            return new ResponseEntity<>(restaurant.get(), HttpStatus.OK);
+        } else {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "Restaurant not found"
+            );
+        }
+    }
+
+
     @PutMapping("updateRestaurant/{id}")
-    public ResponseEntity<Restaurant> updateRestaurant(@PathVariable long id,@RequestBody Restaurant restaurant) {
-        Restaurant updateRestaurant = restaurantRepository.findById(id)
+    public ResponseEntity<Restaurant> updateRestaurant(@PathVariable long id,@RequestBody Restaurant updatedRestaurant) {
+        Restaurant existingRestaurant = restaurantRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(
                         HttpStatus.NOT_FOUND, "Restaurant not found"
                 ));
-        
-        updateRestaurant.setToken(restaurant.getToken());
-        updateRestaurant.setRestaurantName(restaurant.getRestaurantName());
-        updateRestaurant.setLocation(restaurant.getLocation());
-        updateRestaurant.setRestaurantCategory(restaurant.getRestaurantCategory());
 
-        restaurantRepository.save(updateRestaurant);
+        existingRestaurant.setToken(updatedRestaurant.getToken());
+        existingRestaurant.setRestaurantName(updatedRestaurant.getRestaurantName());
+        existingRestaurant.setLocation(updatedRestaurant.getLocation());
+        existingRestaurant.setRestaurantCategory(updatedRestaurant.getRestaurantCategory());
+        existingRestaurant.setOpeningHours(updatedRestaurant.getOpeningHours());
+        existingRestaurant.setPhotoLink(updatedRestaurant.getPhotoLink());
+        existingRestaurant.setWebsiteLink(updatedRestaurant.getWebsiteLink());
+        existingRestaurant.setLongitude(updatedRestaurant.getLongitude());
+        existingRestaurant.setLatitude(updatedRestaurant.getLatitude());
+        existingRestaurant.setPhoneNumber(updatedRestaurant.getPhoneNumber());
 
-        return ResponseEntity.ok(updateRestaurant);
+        restaurantRepository.save(existingRestaurant);
+
+        return ResponseEntity.ok(existingRestaurant);
     }
     @DeleteMapping(value = "/deleteRestaurant/{id}")
     public ResponseEntity<Long> deleteRestaurant(@PathVariable Long id) {
