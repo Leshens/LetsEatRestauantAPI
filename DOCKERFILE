@@ -4,7 +4,8 @@ WORKDIR /app
 
 COPY requirements.txt requirements-indirect.txt requirements-dev.txt /app/
 
-RUN pip install --upgrade pip setuptools
-RUN pip install -r requirements.txt -r requirements-indirect.txt -r requirements-dev.txt
+RUN echo "Installing/upgrading pip and setuptools" && \
+    pip install --upgrade pip setuptools
 
-# Add the rest of your Dockerfile as needed
+RUN echo "Installing Python dependencies" && \
+    pip install -r requirements.txt -r requirements-indirect.txt -r requirements-dev.txt
