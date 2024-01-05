@@ -46,7 +46,6 @@ public class MenuController {
                         HttpStatus.NOT_FOUND, "Menu not found"
                 ));
         updateMenu.setToken(menu.getToken());
-        updateMenu.setRestaurantId(menu.getRestaurantId());
         updateMenu.setName(menu.getName());
         updateMenu.setPrice(menu.getPrice());
 

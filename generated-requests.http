@@ -1,5 +1,5 @@
 ###
-POST http://localhost:8080/restaurant
+POST http://localhost:8090/restaurant
 Content-Type: application/json
 
 {
@@ -19,7 +19,7 @@ GET http://localhost:8080/restaurants
 <> 2023-12-05T145358.200.json
 
 ###
-PUT http://localhost:8080/updateRestaurant/102
+PUT http://localhost:8080/updateRestaurant/10
 Content-Type: application/json
 
 {

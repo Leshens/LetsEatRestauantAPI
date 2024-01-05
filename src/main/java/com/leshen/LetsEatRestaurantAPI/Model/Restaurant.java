@@ -29,9 +29,9 @@ public class Restaurant {
     private Double latitude;
     private String phoneNumber;
 
-    @OneToMany
+    @OneToMany(mappedBy = "restaurant")
     private List<Menu> menu;
-    @OneToMany
+    @OneToMany(mappedBy = "restaurant")
     private List<Tables> tables;
 
 }

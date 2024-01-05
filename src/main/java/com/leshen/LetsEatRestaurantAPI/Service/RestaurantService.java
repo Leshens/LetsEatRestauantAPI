@@ -26,10 +26,11 @@ public class RestaurantService {
     }
 
     @Transactional
-    public void saveRestaurant(RestaurantDto restaurantDto) {
+    public long saveRestaurant(RestaurantDto restaurantDto) {
         Restaurant restaurant = restaurantMapper.toEntity(restaurantDto);
 
-        restaurantRepository.save(restaurant);
+        var saved = restaurantRepository.save(restaurant);
+        return saved.getRestaurantId();
     }
 
 }

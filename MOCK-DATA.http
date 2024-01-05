@@ -1,50 +1,50 @@
 ###
-POST http://localhost:8080/restaurant
+POST http://localhost:8010/restaurant
 Content-Type: application/json
 
 {"restaurantId":1,"token":"7545897939","restaurantName":"Cummings and Sons","location":"58 Lyons Street","restaurantCategory":"JAPANESE","openingHours":"1AM - 4PM","photoLink":"http://dummyimage.com/244x100.png/cc0000/ffffff","websiteLink":"http://123-reg.co.uk","longitude":-91.141982,"latitude":14.637422,"phoneNumber":"1583893425"}
 ###
-POST http://localhost:8080/restaurant
+POST http://localhost:8010/restaurant
 Content-Type: application/json
 
 {"restaurantId":2,"token":"5567329317","restaurantName":"Ferry, Morar and Rolfson","location":"9 Glacier Hill Crossing","restaurantCategory":"AMERICAN","openingHours":"1AM - 7PM","photoLink":"http://dummyimage.com/159x100.png/5fa2dd/ffffff","websiteLink":"http://vistaprint.com","longitude":-73.868176,"latitude":8.27533,"phoneNumber":"3906761090"}
 ###
-POST http://localhost:8080/restaurant
+POST http://localhost:8010/restaurant
 Content-Type: application/json
 
 {"restaurantId":3,"token":"8472611680","restaurantName":"Bins LLC","location":"515 Vera Alley","restaurantCategory":"CHINESE","openingHours":"5AM - 2PM","photoLink":"http://dummyimage.com/163x100.png/5fa2dd/ffffff","websiteLink":"https://ft.com","longitude":88.3929616,"latitude":24.4314126,"phoneNumber":"2525966277"}
 ###
-POST http://localhost:8080/restaurant
+POST http://localhost:8010/restaurant
 Content-Type: application/json
 
 {"restaurantId":4,"token":"5618917977","restaurantName":"Lemke, Roob and Berge","location":"965 Waubesa Crossing","restaurantCategory":"JAPANESE","openingHours":"3AM - 6PM","photoLink":"http://dummyimage.com/204x100.png/dddddd/000000","websiteLink":"http://behance.net","longitude":-38.612338,"latitude":-3.879263,"phoneNumber":"9046457214"}
 ###
-POST http://localhost:8080/restaurant
+POST http://localhost:8010/restaurant
 Content-Type: application/json
 
 {"restaurantId":5,"token":"1520218166","restaurantName":"Brekke-Roob","location":"652 Brown Lane","restaurantCategory":"FRENCH","openingHours":"9AM - 1PM","photoLink":"http://dummyimage.com/204x100.png/5fa2dd/ffffff","websiteLink":"https://nydailynews.com","longitude":114.255942,"latitude":23.723418,"phoneNumber":"7373439504"}
 ###
-POST http://localhost:8080/restaurant
+POST http://localhost:8010/restaurant
 Content-Type: application/json
 
 {"restaurantId":6,"token":"8241246179","restaurantName":"Schmitt Group","location":"95564 Blackbird Way","restaurantCategory":"MEXICAN","openingHours":"5AM - 4PM","photoLink":"http://dummyimage.com/190x100.png/5fa2dd/ffffff","websiteLink":"http://so-net.ne.jp","longitude":116.951541,"latitude":24.646975,"phoneNumber":"8983743717"}
 ###
-POST http://localhost:8080/restaurant
+POST http://localhost:8010/restaurant
 Content-Type: application/json
 
 {"restaurantId":7,"token":"7572642293","restaurantName":"Pfeffer LLC","location":"1243 La Follette Place","restaurantCategory":"CHINESE","openingHours":"7AM - 1PM","photoLink":"http://dummyimage.com/173x100.png/dddddd/000000","websiteLink":"https://prlog.org","longitude":112.3456985,"latitude":-8.2127777,"phoneNumber":"1554364113"}
 ###
-POST http://localhost:8080/restaurant
+POST http://localhost:8010/restaurant
 Content-Type: application/json
 
 {"restaurantId":8,"token":"9246576806","restaurantName":"Feeney-Leffler","location":"14164 Mariners Cove Terrace","restaurantCategory":"AMERICAN","openingHours":"3AM - 3PM","photoLink":"http://dummyimage.com/139x100.png/dddddd/000000","websiteLink":"https://house.gov","longitude":28.2513674,"latitude":62.2956257,"phoneNumber":"9575323949"}
 ###
-POST http://localhost:8080/restaurant
+POST http://localhost:8010/restaurant
 Content-Type: application/json
 
 {"restaurantId":9,"token":"2637708961","restaurantName":"Bradtke-Marvin","location":"079 Chive Pass","restaurantCategory":"MEXICAN","openingHours":"3AM - 9PM","photoLink":"http://dummyimage.com/182x100.png/dddddd/000000","websiteLink":"http://twitpic.com","longitude":111.6556388,"latitude":-7.5450262,"phoneNumber":"9279351399"}
 ###
-POST http://localhost:8080/restaurant
+POST http://localhost:8010/restaurant
 Content-Type: application/json
 
 {"restaurantId":10,"token":"8878249619","restaurantName":"Gulgowski, Davis and Hickle","location":"1324 Burrows Road","restaurantCategory":"MEXICAN","openingHours":"4AM - 1PM","photoLink":"http://dummyimage.com/149x100.png/dddddd/000000","websiteLink":"https://ted.com","longitude":103.817356,"latitude":25.60162,"phoneNumber":"1313130426"}

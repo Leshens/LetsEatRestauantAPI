@@ -49,7 +49,6 @@ public class TablesController {
                 ));
 
         updateTables.setToken(tables.getToken());
-        updateTables.setRestaurantId(tables.getRestaurantId());
         updateTables.setTwoOs(tables.getTwoOs());
         updateTables.setFourOs(tables.getFourOs());
         updateTables.setSixOs(tables.getSixOs());

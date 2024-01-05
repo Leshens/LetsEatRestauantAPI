@@ -1,26 +1,39 @@
 package com.leshen.LetsEatRestaurantAPI.Controller;
 
+import com.leshen.LetsEatRestaurantAPI.Contract.RestaurantDto;
 import com.leshen.LetsEatRestaurantAPI.Model.Restaurant;
 import com.leshen.LetsEatRestaurantAPI.Repository.RestaurantRepository;
+import com.leshen.LetsEatRestaurantAPI.Service.RestaurantService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 @CrossOrigin("http://localhost:3000")
+@RequiredArgsConstructor
 public class RestaurantController {
 
-    @Autowired
-    private RestaurantRepository restaurantRepository;
+    private final RestaurantRepository restaurantRepository;
+    private final RestaurantService restaurantService;
 
     @PostMapping("/restaurant")
-    Restaurant newRestaurant(@RequestBody Restaurant newRestaurant){
-        return restaurantRepository.save(newRestaurant);
+    public ResponseEntity newRestaurant(@RequestBody RestaurantDto newRestaurant){
+       var id = restaurantService.saveRestaurant(newRestaurant);
+        var uri = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(id)
+                .toUri();
+
+        return ResponseEntity.created(uri).build();
+
     }
     @GetMapping("/restaurants")
     public ResponseEntity<List<Restaurant>> getAllRestaurants(){
