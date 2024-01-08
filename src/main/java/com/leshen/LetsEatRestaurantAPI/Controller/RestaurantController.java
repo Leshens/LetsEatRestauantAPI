@@ -24,8 +24,9 @@ public class RestaurantController {
     private final RestaurantService restaurantService;
 
     @PostMapping("/restaurant")
-    public ResponseEntity newRestaurant(@RequestBody RestaurantDto newRestaurant){
-       var id = restaurantService.saveRestaurant(newRestaurant);
+    public ResponseEntity<Long> newRestaurant(@RequestBody RestaurantDto newRestaurantDto){
+       var id = restaurantService.saveRestaurant(newRestaurantDto);
+
         var uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")

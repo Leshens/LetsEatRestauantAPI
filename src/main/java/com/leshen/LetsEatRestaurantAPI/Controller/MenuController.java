@@ -2,6 +2,8 @@ package com.leshen.LetsEatRestaurantAPI.Controller;
 
 import com.leshen.LetsEatRestaurantAPI.Model.Menu;
 import com.leshen.LetsEatRestaurantAPI.Repository.MenuRepository;
+import com.leshen.LetsEatRestaurantAPI.Contract.MenuDto;
+import com.leshen.LetsEatRestaurantAPI.Service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,56 +17,39 @@ import java.util.Optional;
 @CrossOrigin("http://localhost:3000")
 public class MenuController {
 
+    private final MenuService menuService;
+
     @Autowired
-    private MenuRepository menuRepository;
+    public MenuController(MenuService menuService) {
+        this.menuService = menuService;
+    }
 
     @PostMapping("/menu")
-    Menu newMenu(@RequestBody Menu newMenu){
-        return menuRepository.save(newMenu);
+    public ResponseEntity<MenuDto> newMenu(@RequestBody MenuDto newMenuDto) {
+        MenuDto createdMenu = menuService.createMenu(newMenuDto);
+        return new ResponseEntity<>(createdMenu, HttpStatus.CREATED);
     }
-
     @GetMapping("/menus")
-    public ResponseEntity<List<Menu>> getAllMenus(){
-        return new ResponseEntity<>(menuRepository.findAll(), HttpStatus.OK);
+    public ResponseEntity<List<MenuDto>> getAllMenus(){
+        List<MenuDto> menus = menuService.getAllMenus();
+        return new ResponseEntity<>(menus, HttpStatus.OK);
     }
     @GetMapping("/menu/{id}")
-    public ResponseEntity<Menu> getById(@PathVariable long id) {
-
-        Optional<Menu> menu = menuRepository.findById(id);
-        if (menu.isPresent()) {
-            return new ResponseEntity<>(menu.get(), HttpStatus.OK);
-        } else {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "Menu not found"
-            );
-        }
+    public ResponseEntity<MenuDto> getById(@PathVariable long id) {
+        MenuDto menu = menuService.getMenuById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Menu not found"));
+        return new ResponseEntity<>(menu, HttpStatus.OK);
     }
     @PutMapping("updateMenu/{id}")
-    public ResponseEntity<Menu> updateMenu(@PathVariable long id,@RequestBody Menu menu) {
-        Menu updateMenu = menuRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(
-                        HttpStatus.NOT_FOUND, "Menu not found"
-                ));
-        updateMenu.setToken(menu.getToken());
-        updateMenu.setName(menu.getName());
-        updateMenu.setPrice(menu.getPrice());
-
-        menuRepository.save(updateMenu);
-
-        return ResponseEntity.ok(updateMenu);
+    public ResponseEntity<MenuDto> updateMenu(@PathVariable long id,@RequestBody MenuDto menuDto) {
+        MenuDto updatedMenu = menuService.updateMenu(id, menuDto);
+        return ResponseEntity.ok(updatedMenu);
     }
 
     @DeleteMapping(value = "/deleteMenu/{id}")
     public ResponseEntity<Long> deleteDish(@PathVariable Long id) {
-
-        if (!menuRepository.existsById(id)) {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "Menu not found"
-            );
-        }
-        menuRepository.deleteById(id);
+        menuService.deleteMenu(id);
         return new ResponseEntity<>(id, HttpStatus.OK);
-
     }
 
 }

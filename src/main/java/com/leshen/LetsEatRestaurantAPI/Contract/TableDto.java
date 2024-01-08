@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class TableDTO {
+public class TableDto {
     private Long token;
     private Long restaurantId;
     private Short twoOs;

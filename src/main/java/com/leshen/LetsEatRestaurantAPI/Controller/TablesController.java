@@ -2,6 +2,7 @@ package com.leshen.LetsEatRestaurantAPI.Controller;
 
 import com.leshen.LetsEatRestaurantAPI.Model.Tables;
 import com.leshen.LetsEatRestaurantAPI.Repository.TablesRepository;
+import com.leshen.LetsEatRestaurantAPI.Contract.TableDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,8 +20,14 @@ public class TablesController {
     private TablesRepository tablesRepository;
 
     @PostMapping("/table")
-    Tables newTables(@RequestBody Tables newTables){
-        return tablesRepository.save(newTables);
+    public ResponseEntity<Tables> newTable(@RequestBody TableDto newTableDto){
+        Tables newTables = new Tables();
+        newTables.setToken(newTableDto.getToken());
+        newTables.setTwoOs(newTableDto.getTwoOs());
+        newTables.setFourOs(newTableDto.getFourOs());
+        newTables.setSixOs(newTableDto.getSixOs());
+        newTables.setEightOs(newTableDto.getEightOs());
+        return new ResponseEntity<>(tablesRepository.save(newTables), HttpStatus.CREATED);
     }
 
     @GetMapping("/tables")

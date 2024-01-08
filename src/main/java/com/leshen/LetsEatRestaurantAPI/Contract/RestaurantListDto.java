@@ -13,7 +13,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class RestaurantListDTO {
+public class RestaurantListDto {
     private Long restaurantId;
     private String restaurantName;
     private RestaurantCategory restaurantCategory;

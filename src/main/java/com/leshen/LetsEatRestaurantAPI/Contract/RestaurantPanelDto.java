@@ -12,7 +12,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class RestaurantPanelDTO {
+public class RestaurantPanelDto {
 
     private Long restaurantId;
     private String restaurantName;
