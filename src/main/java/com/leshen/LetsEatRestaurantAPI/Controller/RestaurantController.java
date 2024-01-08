@@ -2,10 +2,10 @@ package com.leshen.LetsEatRestaurantAPI.Controller;
 
 import com.leshen.LetsEatRestaurantAPI.Contract.RestaurantDto;
 import com.leshen.LetsEatRestaurantAPI.Model.Restaurant;
-import com.leshen.LetsEatRestaurantAPI.Repository.RestaurantRepository;
 import com.leshen.LetsEatRestaurantAPI.Service.RestaurantService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.leshen.LetsEatRestaurantAPI.Service.RestaurantService;
+import com.leshen.LetsEatRestaurantAPI.Service.Mappers.RestaurantMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,12 +20,11 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class RestaurantController {
 
-    private final RestaurantRepository restaurantRepository;
     private final RestaurantService restaurantService;
 
     @PostMapping("/restaurant")
     public ResponseEntity<Long> newRestaurant(@RequestBody RestaurantDto newRestaurantDto){
-       var id = restaurantService.saveRestaurant(newRestaurantDto);
+       Long id = restaurantService.createRestaurant(newRestaurantDto);
 
         var uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -37,90 +36,36 @@ public class RestaurantController {
 
     }
     @GetMapping("/restaurants")
-    public ResponseEntity<List<Restaurant>> getAllRestaurants(){
-        return new ResponseEntity<>(restaurantRepository.findAll(), HttpStatus.OK);
+    public ResponseEntity<List<RestaurantDto>> getAllRestaurants(){
+        List<RestaurantDto> restaurants = restaurantService.getAllRestaurants();
+        return new ResponseEntity<>(restaurants, HttpStatus.OK);
     }
     @GetMapping("/restaurant/{id}")
-    public ResponseEntity<Restaurant> getById(@PathVariable long id) {
-
-        Optional<Restaurant> restaurant = restaurantRepository.findById(id);
-        if (restaurant.isPresent()) {
-            return new ResponseEntity<>(restaurant.get(), HttpStatus.OK);
-        } else {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "Restaurant not found"
-            );
-        }
+    public ResponseEntity<RestaurantDto> getById(@PathVariable long id) {
+        Optional<RestaurantDto> restaurant = restaurantService.getRestaurantById(id);
+        return restaurant.map(dto -> new ResponseEntity<>(dto, HttpStatus.OK))
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Restaurant not found"));
     }
 
 
     @GetMapping("/restaurant/{token}")
-    public ResponseEntity<Restaurant> getByToken(@PathVariable Long token) {
-
-        Optional<Restaurant> restaurant = restaurantRepository.findByToken(token);
-        if (restaurant.isPresent()) {
-            return new ResponseEntity<>(restaurant.get(), HttpStatus.OK);
-        } else {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "Restaurant not found"
-            );
-        }
+    public ResponseEntity<RestaurantDto> getByToken(@PathVariable Long token) {
+        Optional<RestaurantDto> restaurant = restaurantService.getRestaurantByToken(token);
+        return restaurant.map(dto -> new ResponseEntity<>(dto, HttpStatus.OK))
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Restaurant not found"));
     }
 
 
     @PutMapping("updateRestaurant/{id}")
-    public ResponseEntity<Restaurant> updateRestaurant(@PathVariable long id,@RequestBody Restaurant updatedRestaurant,
+    public ResponseEntity<RestaurantDto> updateRestaurant(@PathVariable long id,@RequestBody RestaurantDto updatedRestaurantDto,
                                                        @RequestHeader("Authorization") Long requestToken) {
-        Restaurant existingRestaurant = restaurantRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(
-                        HttpStatus.NOT_FOUND, "Restaurant not found"
-                ));
-
-        if (!existingRestaurant.getToken().equals(requestToken)) {
-            throw new ResponseStatusException(
-                    HttpStatus.UNAUTHORIZED, "Invalid token"
-            );
-        }
-
-        existingRestaurant.setToken(updatedRestaurant.getToken());
-        existingRestaurant.setRestaurantName(updatedRestaurant.getRestaurantName());
-        existingRestaurant.setLocation(updatedRestaurant.getLocation());
-        existingRestaurant.setRestaurantCategory(updatedRestaurant.getRestaurantCategory());
-        existingRestaurant.setOpeningHours(updatedRestaurant.getOpeningHours());
-        existingRestaurant.setPhotoLink(updatedRestaurant.getPhotoLink());
-        existingRestaurant.setWebsiteLink(updatedRestaurant.getWebsiteLink());
-        existingRestaurant.setLongitude(updatedRestaurant.getLongitude());
-        existingRestaurant.setLatitude(updatedRestaurant.getLatitude());
-        existingRestaurant.setPhoneNumber(updatedRestaurant.getPhoneNumber());
-
-        restaurantRepository.save(existingRestaurant);
-
-        return ResponseEntity.ok(existingRestaurant);
+        RestaurantDto updatedDto = restaurantService.updateRestaurant(id, updatedRestaurantDto, requestToken);
+        return ResponseEntity.ok(updatedDto);
     }
     @DeleteMapping(value = "/deleteRestaurant/{id}")
     public ResponseEntity<Long> deleteRestaurant(@PathVariable Long id,
                                                  @RequestHeader("Authorization") Long requestToken) {
-
-        Restaurant restaurant = restaurantRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(
-                        HttpStatus.NOT_FOUND, "Restaurant not found"
-                ));
-
-        if (!restaurant.getToken().equals(requestToken)) {
-            throw new ResponseStatusException(
-                    HttpStatus.UNAUTHORIZED, "Invalid token"
-            );
-        }
-
-
-        if (!restaurantRepository.existsById(id)) {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "Restaurant not found"
-            );
-        }
-
-        restaurantRepository.deleteById(id);
+       restaurantService.deleteRestaurant(id);
         return new ResponseEntity<>(id, HttpStatus.OK);
-
     }
 }

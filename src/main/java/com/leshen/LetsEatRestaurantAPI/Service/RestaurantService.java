@@ -6,31 +6,52 @@ import com.leshen.LetsEatRestaurantAPI.Repository.RestaurantRepository;
 import com.leshen.LetsEatRestaurantAPI.Service.Mappers.RestaurantMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class RestaurantService {
     private final RestaurantRepository restaurantRepository;
-    private final RestaurantMapper restaurantMapper;
+    private final RestaurantMapper restaurantMapper = RestaurantMapper.INSTANCE;
 
     @Autowired
-    public RestaurantService(RestaurantRepository restaurantRepository, RestaurantMapper restaurantMapper) {
+    public RestaurantService(RestaurantRepository restaurantRepository) {
         this.restaurantRepository = restaurantRepository;
-        this.restaurantMapper = restaurantMapper;
     }
 
-    @Transactional(readOnly = true)
-    public RestaurantDto getRestaurantById(Long id) {
-        Restaurant restaurant = restaurantRepository.findById(id).orElse(null);
-        return restaurant != null ? restaurantMapper.toDto(restaurant) : null;
+    public Long createRestaurant(RestaurantDto restaurantDto) {
+        Restaurant newRestaurant = restaurantMapper.toEntity(restaurantDto);
+        return restaurantRepository.save(newRestaurant).getRestaurantId();
     }
 
-    @Transactional
-    public long saveRestaurant(RestaurantDto restaurantDto) {
-        Restaurant restaurant = restaurantMapper.toEntity(restaurantDto);
+    public List<RestaurantDto> getAllRestaurants() {
+        List<Restaurant> restaurants = restaurantRepository.findAll();
+        return restaurants.stream().map(restaurantMapper::toDto).collect(Collectors.toList());
+    }
 
-        var saved = restaurantRepository.save(restaurant);
-        return saved.getRestaurantId();
+    public Optional<RestaurantDto> getRestaurantById(long id) {
+        return restaurantRepository.findById(id).map(restaurantMapper::toDto);
+    }
+
+    public Optional<RestaurantDto> getRestaurantByToken(Long token) {
+        return restaurantRepository.findByToken(token).map(restaurantMapper::toDto);
+    }
+
+    public RestaurantDto updateRestaurant(long id, RestaurantDto restaurantDto, Long requestToken) {
+        Restaurant existingRestaurant = restaurantRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Restaurant not found"));
+
+        restaurantMapper.updateRestaurantFromDto(restaurantDto, existingRestaurant);
+
+        return restaurantMapper.toDto(restaurantRepository.save(existingRestaurant));
+    }
+
+    public void deleteRestaurant(Long id) {
+        if (!restaurantRepository.existsById(id)) {
+            throw new RuntimeException("Restaurant not found");
+        }
+        restaurantRepository.deleteById(id);
     }
 
 }
