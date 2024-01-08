@@ -28,7 +28,7 @@ public class RestaurantController {
 
         var uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
-                .path("/{id}")
+                .path("/id/{id}")
                 .buildAndExpand(id)
                 .toUri();
 
@@ -40,7 +40,7 @@ public class RestaurantController {
         List<RestaurantDto> restaurants = restaurantService.getAllRestaurants();
         return new ResponseEntity<>(restaurants, HttpStatus.OK);
     }
-    @GetMapping("/restaurant/{id}")
+    @GetMapping("/restaurant/id/{id}")
     public ResponseEntity<RestaurantDto> getById(@PathVariable long id) {
         Optional<RestaurantDto> restaurant = restaurantService.getRestaurantById(id);
         return restaurant.map(dto -> new ResponseEntity<>(dto, HttpStatus.OK))
@@ -48,7 +48,7 @@ public class RestaurantController {
     }
 
 
-    @GetMapping("/restaurant/{token}")
+    @GetMapping("/restaurant/token/{token}")
     public ResponseEntity<RestaurantDto> getByToken(@PathVariable Long token) {
         Optional<RestaurantDto> restaurant = restaurantService.getRestaurantByToken(token);
         return restaurant.map(dto -> new ResponseEntity<>(dto, HttpStatus.OK))
