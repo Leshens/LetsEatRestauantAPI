@@ -1,11 +1,8 @@
 package com.leshen.LetsEatRestaurantAPI.Controller;
 
 import com.leshen.LetsEatRestaurantAPI.Contract.RestaurantDto;
-import com.leshen.LetsEatRestaurantAPI.Model.Restaurant;
 import com.leshen.LetsEatRestaurantAPI.Service.RestaurantService;
 import lombok.RequiredArgsConstructor;
-import com.leshen.LetsEatRestaurantAPI.Service.RestaurantService;
-import com.leshen.LetsEatRestaurantAPI.Service.Mappers.RestaurantMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

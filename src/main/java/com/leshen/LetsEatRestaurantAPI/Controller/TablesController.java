@@ -1,6 +1,5 @@
 package com.leshen.LetsEatRestaurantAPI.Controller;
 
-import com.leshen.LetsEatRestaurantAPI.Model.Tables;
 import com.leshen.LetsEatRestaurantAPI.Service.TableService;
 import com.leshen.LetsEatRestaurantAPI.Contract.TableDto;
 import org.springframework.beans.factory.annotation.Autowired;

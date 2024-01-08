@@ -1,7 +1,5 @@
 package com.leshen.LetsEatRestaurantAPI.Controller;
 
-import com.leshen.LetsEatRestaurantAPI.Model.Menu;
-import com.leshen.LetsEatRestaurantAPI.Repository.MenuRepository;
 import com.leshen.LetsEatRestaurantAPI.Contract.MenuDto;
 import com.leshen.LetsEatRestaurantAPI.Service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @CrossOrigin("http://localhost:3000")
