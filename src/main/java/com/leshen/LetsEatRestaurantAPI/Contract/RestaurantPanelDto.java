@@ -1,6 +1,7 @@
 package com.leshen.LetsEatRestaurantAPI.Contract;
 
 import com.leshen.LetsEatRestaurantAPI.Model.Menu;
+import com.leshen.LetsEatRestaurantAPI.Model.Review;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,5 +25,5 @@ public class RestaurantPanelDto {
     private Double longitude;
     private Double latitude;
     private List<Menu> menu;
-    // private List<Review> reviews;
+    private List<Review> reviews;
 }

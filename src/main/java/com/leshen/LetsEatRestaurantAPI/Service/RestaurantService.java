@@ -1,11 +1,21 @@
 package com.leshen.LetsEatRestaurantAPI.Service;
 
 import com.leshen.LetsEatRestaurantAPI.Contract.RestaurantDto;
+import com.leshen.LetsEatRestaurantAPI.Contract.RestaurantPanelDto;
+import com.leshen.LetsEatRestaurantAPI.Model.Menu;
 import com.leshen.LetsEatRestaurantAPI.Model.Restaurant;
+import com.leshen.LetsEatRestaurantAPI.Model.Review;
+import com.leshen.LetsEatRestaurantAPI.Repository.MenuRepository;
 import com.leshen.LetsEatRestaurantAPI.Repository.RestaurantRepository;
+import com.leshen.LetsEatRestaurantAPI.Repository.ReviewRepository;
+import com.leshen.LetsEatRestaurantAPI.Service.Mappers.MenuMapper;
 import com.leshen.LetsEatRestaurantAPI.Service.Mappers.RestaurantMapper;
+import com.leshen.LetsEatRestaurantAPI.Service.Mappers.ReviewMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -13,11 +23,17 @@ import java.util.stream.Collectors;
 @Service
 public class RestaurantService {
     private final RestaurantRepository restaurantRepository;
+    private final ReviewRepository reviewRepository;
+    private final MenuRepository menuRepository;
     private final RestaurantMapper restaurantMapper = RestaurantMapper.INSTANCE;
+    private final ReviewMapper reviewMapper = ReviewMapper.INSTANCE;
+    private final MenuMapper menuMapper = MenuMapper.INSTANCE;
 
     @Autowired
-    public RestaurantService(RestaurantRepository restaurantRepository) {
+    public RestaurantService(RestaurantRepository restaurantRepository, ReviewRepository reviewRepository, MenuRepository menuRepository) {
         this.restaurantRepository = restaurantRepository;
+        this.reviewRepository = reviewRepository;
+        this.menuRepository = menuRepository;
     }
 
     public Long createRestaurant(RestaurantDto restaurantDto) {
@@ -52,6 +68,20 @@ public class RestaurantService {
             throw new RuntimeException("Restaurant not found");
         }
         restaurantRepository.deleteById(id);
+    }
+
+    public RestaurantPanelDto getRestaurantPanelById(Long id) {
+        Optional<Restaurant> restaurant = restaurantRepository.findById(id);
+        if (restaurant.isPresent()) {
+            RestaurantPanelDto restaurantPanelDto = restaurantMapper.toPanelDto(restaurant.get());
+            List<Menu> menu = menuRepository.findByRestaurant(restaurant.get());
+            List<Review> reviews = reviewRepository.findByRestaurant(restaurant.get());
+            restaurantPanelDto.setMenu(menuMapper.toDtoList(menu));             //something wrong here? menuMapper should be List<MenuDto> toDtoList(List<Menu> menus);
+            restaurantPanelDto.setReviews(reviewMapper.toDtoList(reviews));     //same as up, but it provides error?
+            return restaurantPanelDto;
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Restaurant not found");
+        }
     }
 
 }

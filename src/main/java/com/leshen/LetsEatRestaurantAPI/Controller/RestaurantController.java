@@ -1,6 +1,9 @@
 package com.leshen.LetsEatRestaurantAPI.Controller;
 
 import com.leshen.LetsEatRestaurantAPI.Contract.RestaurantDto;
+import com.leshen.LetsEatRestaurantAPI.Contract.RestaurantPanelDto;
+import com.leshen.LetsEatRestaurantAPI.Model.Restaurant;
+import com.leshen.LetsEatRestaurantAPI.Repository.RestaurantRepository;
 import com.leshen.LetsEatRestaurantAPI.Service.RestaurantService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,6 +21,8 @@ import java.util.Optional;
 public class RestaurantController {
 
     private final RestaurantService restaurantService;
+    private final RestaurantRepository restaurantRepository;
+
 
     @PostMapping("/restaurant")
     public ResponseEntity<Long> newRestaurant(@RequestBody RestaurantDto newRestaurantDto){
@@ -44,6 +49,16 @@ public class RestaurantController {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Restaurant not found"));
     }
 
+    @GetMapping("/restaurant/{id}/panel")
+    public ResponseEntity<RestaurantPanelDto> getRestaurantPanelById(@PathVariable long id) {
+        Optional<Restaurant> restaurant = restaurantRepository.findById(id);
+        if (restaurant.isPresent()) {
+            RestaurantPanelDto restaurantPanelDto = restaurantService.getRestaurantPanelById(id);
+            return new ResponseEntity<>(restaurantPanelDto, HttpStatus.OK);
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Restaurant not found");
+        }
+    }
 
     @GetMapping("/restaurant/token/{token}")
     public ResponseEntity<RestaurantDto> getByToken(@PathVariable Long token) {

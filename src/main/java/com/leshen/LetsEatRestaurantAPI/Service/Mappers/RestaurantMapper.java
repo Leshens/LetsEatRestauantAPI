@@ -1,6 +1,7 @@
 package com.leshen.LetsEatRestaurantAPI.Service.Mappers;
 
 import com.leshen.LetsEatRestaurantAPI.Contract.RestaurantDto;
+import com.leshen.LetsEatRestaurantAPI.Contract.RestaurantPanelDto;
 import com.leshen.LetsEatRestaurantAPI.Model.Restaurant;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -37,4 +38,15 @@ public interface RestaurantMapper {
     @Mapping(target = "latitude", source = "restaurantDto.latitude")
     @Mapping(target = "phoneNumber", source = "restaurantDto.phoneNumber")
     Restaurant updateRestaurantFromDto(RestaurantDto restaurantDto, Restaurant restaurant);
+
+    @Mapping(target = "restaurantId", source = "restaurantPanelDto.restaurantId")
+    @Mapping(target = "restaurantName", source = "restaurantPanelDto.restaurantName")
+    @Mapping(target = "location", source = "restaurantPanelDto.location")
+    @Mapping(target = "openingHours", source = "restaurantPanelDto.openingHours")
+    @Mapping(target = "photoLink", source = "restaurantPanelDto.photoLink")
+    @Mapping(target = "phoneNumber", source = "restaurantPanelDto.phoneNumber")
+    @Mapping(target = "websiteLink", source = "restaurantPanelDto.websiteLink")
+    @Mapping(target = "longitude", source = "restaurantPanelDto.longitude")
+    @Mapping(target = "latitude", source = "restaurantPanelDto.latitude")
+    RestaurantPanelDto toPanelDto(Restaurant restaurant);
 }
