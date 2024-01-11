@@ -1,6 +1,7 @@
 package com.leshen.LetsEatRestaurantAPI.Service;
 
 import com.leshen.LetsEatRestaurantAPI.Contract.RestaurantDto;
+import com.leshen.LetsEatRestaurantAPI.Contract.RestaurantListDto;
 import com.leshen.LetsEatRestaurantAPI.Contract.RestaurantPanelDto;
 import com.leshen.LetsEatRestaurantAPI.Model.Menu;
 import com.leshen.LetsEatRestaurantAPI.Model.Restaurant;
@@ -46,6 +47,14 @@ public class RestaurantService {
         return restaurants.stream().map(restaurantMapper::toDto).collect(Collectors.toList());
     }
 
+    public List<RestaurantDto> getRestaurantsInArea(Double minLatitude, Double maxLatitude,
+                                                        Double minLongitude, Double maxLongitude) {
+        List<Restaurant> restaurants = restaurantRepository.findRestaurantsInArea(
+                minLatitude, maxLatitude, minLongitude, maxLongitude);
+
+        return restaurantMapper.toDtoList(restaurants); //error caused by RestaurantMapper?
+    }
+
     public Optional<RestaurantDto> getRestaurantById(long id) {
         return restaurantRepository.findById(id).map(restaurantMapper::toDto);
     }
@@ -76,8 +85,8 @@ public class RestaurantService {
             RestaurantPanelDto restaurantPanelDto = restaurantMapper.toPanelDto(restaurant.get());
             List<Menu> menu = menuRepository.findByRestaurant(restaurant.get());
             List<Review> reviews = reviewRepository.findByRestaurant(restaurant.get());
-            restaurantPanelDto.setMenu(menu);             //something wrong here? menuMapper should be List<MenuDto> toDtoList(List<Menu> menus); and here should be menuMapper.toDtoList(menu)
-            restaurantPanelDto.setReviews(reviews);     //same as up, but it provides error?
+            restaurantPanelDto.setMenu(menuMapper.toDtoList(menu));             //something wrong here? menuMapper should be List<MenuDto> toDtoList(List<Menu> menus);
+            restaurantPanelDto.setReviews(reviewMapper.toDtoList(reviews));     //same as up, but it provides error?
             return restaurantPanelDto;
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Restaurant not found");

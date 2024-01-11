@@ -1,11 +1,14 @@
 package com.leshen.LetsEatRestaurantAPI.Service.Mappers;
 
 import com.leshen.LetsEatRestaurantAPI.Contract.RestaurantDto;
+import com.leshen.LetsEatRestaurantAPI.Contract.RestaurantListDto;
 import com.leshen.LetsEatRestaurantAPI.Contract.RestaurantPanelDto;
 import com.leshen.LetsEatRestaurantAPI.Model.Restaurant;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
+
+import java.util.List;
 
 @Mapper
 public interface RestaurantMapper {
@@ -25,6 +28,7 @@ public interface RestaurantMapper {
     Restaurant toEntity(RestaurantDto restaurantDto);
 
     RestaurantDto toDto(Restaurant restaurant);
+    List<RestaurantDto> toDtoList(List<Restaurant> restaurants);
 
     @Mapping(target = "restaurantId", ignore = true)
     @Mapping(target = "token", source = "restaurantDto.token")

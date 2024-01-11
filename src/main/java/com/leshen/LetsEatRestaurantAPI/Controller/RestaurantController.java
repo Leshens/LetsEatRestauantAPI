@@ -1,6 +1,7 @@
 package com.leshen.LetsEatRestaurantAPI.Controller;
 
 import com.leshen.LetsEatRestaurantAPI.Contract.RestaurantDto;
+import com.leshen.LetsEatRestaurantAPI.Contract.RestaurantListDto;
 import com.leshen.LetsEatRestaurantAPI.Contract.RestaurantPanelDto;
 import com.leshen.LetsEatRestaurantAPI.Model.Restaurant;
 import com.leshen.LetsEatRestaurantAPI.Repository.RestaurantRepository;
@@ -42,6 +43,18 @@ public class RestaurantController {
         List<RestaurantDto> restaurants = restaurantService.getAllRestaurants();
         return new ResponseEntity<>(restaurants, HttpStatus.OK);
     }
+
+    @GetMapping("/restaurants-in-area")
+    public ResponseEntity<List<RestaurantListDto>> getRestaurantsInArea(
+            @RequestParam("latitude") Double latitude,
+            @RequestParam("longitude") Double longitude) {
+        Double radius = 0.1;
+        List<RestaurantListDto> restaurantDtos = restaurantService.getRestaurantsInArea(
+                latitude - radius, latitude + radius, longitude - radius, longitude + radius
+        );
+        return new ResponseEntity<>(restaurantDtos, HttpStatus.OK);
+    }
+
     @GetMapping("/restaurant/id/{id}")
     public ResponseEntity<RestaurantDto> getById(@PathVariable long id) {
         Optional<RestaurantDto> restaurant = restaurantService.getRestaurantById(id);
