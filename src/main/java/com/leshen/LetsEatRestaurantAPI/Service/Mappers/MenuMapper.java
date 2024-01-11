@@ -21,7 +21,7 @@ public interface MenuMapper {
 
     MenuDto toDto(Menu menu);
 
-    List<Menu> toDtoList(List<Menu> menus);
+//    List<Menu> toDtoList(List<Menu> menus);
 
     @Mapping(target = "menuId", ignore = true)
     @Mapping(target = "token", source = "menuDto.token")

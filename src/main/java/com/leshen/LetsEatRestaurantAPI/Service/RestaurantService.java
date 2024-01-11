@@ -76,8 +76,8 @@ public class RestaurantService {
             RestaurantPanelDto restaurantPanelDto = restaurantMapper.toPanelDto(restaurant.get());
             List<Menu> menu = menuRepository.findByRestaurant(restaurant.get());
             List<Review> reviews = reviewRepository.findByRestaurant(restaurant.get());
-            restaurantPanelDto.setMenu(menuMapper.toDtoList(menu));             //something wrong here? menuMapper should be List<MenuDto> toDtoList(List<Menu> menus);
-            restaurantPanelDto.setReviews(reviewMapper.toDtoList(reviews));     //same as up, but it provides error?
+            restaurantPanelDto.setMenu(menu);             //something wrong here? menuMapper should be List<MenuDto> toDtoList(List<Menu> menus); and here should be menuMapper.toDtoList(menu)
+            restaurantPanelDto.setReviews(reviews);     //same as up, but it provides error?
             return restaurantPanelDto;
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Restaurant not found");
