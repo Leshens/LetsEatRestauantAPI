@@ -9,7 +9,7 @@ import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface ReviewMapper {
     ReviewMapper INSTANCE = Mappers.getMapper(ReviewMapper.class);
 
@@ -17,7 +17,7 @@ public interface ReviewMapper {
     @Mapping(target = "token", source = "reviewDto.token")
     @Mapping(target = "comment", source = "reviewDto.comment")
     @Mapping(target = "date", source = "reviewDto.date")
-    @Mapping(target = "restaurant", source = "reviewDto.restaurantId")
+    @Mapping(target = "restaurant", ignore = true)
     @Mapping(target = "rating", source = "reviewDto.rating")
     Review toEntity(ReviewDto reviewDto);
 

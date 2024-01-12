@@ -9,10 +9,7 @@ import com.leshen.LetsEatRestaurantAPI.Model.Review;
 import com.leshen.LetsEatRestaurantAPI.Repository.MenuRepository;
 import com.leshen.LetsEatRestaurantAPI.Repository.RestaurantRepository;
 import com.leshen.LetsEatRestaurantAPI.Repository.ReviewRepository;
-import com.leshen.LetsEatRestaurantAPI.Service.Mappers.MenuMapper;
-import com.leshen.LetsEatRestaurantAPI.Service.Mappers.RestaurantListMapper;
-import com.leshen.LetsEatRestaurantAPI.Service.Mappers.RestaurantMapper;
-import com.leshen.LetsEatRestaurantAPI.Service.Mappers.ReviewMapper;
+import com.leshen.LetsEatRestaurantAPI.Service.Mappers.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -32,6 +29,7 @@ public class RestaurantService {
     private final ReviewMapper reviewMapper = ReviewMapper.INSTANCE;
     private final MenuMapper menuMapper = MenuMapper.INSTANCE;
     private final RestaurantListMapper restaurantListMapper = RestaurantListMapper.INSTANCE;
+    private final RestaurantPanelMapper restaurantPanelMapper = RestaurantPanelMapper.INSTANCE;
 
     @Autowired
     public RestaurantService(RestaurantRepository restaurantRepository, ReviewRepository reviewRepository, MenuRepository menuRepository) {
@@ -84,7 +82,11 @@ public class RestaurantService {
         }
         restaurantRepository.deleteById(id);
     }
+    public RestaurantPanelDto getRestaurantPanelById(Long id) {
+        Optional<Restaurant> restaurantOptional = restaurantRepository.findById(id);
 
+        return restaurantOptional.map(restaurantPanelMapper::toDto).orElse(null);
+    }
 //    public RestaurantPanelDto getRestaurantPanelById(Long id) {
 //        Optional<Restaurant> restaurant = restaurantRepository.findById(id);
 //        if (restaurant.isPresent()) {
@@ -98,5 +100,4 @@ public class RestaurantService {
 //            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Restaurant not found");
 //        }
 //    }
-
 }

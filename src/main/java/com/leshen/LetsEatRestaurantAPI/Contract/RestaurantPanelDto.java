@@ -1,18 +1,10 @@
 package com.leshen.LetsEatRestaurantAPI.Contract;
 
-import com.leshen.LetsEatRestaurantAPI.Model.Menu;
-import com.leshen.LetsEatRestaurantAPI.Model.Review;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
 
 import java.util.List;
 
-@Setter
-@Getter
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
 public class RestaurantPanelDto {
 
     private Long restaurantId;

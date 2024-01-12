@@ -74,7 +74,16 @@ public class RestaurantController {
         return restaurant.map(dto -> new ResponseEntity<>(dto, HttpStatus.OK))
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Restaurant not found"));
     }
+    @GetMapping("/panel/{id}")
+    public ResponseEntity<RestaurantPanelDto> getRestaurant(@PathVariable Long id) {
+        RestaurantPanelDto restaurantPanelDto = restaurantService.getRestaurantPanelById(id);
 
+        if (restaurantPanelDto != null) {
+            return ResponseEntity.ok(restaurantPanelDto);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 //    @GetMapping("/restaurant/{id}/panel")
 //    public ResponseEntity<RestaurantPanelDto> getRestaurantPanelById(@PathVariable long id) {
 //        Optional<Restaurant> restaurant = restaurantRepository.findById(id);
