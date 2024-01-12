@@ -3,12 +3,14 @@ package com.leshen.LetsEatRestaurantAPI.Service;
 import com.leshen.LetsEatRestaurantAPI.Contract.RestaurantDto;
 import com.leshen.LetsEatRestaurantAPI.Contract.RestaurantListDto;
 import com.leshen.LetsEatRestaurantAPI.Contract.RestaurantPanelDto;
+import com.leshen.LetsEatRestaurantAPI.Contract.TableDto;
 import com.leshen.LetsEatRestaurantAPI.Model.Menu;
 import com.leshen.LetsEatRestaurantAPI.Model.Restaurant;
 import com.leshen.LetsEatRestaurantAPI.Model.Review;
 import com.leshen.LetsEatRestaurantAPI.Repository.MenuRepository;
 import com.leshen.LetsEatRestaurantAPI.Repository.RestaurantRepository;
 import com.leshen.LetsEatRestaurantAPI.Repository.ReviewRepository;
+import com.leshen.LetsEatRestaurantAPI.Repository.TablesRepository;
 import com.leshen.LetsEatRestaurantAPI.Service.Mappers.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,6 +25,7 @@ import java.util.stream.Collectors;
 @Service
 public class RestaurantService {
     private final RestaurantRepository restaurantRepository;
+    private final TablesRepository tablesRepository;
     private final ReviewRepository reviewRepository;
     private final MenuRepository menuRepository;
     private final RestaurantMapper restaurantMapper = RestaurantMapper.INSTANCE;
@@ -31,15 +34,29 @@ public class RestaurantService {
     private final RestaurantListMapper restaurantListMapper = RestaurantListMapper.INSTANCE;
     private final RestaurantPanelMapper restaurantPanelMapper = RestaurantPanelMapper.INSTANCE;
 
+    private final TableMapper tablesMapper = TableMapper.INSTANCE;
+
     @Autowired
-    public RestaurantService(RestaurantRepository restaurantRepository, ReviewRepository reviewRepository, MenuRepository menuRepository) {
+    public RestaurantService(RestaurantRepository restaurantRepository, ReviewRepository reviewRepository, MenuRepository menuRepository, TablesRepository tablesRepository) {
         this.restaurantRepository = restaurantRepository;
         this.reviewRepository = reviewRepository;
         this.menuRepository = menuRepository;
+        this.tablesRepository = tablesRepository;
     }
     public List<RestaurantListDto> findRestaurantsInRadius(double latitude, double longitude, double radius) {
         List<Restaurant> restaurants = restaurantRepository.findRestaurantsInRadius(latitude, longitude, radius);
-        return restaurantListMapper.toDtoList(restaurants);
+
+        // Fetch tables for each restaurant and map to TableDto
+        List<RestaurantListDto> restaurantListDtos = restaurantListMapper.toDtoList(restaurants);
+        for (int i = 0; i < restaurants.size(); i++) {
+            List<TableDto> tables = tablesRepository.findByRestaurant(restaurants.get(i))
+                    .stream()
+                    .map(tablesMapper::toDto)
+                    .collect(Collectors.toList());
+            restaurantListDtos.get(i).setTables(tables);
+        }
+
+        return restaurantListDtos;
     }
     public Long createRestaurant(RestaurantDto restaurantDto) {
         Restaurant newRestaurant = restaurantMapper.toEntity(restaurantDto);
@@ -63,7 +80,7 @@ public class RestaurantService {
         return restaurantRepository.findById(id).map(restaurantMapper::toDto);
     }
 
-    public Optional<RestaurantDto> getRestaurantByToken(Long token) {
+    public Optional<RestaurantDto> getRestaurantByToken(long token) {
         return restaurantRepository.findByToken(token).map(restaurantMapper::toDto);
     }
 

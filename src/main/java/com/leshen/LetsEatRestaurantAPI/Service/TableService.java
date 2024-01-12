@@ -1,6 +1,7 @@
 package com.leshen.LetsEatRestaurantAPI.Service;
 
 import com.leshen.LetsEatRestaurantAPI.Contract.TableDto;
+import com.leshen.LetsEatRestaurantAPI.Model.Restaurant;
 import com.leshen.LetsEatRestaurantAPI.Model.Tables;
 import com.leshen.LetsEatRestaurantAPI.Repository.TablesRepository;
 import com.leshen.LetsEatRestaurantAPI.Service.Mappers.TableMapper;
@@ -48,6 +49,12 @@ public class TableService {
 
     public List<TableDto> getAllTables() {
         return tablesRepository.findAll().stream()
+                .map(tableMapper::toDto)
+                .collect(Collectors.toList());
+    }
+    public List<TableDto> getTablesForRestaurant(Restaurant restaurant) {
+        List<Tables> tablesEntities = tablesRepository.findByRestaurant(restaurant);
+        return tablesEntities.stream()
                 .map(tableMapper::toDto)
                 .collect(Collectors.toList());
     }

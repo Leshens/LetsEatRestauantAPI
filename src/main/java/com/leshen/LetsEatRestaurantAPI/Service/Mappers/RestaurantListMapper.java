@@ -16,6 +16,7 @@ public interface RestaurantListMapper {
     RestaurantListMapper INSTANCE = Mappers.getMapper(RestaurantListMapper.class);
 
     @Mapping(source = "reviews", target = "stars", qualifiedByName = "calculateStars")
+    @Mapping(source = "tables", target = "tables")
     RestaurantListDto toEntity(Restaurant restaurant);
 
     @Named("calculateStars")
@@ -34,9 +35,11 @@ public interface RestaurantListMapper {
 
     @Named("toDto")
     @Mapping(source = "reviews", target = "stars", qualifiedByName = "calculateStars")
+    @Mapping(source = "tables", target = "tables")
     RestaurantListDto toDto(Restaurant restaurant);
 
     @IterableMapping(qualifiedByName = "toDto")
     @Mapping(source = "reviews", target = "stars", qualifiedByName = "calculateStars")
+    @Mapping(source = "tables", target = "tables")
     List<RestaurantListDto> toDtoList(List<Restaurant> restaurants);
 }
