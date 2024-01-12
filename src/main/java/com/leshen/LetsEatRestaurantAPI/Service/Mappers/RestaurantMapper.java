@@ -43,14 +43,14 @@ public interface RestaurantMapper {
     @Mapping(target = "phoneNumber", source = "restaurantDto.phoneNumber")
     Restaurant updateRestaurantFromDto(RestaurantDto restaurantDto, Restaurant restaurant);
 
-    @Mapping(target = "restaurantId", source = "restaurantPanelDto.restaurantId")
-    @Mapping(target = "restaurantName", source = "restaurantPanelDto.restaurantName")
-    @Mapping(target = "location", source = "restaurantPanelDto.location")
-    @Mapping(target = "openingHours", source = "restaurantPanelDto.openingHours")
-    @Mapping(target = "photoLink", source = "restaurantPanelDto.photoLink")
-    @Mapping(target = "phoneNumber", source = "restaurantPanelDto.phoneNumber")
-    @Mapping(target = "websiteLink", source = "restaurantPanelDto.websiteLink")
-    @Mapping(target = "longitude", source = "restaurantPanelDto.longitude")
-    @Mapping(target = "latitude", source = "restaurantPanelDto.latitude")
-    RestaurantPanelDto toPanelDto(Restaurant restaurant);
+//    @Mapping(target = "restaurantId", source = "restaurantPanelDto.restaurantId")
+//    @Mapping(target = "restaurantName", source = "restaurantPanelDto.restaurantName")
+//    @Mapping(target = "location", source = "restaurantPanelDto.location")
+//    @Mapping(target = "openingHours", source = "restaurantPanelDto.openingHours")
+//    @Mapping(target = "photoLink", source = "restaurantPanelDto.photoLink")
+//    @Mapping(target = "phoneNumber", source = "restaurantPanelDto.phoneNumber")
+//    @Mapping(target = "websiteLink", source = "restaurantPanelDto.websiteLink")
+//    @Mapping(target = "longitude", source = "restaurantPanelDto.longitude")
+//    @Mapping(target = "latitude", source = "restaurantPanelDto.latitude")
+//    RestaurantPanelDto toPanelDto(Restaurant restaurant);
 }

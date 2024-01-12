@@ -10,10 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TableDto {
+    private Long tableId;
     private Long token;
-    private Long restaurantId;
-    private Short twoOs;
-    private Short fourOs;
-    private Short sixOs;
-    private Short eightOs;
+    private Short size;
 }

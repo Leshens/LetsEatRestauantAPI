@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.Map;
 
 @Setter
 @Getter
@@ -22,5 +23,5 @@ public class RestaurantListDto {
     private Short stars;
     private Double longitude;
     private Double latitude;
-    private List<Tables> tables;
+    private List<TableDto> tables;
 }

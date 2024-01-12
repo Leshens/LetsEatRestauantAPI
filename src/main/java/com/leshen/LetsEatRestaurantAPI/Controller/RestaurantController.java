@@ -43,17 +43,30 @@ public class RestaurantController {
         List<RestaurantDto> restaurants = restaurantService.getAllRestaurants();
         return new ResponseEntity<>(restaurants, HttpStatus.OK);
     }
+    @GetMapping("/search")
+    public ResponseEntity<List<RestaurantListDto>> searchRestaurantsInRadius(
+            @RequestParam double latitude,
+            @RequestParam double longitude,
+            @RequestParam double radius) {
 
-    @GetMapping("/restaurants-in-area")
-    public ResponseEntity<List<RestaurantListDto>> getRestaurantsInArea(
-            @RequestParam("latitude") Double latitude,
-            @RequestParam("longitude") Double longitude) {
-        Double radius = 0.1;
-        List<RestaurantListDto> restaurantDtos = restaurantService.getRestaurantsInArea(
-                latitude - radius, latitude + radius, longitude - radius, longitude + radius
-        );
-        return new ResponseEntity<>(restaurantDtos, HttpStatus.OK);
+        List<RestaurantListDto> restaurants = restaurantService.findRestaurantsInRadius(latitude, longitude, radius);
+
+        if (restaurants.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+
+        return new ResponseEntity<>(restaurants, HttpStatus.OK);
     }
+//    @GetMapping("/restaurants-in-area")
+//    public ResponseEntity<List<RestaurantListDto>> getRestaurantsInArea(
+//            @RequestParam("latitude") Double latitude,
+//            @RequestParam("longitude") Double longitude) {
+//        Double radius = 0.1;
+//        List<RestaurantListDto> restaurantDtos = restaurantService.getRestaurantsInArea(
+//                latitude - radius, latitude + radius, longitude - radius, longitude + radius
+//        );
+//        return new ResponseEntity<>(restaurantDtos, HttpStatus.OK);
+//    }
 
     @GetMapping("/restaurant/id/{id}")
     public ResponseEntity<RestaurantDto> getById(@PathVariable long id) {
@@ -62,16 +75,16 @@ public class RestaurantController {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Restaurant not found"));
     }
 
-    @GetMapping("/restaurant/{id}/panel")
-    public ResponseEntity<RestaurantPanelDto> getRestaurantPanelById(@PathVariable long id) {
-        Optional<Restaurant> restaurant = restaurantRepository.findById(id);
-        if (restaurant.isPresent()) {
-            RestaurantPanelDto restaurantPanelDto = restaurantService.getRestaurantPanelById(id);
-            return new ResponseEntity<>(restaurantPanelDto, HttpStatus.OK);
-        } else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Restaurant not found");
-        }
-    }
+//    @GetMapping("/restaurant/{id}/panel")
+//    public ResponseEntity<RestaurantPanelDto> getRestaurantPanelById(@PathVariable long id) {
+//        Optional<Restaurant> restaurant = restaurantRepository.findById(id);
+//        if (restaurant.isPresent()) {
+//            RestaurantPanelDto restaurantPanelDto = restaurantService.getRestaurantPanelById(id);
+//            return new ResponseEntity<>(restaurantPanelDto, HttpStatus.OK);
+//        } else {
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Restaurant not found");
+//        }
+//    }
 
     @GetMapping("/restaurant/token/{token}")
     public ResponseEntity<RestaurantDto> getByToken(@PathVariable Long token) {

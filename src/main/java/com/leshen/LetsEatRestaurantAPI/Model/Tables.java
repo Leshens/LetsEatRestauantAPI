@@ -13,10 +13,7 @@ public class Tables {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long tableId;
     private Long token;
-    private Short twoOs;
-    private Short fourOs;
-    private Short sixOs;
-    private Short eightOs;
+    private Short size;
 
     @ManyToOne
     private Restaurant restaurant;

@@ -20,4 +20,11 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
                                            @Param("minLongitude") Double minLongitude,
                                            @Param("maxLongitude") Double maxLongitude);
 
+    @Query("SELECT r FROM Restaurant r WHERE " +
+            "FUNCTION('acos', FUNCTION('sin', FUNCTION('radians', :latitude)) * FUNCTION('sin', FUNCTION('radians', r.latitude)) + " +
+            "FUNCTION('cos', FUNCTION('radians', :latitude)) * FUNCTION('cos', FUNCTION('radians', r.latitude)) * " +
+            "FUNCTION('cos', FUNCTION('radians', :longitude) - FUNCTION('radians', r.longitude))) * 6371 <= :radius")
+    List<Restaurant> findRestaurantsInRadius(@Param("latitude") double latitude,
+                                             @Param("longitude") double longitude,
+                                             @Param("radius") double radius);
 }

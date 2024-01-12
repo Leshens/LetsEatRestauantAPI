@@ -10,6 +10,7 @@ import com.leshen.LetsEatRestaurantAPI.Repository.MenuRepository;
 import com.leshen.LetsEatRestaurantAPI.Repository.RestaurantRepository;
 import com.leshen.LetsEatRestaurantAPI.Repository.ReviewRepository;
 import com.leshen.LetsEatRestaurantAPI.Service.Mappers.MenuMapper;
+import com.leshen.LetsEatRestaurantAPI.Service.Mappers.RestaurantListMapper;
 import com.leshen.LetsEatRestaurantAPI.Service.Mappers.RestaurantMapper;
 import com.leshen.LetsEatRestaurantAPI.Service.Mappers.ReviewMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -29,6 +31,7 @@ public class RestaurantService {
     private final RestaurantMapper restaurantMapper = RestaurantMapper.INSTANCE;
     private final ReviewMapper reviewMapper = ReviewMapper.INSTANCE;
     private final MenuMapper menuMapper = MenuMapper.INSTANCE;
+    private final RestaurantListMapper restaurantListMapper = RestaurantListMapper.INSTANCE;
 
     @Autowired
     public RestaurantService(RestaurantRepository restaurantRepository, ReviewRepository reviewRepository, MenuRepository menuRepository) {
@@ -36,7 +39,10 @@ public class RestaurantService {
         this.reviewRepository = reviewRepository;
         this.menuRepository = menuRepository;
     }
-
+    public List<RestaurantListDto> findRestaurantsInRadius(double latitude, double longitude, double radius) {
+        List<Restaurant> restaurants = restaurantRepository.findRestaurantsInRadius(latitude, longitude, radius);
+        return restaurantListMapper.toDtoList(restaurants);
+    }
     public Long createRestaurant(RestaurantDto restaurantDto) {
         Restaurant newRestaurant = restaurantMapper.toEntity(restaurantDto);
         return restaurantRepository.save(newRestaurant).getRestaurantId();
@@ -79,18 +85,18 @@ public class RestaurantService {
         restaurantRepository.deleteById(id);
     }
 
-    public RestaurantPanelDto getRestaurantPanelById(Long id) {
-        Optional<Restaurant> restaurant = restaurantRepository.findById(id);
-        if (restaurant.isPresent()) {
-            RestaurantPanelDto restaurantPanelDto = restaurantMapper.toPanelDto(restaurant.get());
-            List<Menu> menu = menuRepository.findByRestaurant(restaurant.get());
-            List<Review> reviews = reviewRepository.findByRestaurant(restaurant.get());
-            restaurantPanelDto.setMenu(menuMapper.toDtoList(menu));             //something wrong here? menuMapper should be List<MenuDto> toDtoList(List<Menu> menus);
-            restaurantPanelDto.setReviews(reviewMapper.toDtoList(reviews));     //same as up, but it provides error?
-            return restaurantPanelDto;
-        } else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Restaurant not found");
-        }
-    }
+//    public RestaurantPanelDto getRestaurantPanelById(Long id) {
+//        Optional<Restaurant> restaurant = restaurantRepository.findById(id);
+//        if (restaurant.isPresent()) {
+//            RestaurantPanelDto restaurantPanelDto = restaurantMapper.toPanelDto(restaurant.get());
+//            List<Menu> menu = menuRepository.findByRestaurant(restaurant.get());
+//            List<Review> reviews = reviewRepository.findByRestaurant(restaurant.get());
+//            restaurantPanelDto.setMenu(menuMapper.toDtoList(menu));             //something wrong here? menuMapper should be List<MenuDto> toDtoList(List<Menu> menus);
+//            restaurantPanelDto.setReviews(reviewMapper.toDtoList(reviews));     //same as up, but it provides error?
+//            return restaurantPanelDto;
+//        } else {
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Restaurant not found");
+//        }
+//    }
 
 }
