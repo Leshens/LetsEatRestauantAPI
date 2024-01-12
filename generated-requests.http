@@ -121,3 +121,56 @@ DELETE http://localhost:8010/deleteTable/1
 
 ###
 GET http://localhost:8010/menu/1
+
+GET http://localhost:8010/search?latitude=23.723418&longitude=114.255942&radius=10
+
+###
+GET http://localhost:8010/restaurants
+
+###
+POST http://localhost:8010/table
+Content-Type: application/json
+
+{"restaurantId": 5,
+  "token": 1520218166,
+  "twoOs": 2,
+  "fourOs": 4,
+  "sixOs": 6,
+  "eightOs": 8
+}
+
+###
+DELETE http://localhost:8010/deleteTable/2
+
+###
+POST http://localhost:8010/table
+Content-Type: application/json
+
+{
+  "size": 3,
+  "tableId": 6,
+  "restaurantId": 5,
+  "token": 1520218166
+}
+
+###
+GET http://localhost:8010/tables
+
+###
+GET http://localhost:8010/panel/5
+
+
+###
+POST http://localhost:8010/menu
+Content-Type: application/json
+
+{
+  "token": 1520218166,
+  "restaurantId": 5,
+  "name": "Pizza",
+  "price": 10.00
+}
+
+###
+POST http://localhost:8010/reviews
+Content-Type: application/json
