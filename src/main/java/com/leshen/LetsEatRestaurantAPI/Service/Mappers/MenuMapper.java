@@ -2,18 +2,20 @@ package com.leshen.LetsEatRestaurantAPI.Service.Mappers;
 
 import com.leshen.LetsEatRestaurantAPI.Contract.MenuDto;
 import com.leshen.LetsEatRestaurantAPI.Model.Menu;
+import com.leshen.LetsEatRestaurantAPI.Model.Restaurant;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
-@Mapper
+@Mapper(uses = RestaurantMapper.class)
 public interface MenuMapper {
 
     MenuMapper INSTANCE = Mappers.getMapper(MenuMapper.class);
 
     @Mapping(target = "menuId", ignore = true)
+    @Mapping(target = "restaurant", source = "menuDto.restaurantId")
     @Mapping(target = "token", source = "menuDto.token")
     @Mapping(target = "name", source = "menuDto.name")
     @Mapping(target = "price", source = "menuDto.price")
@@ -24,6 +26,7 @@ public interface MenuMapper {
     List<MenuDto> toDtoList(List<Menu> menus);
 
     @Mapping(target = "menuId", ignore = true)
+    @Mapping(target = "restaurant", source = "menuDto.restaurantId")
     @Mapping(target = "token", source = "menuDto.token")
     @Mapping(target = "name", source = "menuDto.name")
     @Mapping(target = "price", source = "menuDto.price")

@@ -43,6 +43,8 @@ public interface RestaurantMapper {
     @Mapping(target = "phoneNumber", source = "restaurantDto.phoneNumber")
     Restaurant updateRestaurantFromDto(RestaurantDto restaurantDto, Restaurant restaurant);
 
+    Restaurant map(Long restaurantId);
+
 //    @Mapping(target = "restaurantId", source = "restaurantPanelDto.restaurantId")
 //    @Mapping(target = "restaurantName", source = "restaurantPanelDto.restaurantName")
 //    @Mapping(target = "location", source = "restaurantPanelDto.location")
