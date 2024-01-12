@@ -24,6 +24,6 @@ public class RestaurantPanelDto {
     private String websiteLink;
     private Double longitude;
     private Double latitude;
-    private List<Menu> menu;
-    private List<Review> reviews;
+    private List<MenuDto> menu;
+    private List<ReviewDto> reviews;
 }
