@@ -12,8 +12,10 @@ public class RestaurantListDto {
     private RestaurantCategory restaurantCategory;
     private String openingHours;
     private String photoLink;
-    private Short stars;
     private Double longitude;
     private Double latitude;
     private List<TableDto> tables;
+    @Setter
+    @Getter
+    private Short stars;
 }

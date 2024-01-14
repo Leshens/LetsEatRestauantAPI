@@ -26,7 +26,7 @@ public interface RestaurantListMapper {
         }
 
         double averageRating = reviews.stream()
-                .mapToInt(Review::getRating)
+                .mapToDouble(review -> (review.getService() + review.getFood() + review.getAtmosphere()) / 3.0)
                 .average()
                 .orElse(0);
 

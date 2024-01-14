@@ -20,6 +20,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.ToIntFunction;
 import java.util.stream.Collectors;
 
 @Service
@@ -100,21 +101,33 @@ public class RestaurantService {
         restaurantRepository.deleteById(id);
     }
     public RestaurantPanelDto getRestaurantPanelById(Long id) {
-        Optional<Restaurant> restaurantOptional = restaurantRepository.findById(id);
+        return restaurantRepository.findById(id)
+                .map(restaurantPanelMapper::toDto)
+                .map(restaurantPanelDto -> {
+                    List<Review> reviews = reviewRepository.findByRestaurant(restaurantRepository.findById(id).get());
+                    restaurantPanelDto.setReviews(reviews.stream().map(reviewMapper::toDto).collect(Collectors.toList()));
 
-        return restaurantOptional.map(restaurantPanelMapper::toDto).orElse(null);
+                    double averageService = calculateAverageRating(reviews, Review::getService);
+                    double averageFood = calculateAverageRating(reviews, Review::getFood);
+                    double averageAtmosphere = calculateAverageRating(reviews, Review::getAtmosphere);
+
+                    restaurantPanelDto.setAverageService(averageService);
+                    restaurantPanelDto.setAverageFood(averageFood);
+                    restaurantPanelDto.setAverageAtmosphere(averageAtmosphere);
+
+                    List<Menu> menuItems = menuRepository.findByRestaurant(restaurantRepository.findById(id).get());
+                    restaurantPanelDto.setMenu(menuItems.stream().map(menuMapper::toDto).collect(Collectors.toList()));
+
+                    return restaurantPanelDto;
+                })
+                .orElse(null);
     }
-//    public RestaurantPanelDto getRestaurantPanelById(Long id) {
-//        Optional<Restaurant> restaurant = restaurantRepository.findById(id);
-//        if (restaurant.isPresent()) {
-//            RestaurantPanelDto restaurantPanelDto = restaurantMapper.toPanelDto(restaurant.get());
-//            List<Menu> menu = menuRepository.findByRestaurant(restaurant.get());
-//            List<Review> reviews = reviewRepository.findByRestaurant(restaurant.get());
-//            restaurantPanelDto.setMenu(menuMapper.toDtoList(menu));             //something wrong here? menuMapper should be List<MenuDto> toDtoList(List<Menu> menus);
-//            restaurantPanelDto.setReviews(reviewMapper.toDtoList(reviews));     //same as up, but it provides error?
-//            return restaurantPanelDto;
-//        } else {
-//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Restaurant not found");
-//        }
-//    }
+
+    private double calculateAverageRating(List<Review> reviews, ToIntFunction<Review> ratingExtractor) {
+        return reviews.stream()
+                .mapToInt(ratingExtractor)
+                .average()
+                .orElse(0);
+    }
+
 }

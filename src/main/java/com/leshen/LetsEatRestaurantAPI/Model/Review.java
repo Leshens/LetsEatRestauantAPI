@@ -26,6 +26,8 @@ public class Review {
     @ManyToOne
     private Restaurant restaurant;
 
-    private int rating;
+    private int service;
+    private int food;
+    private int atmosphere;
 
 }

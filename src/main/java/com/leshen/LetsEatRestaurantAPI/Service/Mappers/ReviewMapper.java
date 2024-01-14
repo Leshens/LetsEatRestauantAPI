@@ -18,8 +18,13 @@ public interface ReviewMapper {
     @Mapping(target = "comment", source = "reviewDto.comment")
     @Mapping(target = "date", source = "reviewDto.date")
     @Mapping(target = "restaurant", ignore = true)
-    @Mapping(target = "rating", source = "reviewDto.rating")
+    @Mapping(target = "service", source = "reviewDto.service")
+    @Mapping(target = "food", source = "reviewDto.food")
+    @Mapping(target = "atmosphere", source = "reviewDto.atmosphere")
     Review toEntity(ReviewDto reviewDto);
 
+    @Mapping(target = "service", source = "service")
+    @Mapping(target = "food", source = "food")
+    @Mapping(target = "atmosphere", source = "atmosphere")
     ReviewDto toDto(Review review);
 }

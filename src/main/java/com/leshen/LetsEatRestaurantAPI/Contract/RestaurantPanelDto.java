@@ -18,4 +18,7 @@ public class RestaurantPanelDto {
     private Double latitude;
     private List<MenuDto> menu;
     private List<ReviewDto> reviews;
+    private Double averageFood;
+    private Double averageService;
+    private Double averageAtmosphere;
 }

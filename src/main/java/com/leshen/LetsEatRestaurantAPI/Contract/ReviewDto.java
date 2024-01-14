@@ -17,5 +17,7 @@ public class ReviewDto {
     private String comment;
     private Date date;
     private Long restaurantId;
-    private int rating;
+    private int service;
+    private int food;
+    private int atmosphere;
 }
