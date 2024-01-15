@@ -1,0 +1,18 @@
+###
+POST http://localhost:8010/menu
+Content-Type: application/json
+
+{
+  "token": 11234567899009,
+  "price": 10.20,
+  "name": "Pizza",
+  "restaurantId": 1
+}
+###
+GET http://localhost:8010/menus
+
+###
+GET http://localhost:8010/menu/1
+
+###
+DELETE http://localhost:8010/deleteMenu/1

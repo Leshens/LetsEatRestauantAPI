@@ -10,11 +10,12 @@ import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
-@Mapper
+@Mapper(uses = RestaurantMapper.class)
 public interface TableMapper {
     TableMapper INSTANCE = Mappers.getMapper(TableMapper.class);
 
     @Mapping(target = "tableId", source = "tableDto.tableId")
+    @Mapping(target = "restaurant", source = "tableDto.restaurantId")
     @Mapping(target = "token", source = "tableDto.token")
     @Mapping(target = "size", source = "tableDto.size")
     Tables toEntity(TableDto tableDto);
@@ -22,6 +23,7 @@ public interface TableMapper {
     TableDto toDto(Tables table);
 
     @Mapping(target = "tableId", source = "tableDto.tableId")
+    @Mapping(target = "restaurant", source = "tableDto.restaurantId")
     @Mapping(target = "token", source = "tableDto.token")
     @Mapping(target = "size", source = "tableDto.size")
     Tables updateTableFromDto(TableDto tableDto, Tables table);

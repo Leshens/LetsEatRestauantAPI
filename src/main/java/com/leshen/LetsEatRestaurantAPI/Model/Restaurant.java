@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Entity @Data
+@Table(name = "restaurant")
 @NoArgsConstructor
 @AllArgsConstructor
 public class Restaurant {

@@ -172,6 +172,4 @@ Content-Type: application/json
   "price": 10.00
 }
 
-###
-POST http://localhost:8010/reviews
-Content-Type: application/json
+

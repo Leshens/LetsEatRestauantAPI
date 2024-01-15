@@ -45,7 +45,11 @@ public class RestaurantService {
         this.tablesRepository = tablesRepository;
     }
     public List<RestaurantListDto> findRestaurantsInRadius(double latitude, double longitude, double radius) {
+        System.out.println(latitude);
+        System.out.println(longitude);
+        System.out.println(radius);
         List<Restaurant> restaurants = restaurantRepository.findRestaurantsInRadius(latitude, longitude, radius);
+        System.out.println("restaurants"+restaurants);
 
         // Fetch tables for each restaurant and map to TableDto
         List<RestaurantListDto> restaurantListDtos = restaurantListMapper.toDtoList(restaurants);
@@ -56,7 +60,7 @@ public class RestaurantService {
                     .collect(Collectors.toList());
             restaurantListDtos.get(i).setTables(tables);
         }
-
+        System.out.println("restaurantListDtos"+restaurantListDtos);
         return restaurantListDtos;
     }
     public Long createRestaurant(RestaurantDto restaurantDto) {
@@ -67,14 +71,6 @@ public class RestaurantService {
     public List<RestaurantDto> getAllRestaurants() {
         List<Restaurant> restaurants = restaurantRepository.findAll();
         return restaurants.stream().map(restaurantMapper::toDto).collect(Collectors.toList());
-    }
-
-    public List<RestaurantDto> getRestaurantsInArea(Double minLatitude, Double maxLatitude,
-                                                        Double minLongitude, Double maxLongitude) {
-        List<Restaurant> restaurants = restaurantRepository.findRestaurantsInArea(
-                minLatitude, maxLatitude, minLongitude, maxLongitude);
-
-        return restaurantMapper.toDtoList(restaurants); //error caused by RestaurantMapper?
     }
 
     public Optional<RestaurantDto> getRestaurantById(long id) {

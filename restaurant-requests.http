@@ -1,0 +1,92 @@
+###
+POST http://localhost:8010/restaurant
+Content-Type: application/json
+
+{
+  "token": 11234567899009,
+  "restaurantName": "Kanm's Restrant",
+  "location": "Sebastiana Klonowicza 71A, 80-408 Gdańsk",
+  "restaurantCategory": "AMERICAN",
+  "openingHours":"1AM - 6PM",
+  "photoLink":"http://dummyimage.com/232x100.png/dddddd/000000",
+  "websiteLink":"https://mapquest.com",
+  "longitude": 18.63118184501924,
+  "latitude": 54.389664259311665,
+  "phoneNumber":"6025076729"
+}
+###
+POST http://localhost:8010/restaurant
+Content-Type: application/json
+
+{
+  "token": 11234567899009,
+  "restaurantName": "Lidl",
+  "location": "Bolesława Chrobrego 75, 80-414 Gdańsk",
+  "restaurantCategory": "AMERICAN",
+  "openingHours":"1AM - 6PM",
+  "photoLink":"http://dummyimage.com/232x100.png/dddddd/000000",
+  "websiteLink":"https://mapquest.com",
+  "longitude": 18.619154555526286,
+  "latitude": 54.39013564180321,
+  "phoneNumber":"6025076729"
+}
+
+###
+POST http://localhost:8010/restaurant
+Content-Type: application/json
+
+{
+  "token": 11234567899009,
+  "restaurantName": "Gildia Gdańska S.A.",
+  "location": "aleja Rzeczypospolitej 33B, 80-463 Gdańsk",
+  "restaurantCategory": "AMERICAN",
+  "openingHours":"1AM - 6PM",
+  "photoLink":"http://dummyimage.com/232x100.png/dddddd/000000",
+  "websiteLink":"https://mapquest.com",
+  "longitude": 18.611865777114193,
+  "latitude": 54.390447657821795,
+  "phoneNumber":"6025076729"
+}
+###
+GET http://localhost:8010/restaurants
+
+###
+GET http://localhost:8010/restaurant/token/11234567899009
+
+###
+GET http://localhost:8010/restaurant/id/1
+
+###
+PUT http://localhost:8010/updateRestaurant/1
+Authorization: 11234567899009
+Content-Type: application/json
+
+{
+  "token": 11234567899009,
+  "restaurantName": "Kamm's Restant",
+  "location": "Klonowicza 71A",
+  "restaurantCategory": "MEXICAN",
+  "openingHours":"2AM - 8PM",
+  "photoLink":"http://dummyimage.com/232x100.png/dddddd/000000",
+  "websiteLink":"https://mapquest.com",
+  "longitude":18.631065,
+  "latitude":54.389709,
+  "phoneNumber":"6025076729"
+}
+###
+GET http://localhost:8010/panel/1
+
+// tylko Kanm's Restrant
+###
+GET http://localhost:8010/search?latitude=54.389664259311665&longitude=18.63118184501924&radius=0.5
+
+// tylko Kanm's Restrant i Lidl
+###
+GET http://localhost:8010/search?latitude=54.389664259311665&longitude=18.63118184501924&radius=1
+
+//Kanm's Restrant i Lidl i Gildia Gdańska S.A.
+###
+GET http://localhost:8010/search?latitude=54.389664259311665&longitude=18.63118184501924&radius=1
+###
+DELETE http://localhost:8010/deleteRestaurant/1
+Authorization: 7545897939

@@ -2,7 +2,7 @@
 POST http://localhost:8010/restaurant
 Content-Type: application/json
 
-{"restaurantId":1,"token":"7545897939","restaurantName":"Cummings and Sons","location":"58 Lyons Street","restaurantCategory":"JAPANESE","openingHours":"1AM - 4PM","photoLink":"http://dummyimage.com/244x100.png/cc0000/ffffff","websiteLink":"http://123-reg.co.uk","longitude":-91.141982,"latitude":14.637422,"phoneNumber":"1583893425"}
+{"token":"7545897939","restaurantName":"Cummings and Sons","location":"58 Lyons Street","restaurantCategory":"JAPANESE","openingHours":"1AM - 4PM","photoLink":"http://dummyimage.com/244x100.png/cc0000/ffffff","websiteLink":"http://123-reg.co.uk","longitude":-91.141982,"latitude":14.637422,"phoneNumber":"1583893425"}
 ###
 POST http://localhost:8010/restaurant
 Content-Type: application/json

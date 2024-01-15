@@ -1,0 +1,16 @@
+###
+POST http://localhost:8010/reviews
+Content-Type: application/json
+
+###
+POST http://localhost:8010/reviews
+Content-Type: application/json
+
+{
+  "restaurantId": 1,
+  "token": 11234567899009,
+  "atmosphere": 2,
+  "comment": "nice",
+  "food": 5,
+  "service": 5
+}

@@ -6,6 +6,7 @@ import com.leshen.LetsEatRestaurantAPI.Model.Review;
 import com.leshen.LetsEatRestaurantAPI.Repository.ReviewRepository;
 import com.leshen.LetsEatRestaurantAPI.Service.Mappers.ReviewMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -15,11 +16,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
 public class ReviewService {
 
     private final ReviewRepository reviewRepository;
-    private final ReviewMapper reviewMapper;
+    private final ReviewMapper reviewMapper = ReviewMapper.INSTANCE;
+
+    @Autowired
+    public ReviewService(ReviewRepository reviewRepository){this.reviewRepository = reviewRepository;}
 
     public List<ReviewDto> getReviewsForRestaurant(Long restaurantId) {
         Restaurant restaurant = new Restaurant();
@@ -38,12 +41,12 @@ public class ReviewService {
         }
 
         Review review = reviewMapper.toEntity(reviewDto);
-        review.setService(reviewDto.getService());
-        review.setFood(reviewDto.getFood());
-        review.setAtmosphere(reviewDto.getFood());
-
-        Review savedReview = reviewRepository.save(review);
-        return reviewMapper.toDto(savedReview);
+//        review.setService(reviewDto.getService());
+//        review.setFood(reviewDto.getFood());
+//        review.setAtmosphere(reviewDto.getAtmosphere());
+//        Review savedReview = reviewRepository.save(review);
+//        return reviewMapper.toDto(savedReview);
+        return reviewMapper.toDto(reviewRepository.save(review));
     }
 
     public void updateReview(Long id, ReviewDto reviewDto) {
