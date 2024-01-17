@@ -1,5 +1,5 @@
 ###
-POST http://localhost:8010/restaurant
+POST http://localhost:8010/api/restaurants
 Content-Type: application/json
 
 {
@@ -15,7 +15,7 @@ Content-Type: application/json
   "phoneNumber":"6025076729"
 }
 ###
-POST http://localhost:8010/restaurant
+POST http://localhost:8010/api/restaurants
 Content-Type: application/json
 
 {
@@ -32,7 +32,7 @@ Content-Type: application/json
 }
 
 ###
-POST http://localhost:8010/restaurant
+POST http://localhost:8010/api/restaurants
 Content-Type: application/json
 
 {
@@ -48,16 +48,16 @@ Content-Type: application/json
   "phoneNumber":"6025076729"
 }
 ###
-GET http://localhost:8010/restaurants
+GET http://localhost:8010/api/restaurants
 
 ###
-GET http://localhost:8010/restaurant/token/11234567899009
+GET http://localhost:8010/api/restaurants/token/11234567899009
 
 ###
-GET http://localhost:8010/restaurant/id/1
+GET http://localhost:8010//api/restaurants/1
 
 ###
-PUT http://localhost:8010/updateRestaurant/1
+PUT http://localhost:8010/api/restaurants/1
 Authorization: 11234567899009
 Content-Type: application/json
 
@@ -75,7 +75,7 @@ Content-Type: application/json
 }
 
 ###
-PATCH http://localhost:8010/1
+PATCH http://localhost:8010/api/restaurants/1
 Authorization: 11234567899009
 Content-Type: application/json
 
@@ -92,19 +92,25 @@ Content-Type: application/json
   "phoneNumber":"6025076729"
 }
 ###
-GET http://localhost:8010/panel/1
+GET http://localhost:8010/api/restaurants/panel/1
 
 // tylko Kanm's Restrant
 ###
-GET http://localhost:8010/search?latitude=54.389664259311665&longitude=18.63118184501924&radius=0.5
+GET http://localhost:8010/api/restaurants/search?latitude=54.389664259311665&longitude=18.63118184501924&radius=0.5
 
 // tylko Kanm's Restrant i Lidl
 ###
-GET http://localhost:8010/search?latitude=54.389664259311665&longitude=18.63118184501924&radius=1
+GET http://localhost:8010/api/restaurants/search?latitude=54.389664259311665&longitude=18.63118184501924&radius=1
 
 //Kanm's Restrant i Lidl i Gildia Gdańska S.A.
 ###
-GET http://localhost:8010/search?latitude=54.389664259311665&longitude=18.63118184501924&radius=1
+GET http://localhost:8010/api/restaurants/search?latitude=54.389664259311665&longitude=18.63118184501924&radius=2
+
 ###
-DELETE http://localhost:8010/deleteRestaurant/1
+DELETE http://localhost:8010/api/restaurants/1
 Authorization: 7545897939
+
+###
+DELETE http://localhost:8010/api/restaurants/1
+Authorization: 11234567899009
+

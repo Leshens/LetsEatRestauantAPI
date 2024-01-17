@@ -20,10 +20,11 @@ import java.util.Optional;
 @RestController
 @CrossOrigin("http://localhost:3000")
 @RequiredArgsConstructor
+@RequestMapping("/api/restaurants") // Common base path for all restaurant-related endpoints
 public class RestaurantController {
 
     private final RestaurantService restaurantService;
-    @PostMapping("/restaurant")
+    @PostMapping
     public ResponseEntity<Long> newRestaurant(@RequestBody RestaurantDto newRestaurantDto){
        Long id = restaurantService.createRestaurant(newRestaurantDto);
 
@@ -36,7 +37,7 @@ public class RestaurantController {
         return ResponseEntity.created(uri).build();
 
     }
-    @GetMapping("/restaurants")
+    @GetMapping
     public ResponseEntity<List<RestaurantDto>> getAllRestaurants(){
         List<RestaurantDto> restaurants = restaurantService.getAllRestaurants();
         return new ResponseEntity<>(restaurants, HttpStatus.OK);
@@ -58,7 +59,7 @@ public class RestaurantController {
 
         return new ResponseEntity<>(restaurants, HttpStatus.FOUND);
     }
-    @GetMapping("/restaurant/id/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<RestaurantDto> getById(@PathVariable long id) {
         Optional<RestaurantDto> restaurant = restaurantService.getRestaurantById(id);
         return restaurant.map(dto -> new ResponseEntity<>(dto, HttpStatus.OK))
@@ -74,13 +75,13 @@ public class RestaurantController {
             return ResponseEntity.notFound().build();
         }
     }
-    @GetMapping("/restaurant/token/{token}")
+    @GetMapping("/token/{token}")
     public ResponseEntity<RestaurantDto> getByToken(@PathVariable Long token) {
         Optional<RestaurantDto> restaurant = restaurantService.getRestaurantByToken(token);
         return restaurant.map(dto -> new ResponseEntity<>(dto, HttpStatus.OK))
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Restaurant not found"));
     }
-    @PutMapping("updateRestaurant/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<RestaurantDto> updateRestaurant(
             @PathVariable long id,
             @RequestBody RestaurantDto updatedRestaurantDto,
@@ -88,7 +89,7 @@ public class RestaurantController {
         RestaurantDto updatedDto = restaurantService.updateRestaurant(id, updatedRestaurantDto, requestToken);
         return ResponseEntity.ok(updatedDto);
     }
-    @DeleteMapping(value = "/deleteRestaurant/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Long> deleteRestaurant(@PathVariable Long id,
                                                  @RequestHeader("Authorization") Long requestToken) {
        restaurantService.deleteRestaurant(id);
