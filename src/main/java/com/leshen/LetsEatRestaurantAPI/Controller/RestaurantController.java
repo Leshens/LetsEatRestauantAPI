@@ -14,6 +14,7 @@ import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @RestController
@@ -80,8 +81,10 @@ public class RestaurantController {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Restaurant not found"));
     }
     @PutMapping("updateRestaurant/{id}")
-    public ResponseEntity<RestaurantDto> updateRestaurant(@PathVariable long id,@RequestBody RestaurantDto updatedRestaurantDto,
-                                                       @RequestHeader("Authorization") Long requestToken) {
+    public ResponseEntity<RestaurantDto> updateRestaurant(
+            @PathVariable long id,
+            @RequestBody RestaurantDto updatedRestaurantDto,
+            @RequestHeader("Authorization") Long requestToken) {
         RestaurantDto updatedDto = restaurantService.updateRestaurant(id, updatedRestaurantDto, requestToken);
         return ResponseEntity.ok(updatedDto);
     }
@@ -90,5 +93,28 @@ public class RestaurantController {
                                                  @RequestHeader("Authorization") Long requestToken) {
        restaurantService.deleteRestaurant(id);
         return new ResponseEntity<>(id, HttpStatus.OK);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<RestaurantDto> patchRestaurant(
+            @PathVariable Long id,
+            @RequestBody RestaurantDto restaurantDto,
+            @RequestHeader("Authorization") Long requestToken) {
+
+        try {
+            if (!restaurantService.verifyToken(id, requestToken)) {
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            }
+
+            RestaurantDto patchedRestaurant = restaurantService.patchRestaurant(id, restaurantDto);
+            return ResponseEntity.ok(patchedRestaurant);
+
+        } catch (RuntimeException e) {
+            if (e instanceof NoSuchElementException) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            } else {
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }
     }
 }

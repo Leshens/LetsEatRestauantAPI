@@ -69,8 +69,26 @@ Content-Type: application/json
   "openingHours":"2AM - 8PM",
   "photoLink":"http://dummyimage.com/232x100.png/dddddd/000000",
   "websiteLink":"https://mapquest.com",
-  "longitude":18.631065,
-  "latitude":54.389709,
+  "longitude": 18.63118184501924,
+  "latitude": 54.389664259311665,
+  "phoneNumber":"6025076729"
+}
+
+###
+PATCH http://localhost:8010/1
+Authorization: 11234567899009
+Content-Type: application/json
+
+{
+  "token": 11234567899009,
+  "restaurantName": "Kamm's Restant",
+  "location": "Klonowicza 71A",
+  "restaurantCategory": "MEXICAN",
+  "openingHours":"2AM - 8PM",
+  "photoLink":"http://dummyimage.com/232x100.png/dddddd/000000",
+  "websiteLink":"https://mapquest.com",
+  "longitude": 18.63118184501924,
+  "latitude": 54.389664259311665,
   "phoneNumber":"6025076729"
 }
 ###
@@ -78,7 +96,7 @@ GET http://localhost:8010/panel/1
 
 // tylko Kanm's Restrant
 ###
-GET http://localhost:8010/search?latitude=54.389664259311665&longitude=18.63118184501924&radius=0.5
+GET http://localhost:8010/search?latitude=54.389664259311665&longitude=18.63118184501924&radius=1
 
 // tylko Kanm's Restrant i Lidl
 ###

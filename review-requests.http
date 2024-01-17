@@ -8,9 +8,9 @@ Content-Type: application/json
 
 {
   "restaurantId": 1,
-  "token": 11234567899009,
-  "atmosphere": 2,
-  "comment": "nice",
-  "food": 5,
-  "service": 5
+  "token": 11234567899002,
+  "atmosphere": 1,
+  "comment": "bad",
+  "food": 1,
+  "service": 1
 }

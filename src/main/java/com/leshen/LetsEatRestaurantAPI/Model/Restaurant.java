@@ -36,4 +36,20 @@ public class Restaurant {
     private List<Tables> tables;
     @OneToMany(mappedBy ="restaurant")
     private List<Review> reviews;
+    @Override
+    public String toString() {
+        return "Restaurant{" +
+                "restaurantId=" + restaurantId +
+                ", token=" + token +
+                ", restaurantName='" + restaurantName + '\'' +
+                ", location='" + location + '\'' +
+                ", restaurantCategory=" + restaurantCategory +
+                ", openingHours='" + openingHours + '\'' +
+                ", photoLink='" + photoLink + '\'' +
+                ", websiteLink='" + websiteLink + '\'' +
+                ", longitude=" + longitude +
+                ", latitude=" + latitude +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                '}';
+    }
 }

@@ -17,4 +17,14 @@ public class Menu {
     private Float price;
     @ManyToOne
     private Restaurant restaurant;
+
+    @Override
+    public String toString() {
+        return "Menu{" +
+                "menuId=" + menuId +
+                ", token=" + token +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                '}';
+    }
 }

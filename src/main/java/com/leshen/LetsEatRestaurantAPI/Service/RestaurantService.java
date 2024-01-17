@@ -19,6 +19,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.function.ToIntFunction;
 import java.util.stream.Collectors;
@@ -89,6 +90,14 @@ public class RestaurantService {
 
         return restaurantMapper.toDto(restaurantRepository.save(existingRestaurant));
     }
+    public RestaurantDto patchRestaurant(long id, RestaurantDto restaurantDto) {
+        Restaurant existingRestaurant = restaurantRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Restaurant not found"));
+
+        Restaurant patchedRestaurant = restaurantMapper.patchRestaurantFromDto(restaurantDto, existingRestaurant);
+
+        return restaurantMapper.toDto(restaurantRepository.save(patchedRestaurant));
+    }
 
     public void deleteRestaurant(Long id) {
         if (!restaurantRepository.existsById(id)) {
@@ -124,6 +133,15 @@ public class RestaurantService {
                 .mapToInt(ratingExtractor)
                 .average()
                 .orElse(0);
+    }
+
+    public boolean verifyToken(Long restaurantId, Long requestToken) {
+        try {
+            Restaurant restaurant = restaurantRepository.findById(restaurantId).get();
+            return restaurant.getToken().equals(requestToken);
+        } catch (NoSuchElementException e) {
+            return false;
+        }
     }
 
 }

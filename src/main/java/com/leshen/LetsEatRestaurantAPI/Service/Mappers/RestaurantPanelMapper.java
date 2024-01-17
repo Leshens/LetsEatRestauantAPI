@@ -69,4 +69,5 @@ public interface RestaurantPanelMapper {
 
         return menuItems.stream().map(menuMapper::toDto).collect(Collectors.toList());
     }
+
 }
