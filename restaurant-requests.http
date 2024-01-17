@@ -96,7 +96,7 @@ GET http://localhost:8010/panel/1
 
 // tylko Kanm's Restrant
 ###
-GET http://localhost:8010/search?latitude=54.389664259311665&longitude=18.63118184501924&radius=1
+GET http://localhost:8010/search?latitude=54.389664259311665&longitude=18.63118184501924&radius=0.5
 
 // tylko Kanm's Restrant i Lidl
 ###
