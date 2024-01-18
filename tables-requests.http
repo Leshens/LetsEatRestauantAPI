@@ -1,20 +1,23 @@
 ###
-POST http://localhost:8010/table
+POST http://localhost:8010/api/tables
 Content-Type: application/json
 
 {"token": 11234567899009,"size": 2, "restaurantId": 1}
 
 ###
-GET http://localhost:8010/tables
+GET http://localhost:8010/api/tables
 
 ###
-GET http://localhost:8010/table/2
+GET http://localhost:8010/api/tables/1
 
 ###
-PUT http://localhost:8010/updateTables/1
+PATCH http://localhost:8010/api/tables/1
+Authorization: 11234567
 Content-Type: application/json
 
-{"tableId": 1,"token": 11234567,"size": 4, "restaurantId": 1}
+{"tableId": 1,"token": 11234567,"size": 6, "restaurantId": 1}
 
 ###
-DELETE http://localhost:8010/deleteTable/1
+DELETE http://localhost:8010/api/tables/1
+Authorization: 11234567
+Content-Type: application/json

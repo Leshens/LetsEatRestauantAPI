@@ -6,6 +6,7 @@ import com.leshen.LetsEatRestaurantAPI.Model.Restaurant;
 import com.leshen.LetsEatRestaurantAPI.Model.Tables;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
@@ -29,4 +30,10 @@ public interface TableMapper {
     Tables updateTableFromDto(TableDto tableDto, Tables table);
 
     List<TableDto> toDtoList(List<Tables> tables);
+
+    @Mapping(target = "tableId", source = "tableDto.tableId")
+    @Mapping(target = "restaurant", source = "tableDto.restaurantId")
+    @Mapping(target = "token", source = "tableDto.token")
+    @Mapping(target = "size", source = "tableDto.size")
+    Tables patchTableFromDto(TableDto tableDto, @MappingTarget Tables tables);
 }

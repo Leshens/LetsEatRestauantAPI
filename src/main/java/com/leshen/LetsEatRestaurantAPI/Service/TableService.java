@@ -1,5 +1,6 @@
 package com.leshen.LetsEatRestaurantAPI.Service;
 
+import com.leshen.LetsEatRestaurantAPI.Contract.RestaurantDto;
 import com.leshen.LetsEatRestaurantAPI.Contract.TableDto;
 import com.leshen.LetsEatRestaurantAPI.Model.Restaurant;
 import com.leshen.LetsEatRestaurantAPI.Model.Tables;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -57,5 +59,23 @@ public class TableService {
         return tablesEntities.stream()
                 .map(tableMapper::toDto)
                 .collect(Collectors.toList());
+    }
+
+    public boolean verifyToken(Long tableId, Long requestToken) {
+        try {
+            Tables tables = tablesRepository.findById(tableId).get();
+            return tables.getToken().equals(requestToken);
+        } catch (NoSuchElementException e) {
+            return false;
+        }
+    }
+
+    public TableDto patchTable(long id, TableDto tableDto) {
+        Tables existingTables = tablesRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Table not found"));
+
+        Tables patchedTables = tableMapper.patchTableFromDto(tableDto, existingTables);
+
+        return tableMapper.toDto(tablesRepository.save(patchedTables));
     }
 }
