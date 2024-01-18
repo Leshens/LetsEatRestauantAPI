@@ -5,6 +5,7 @@ import com.leshen.LetsEatRestaurantAPI.Model.Menu;
 import com.leshen.LetsEatRestaurantAPI.Model.Restaurant;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
@@ -31,4 +32,11 @@ public interface MenuMapper {
     @Mapping(target = "name", source = "menuDto.name")
     @Mapping(target = "price", source = "menuDto.price")
     Menu updateMenuFromDto(MenuDto menuDto, Menu menu);
+
+    @Mapping(target = "menuId", ignore = true)
+    @Mapping(target = "restaurant", source = "menuDto.restaurantId")
+    @Mapping(target = "token", source = "menuDto.token")
+    @Mapping(target = "name", source = "menuDto.name")
+    @Mapping(target = "price", source = "menuDto.price")
+    Menu patchMenuFromDto(MenuDto menuDto, @MappingTarget Menu menu);
 }

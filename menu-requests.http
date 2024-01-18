@@ -1,5 +1,5 @@
 ###
-POST http://localhost:8010/menu
+POST http://localhost:8010/api/menus
 Content-Type: application/json
 
 {
@@ -9,10 +9,22 @@ Content-Type: application/json
   "restaurantId": 1
 }
 ###
-GET http://localhost:8010/menus
+GET http://localhost:8010/api/menus
 
 ###
-GET http://localhost:8010/menu/1
+GET http://localhost:8010/api/menus/1
 
 ###
-DELETE http://localhost:8010/deleteMenu/1
+DELETE http://localhost:8010/api/menus/1
+
+###
+PATCH http://localhost:8010/api/menus/1
+Authorization: 11234567899009
+Content-Type: application/json
+
+{
+  "token": 11234567899009,
+  "price": 15.5,
+  "name": "Spaghetti",
+  "restaurantId": 1
+}

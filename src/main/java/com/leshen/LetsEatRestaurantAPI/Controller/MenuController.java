@@ -9,9 +9,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 @CrossOrigin("http://localhost:3000")
+@RequestMapping("/api/menus")
 public class MenuController {
 
     private final MenuService menuService;
@@ -21,29 +23,51 @@ public class MenuController {
         this.menuService = menuService;
     }
 
-    @PostMapping("/menu")
+    @PostMapping
     public ResponseEntity<MenuDto> newMenu(@RequestBody MenuDto newMenuDto) {
         MenuDto createdMenu = menuService.createMenu(newMenuDto);
         return new ResponseEntity<>(createdMenu, HttpStatus.CREATED);
     }
-    @GetMapping("/menus")
+    @GetMapping
     public ResponseEntity<List<MenuDto>> getAllMenus(){
         List<MenuDto> menus = menuService.getAllMenus();
         return new ResponseEntity<>(menus, HttpStatus.OK);
     }
-    @GetMapping("/menu/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<MenuDto> getById(@PathVariable long id) {
         MenuDto menu = menuService.getMenuById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Menu not found"));
         return new ResponseEntity<>(menu, HttpStatus.OK);
     }
-    @PutMapping("updateMenu/{id}")
-    public ResponseEntity<MenuDto> updateMenu(@PathVariable long id,@RequestBody MenuDto menuDto) {
-        MenuDto updatedMenu = menuService.updateMenu(id, menuDto);
+    @PutMapping("/{id}")
+    public ResponseEntity<MenuDto> updateMenu(@PathVariable long id,
+                                              @RequestBody MenuDto menuDto,
+                                              @RequestHeader("Authorization") Long requestToken) {
+        MenuDto updatedMenu = menuService.updateMenu(id, menuDto, requestToken);
         return ResponseEntity.ok(updatedMenu);
     }
 
-    @DeleteMapping(value = "/deleteMenu/{id}")
+    @PatchMapping("/{id}")
+    public ResponseEntity<MenuDto> patchMenu(
+            @PathVariable Long id,
+            @RequestBody MenuDto menuDto,
+            @RequestHeader("Authorization") Long requestToken) {
+        try {
+            if (!menuService.verifyToken(id, requestToken)) {
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            }
+            MenuDto patchedMenu = menuService.patchMenu(id, menuDto);
+            return ResponseEntity.ok(patchedMenu);
+        } catch (RuntimeException e) {
+            if (e instanceof NoSuchElementException) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            } else {
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }
+    }
+
+    @DeleteMapping(value = "/{id}")
     public ResponseEntity<Long> deleteDish(@PathVariable Long id) {
         menuService.deleteMenu(id);
         return new ResponseEntity<>(id, HttpStatus.OK);
