@@ -129,10 +129,10 @@ public class RestaurantService {
     }
 
     private double calculateAverageRating(List<Review> reviews, ToIntFunction<Review> ratingExtractor) {
-        return reviews.stream()
+        return (double) Math.round(reviews.stream()
                 .mapToInt(ratingExtractor)
                 .average()
-                .orElse(0);
+                .orElse(0) * 10) / 10;
     }
 
     public boolean verifyToken(Long restaurantId, Long requestToken) {

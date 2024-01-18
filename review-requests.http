@@ -14,3 +14,16 @@ Content-Type: application/json
   "food": 1,
   "service": 1
 }
+
+###
+POST http://localhost:8010/reviews
+Content-Type: application/json
+
+{
+  "restaurantId": 1,
+  "token": 11234567899002,
+  "atmosphere": 5,
+  "comment": "good",
+  "food": 5,
+  "service": 5
+}

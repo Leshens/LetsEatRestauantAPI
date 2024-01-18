@@ -41,11 +41,6 @@ public class ReviewService {
         }
 
         Review review = reviewMapper.toEntity(reviewDto);
-//        review.setService(reviewDto.getService());
-//        review.setFood(reviewDto.getFood());
-//        review.setAtmosphere(reviewDto.getAtmosphere());
-//        Review savedReview = reviewRepository.save(review);
-//        return reviewMapper.toDto(savedReview);
         return reviewMapper.toDto(reviewRepository.save(review));
     }
 

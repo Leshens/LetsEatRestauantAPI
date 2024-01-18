@@ -17,5 +17,5 @@ public class RestaurantListDto {
     private List<TableDto> tables;
     @Setter
     @Getter
-    private Short stars;
+    private double stars;
 }

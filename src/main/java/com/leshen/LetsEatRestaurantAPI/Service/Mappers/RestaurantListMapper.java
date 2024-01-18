@@ -20,17 +20,15 @@ public interface RestaurantListMapper {
     RestaurantListDto toEntity(Restaurant restaurant);
 
     @Named("calculateStars")
-    default Short calculateStars(List<Review> reviews) {
+    default double calculateStars(List<Review> reviews) {
         if (reviews == null || reviews.isEmpty()) {
             return 0;
         }
 
-        double averageRating = reviews.stream()
+        return (double) Math.round(reviews.stream()
                 .mapToDouble(review -> (review.getService() + review.getFood() + review.getAtmosphere()) / 3.0)
                 .average()
-                .orElse(0);
-
-        return (short) Math.round(averageRating);
+                .orElse(0) * 10) / 10;
     }
 
     @Named("toDto")
