@@ -1,9 +1,18 @@
 ###
-POST http://localhost:8010/reviews
+GET http://localhost:8010/api/reviews/restaurant/1
 Content-Type: application/json
 
 ###
-POST http://localhost:8010/reviews
+GET http://localhost:8010/api/reviews
+Content-Type: application/json
+
+###
+GET http://localhost:8010/api/reviews/1
+Content-Type: application/json
+
+
+###
+POST http://localhost:8010/api/reviews
 Content-Type: application/json
 
 {
@@ -16,14 +25,33 @@ Content-Type: application/json
 }
 
 ###
-POST http://localhost:8010/reviews
+POST http://localhost:8010/api/reviews
 Content-Type: application/json
 
 {
   "restaurantId": 1,
   "token": 11234567899002,
   "atmosphere": 5,
-  "comment": "good",
+  "comment": "weird taste",
+  "food": 3,
+  "service": 5
+}
+
+
+###
+PATCH  http://localhost:8010/api/reviews/1
+Authorization: 11234567899009
+Content-Type: application/json
+
+{
+  "restaurantId": 1,
+  "token": 11234567899009,
+  "atmosphere": 5,
+  "comment": "excellent",
   "food": 5,
   "service": 5
 }
+
+###
+DELETE http://localhost:8010/api/reviews/1
+Authorization: 11234567899009
