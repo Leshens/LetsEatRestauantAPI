@@ -86,14 +86,42 @@ public class RestaurantController {
             @PathVariable long id,
             @RequestBody RestaurantDto updatedRestaurantDto,
             @RequestHeader("Authorization") Long requestToken) {
-        RestaurantDto updatedDto = restaurantService.updateRestaurant(id, updatedRestaurantDto, requestToken);
-        return ResponseEntity.ok(updatedDto);
+        try {
+            if (!restaurantService.verifyToken(id, requestToken)) {
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            }
+
+            RestaurantDto updatedDto = restaurantService.updateRestaurant(id, updatedRestaurantDto, requestToken);
+            return ResponseEntity.ok(updatedDto);
+
+        } catch (RuntimeException e) {
+            if (e instanceof NoSuchElementException) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            } else {
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }
+
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<Long> deleteRestaurant(@PathVariable Long id,
                                                  @RequestHeader("Authorization") Long requestToken) {
-       restaurantService.deleteRestaurant(id);
-        return new ResponseEntity<>(id, HttpStatus.OK);
+        try {
+            if (!restaurantService.verifyToken(id, requestToken)) {
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            }
+
+            restaurantService.deleteRestaurant(id);
+            return new ResponseEntity<>(id, HttpStatus.OK);
+
+        } catch (RuntimeException e) {
+            if (e instanceof NoSuchElementException) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            } else {
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }
+
     }
 
     @PatchMapping("/{id}")
