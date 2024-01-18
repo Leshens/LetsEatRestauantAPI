@@ -40,11 +40,23 @@ public class MenuController {
         return new ResponseEntity<>(menu, HttpStatus.OK);
     }
     @PutMapping("/{id}")
-    public ResponseEntity<MenuDto> updateMenu(@PathVariable long id,
-                                              @RequestBody MenuDto menuDto,
-                                              @RequestHeader("Authorization") Long requestToken) {
-        MenuDto updatedMenu = menuService.updateMenu(id, menuDto, requestToken);
-        return ResponseEntity.ok(updatedMenu);
+    public ResponseEntity<MenuDto> updateMenu(
+            @PathVariable long id,
+            @RequestBody MenuDto menuDto,
+            @RequestHeader("Authorization") Long requestToken) {
+        try {
+            if (!menuService.verifyToken(id, requestToken)) {
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            }
+            MenuDto updatedMenu = menuService.updateMenu(id, menuDto, requestToken);
+            return ResponseEntity.ok(updatedMenu);
+        } catch (RuntimeException e) {
+            if (e instanceof NoSuchElementException) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            } else {
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }
     }
 
     @PatchMapping("/{id}")
@@ -67,10 +79,24 @@ public class MenuController {
         }
     }
 
-    @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Long> deleteDish(@PathVariable Long id) {
-        menuService.deleteMenu(id);
-        return new ResponseEntity<>(id, HttpStatus.OK);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Long> deleteMenu(
+            @PathVariable Long id,
+            @RequestHeader("Authorization") Long requestToken) {
+        try {
+            if (!menuService.verifyToken(id, requestToken)) {
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            }
+            menuService.deleteMenu(id);
+            return new ResponseEntity<>(id, HttpStatus.OK);
+        } catch (RuntimeException e) {
+            if (e instanceof NoSuchElementException) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            } else {
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }
+
     }
 
 }
