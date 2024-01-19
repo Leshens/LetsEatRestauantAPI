@@ -1,69 +1,149 @@
 package com.leshen.LetsEatRestaurantAPI.Controller;
 
+import com.leshen.LetsEatRestaurantAPI.Contract.RestaurantDto;
+import com.leshen.LetsEatRestaurantAPI.Contract.RestaurantListDto;
+import com.leshen.LetsEatRestaurantAPI.Contract.RestaurantPanelDto;
 import com.leshen.LetsEatRestaurantAPI.Model.Restaurant;
 import com.leshen.LetsEatRestaurantAPI.Repository.RestaurantRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.leshen.LetsEatRestaurantAPI.Service.RestaurantService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @RestController
 @CrossOrigin("http://localhost:3000")
+@RequiredArgsConstructor
+@RequestMapping("/api/restaurants") // Common base path for all restaurant-related endpoints
 public class RestaurantController {
 
-    @Autowired
-    private RestaurantRepository restaurantRepository;
+    private final RestaurantService restaurantService;
+    @PostMapping
+    public ResponseEntity<Long> newRestaurant(@RequestBody RestaurantDto newRestaurantDto){
+       Long id = restaurantService.createRestaurant(newRestaurantDto);
 
-    @PostMapping("/restaurant")
-    Restaurant newRestaurant(@RequestBody Restaurant newRestaurant){
-        return restaurantRepository.save(newRestaurant);
-    }
-    @GetMapping("/restaurants")
-    public ResponseEntity<List<Restaurant>> getAllRestaurants(){
-        return new ResponseEntity<>(restaurantRepository.findAll(), HttpStatus.OK);
-    }
-    @GetMapping("/restaurant/{id}")
-    public ResponseEntity<Restaurant> getById(@PathVariable long id) {
+        var uri = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/id/{id}")
+                .buildAndExpand(id)
+                .toUri();
 
-        Optional<Restaurant> restaurant = restaurantRepository.findById(id);
-        if (restaurant.isPresent()) {
-            return new ResponseEntity<>(restaurant.get(), HttpStatus.OK);
+        return ResponseEntity.created(uri).build();
+
+    }
+    @GetMapping
+    public ResponseEntity<List<RestaurantDto>> getAllRestaurants(){
+        List<RestaurantDto> restaurants = restaurantService.getAllRestaurants();
+        return new ResponseEntity<>(restaurants, HttpStatus.OK);
+    }
+    @GetMapping("/search")
+    public ResponseEntity<List<RestaurantListDto>> searchRestaurantsInRadius(
+            @RequestParam double latitude,
+            @RequestParam double longitude,
+            @RequestParam double radius) {
+        System.out.println("Latitude: " + latitude);
+        System.out.println("Longitude: " + longitude);
+        System.out.println("Radius: " + radius);
+
+        List<RestaurantListDto> restaurants = restaurantService.findRestaurantsInRadius(latitude, longitude, radius);
+
+        if (restaurants.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(restaurants, HttpStatus.FOUND);
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity<RestaurantDto> getById(@PathVariable long id) {
+        Optional<RestaurantDto> restaurant = restaurantService.getRestaurantById(id);
+        return restaurant.map(dto -> new ResponseEntity<>(dto, HttpStatus.OK))
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Restaurant not found"));
+    }
+    @GetMapping("/panel/{id}")
+    public ResponseEntity<RestaurantPanelDto> getRestaurant(@PathVariable Long id) {
+        RestaurantPanelDto restaurantPanelDto = restaurantService.getRestaurantPanelById(id);
+
+        if (restaurantPanelDto != null) {
+            return ResponseEntity.ok(restaurantPanelDto);
         } else {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "Restaurant not found"
-            );
+            return ResponseEntity.notFound().build();
         }
     }
-    @PutMapping("updateRestaurant/{id}")
-    public ResponseEntity<Restaurant> updateRestaurant(@PathVariable long id,@RequestBody Restaurant restaurant) {
-        Restaurant updateRestaurant = restaurantRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(
-                        HttpStatus.NOT_FOUND, "Restaurant not found"
-                ));
-        
-        updateRestaurant.setToken(restaurant.getToken());
-        updateRestaurant.setRestaurantName(restaurant.getRestaurantName());
-        updateRestaurant.setLocation(restaurant.getLocation());
-        updateRestaurant.setRestaurantCategory(restaurant.getRestaurantCategory());
-
-        restaurantRepository.save(updateRestaurant);
-
-        return ResponseEntity.ok(updateRestaurant);
+    @GetMapping("/token/{token}")
+    public ResponseEntity<RestaurantDto> getByToken(@PathVariable String token) {
+        Optional<RestaurantDto> restaurant = restaurantService.getRestaurantByToken(token);
+        return restaurant.map(dto -> new ResponseEntity<>(dto, HttpStatus.OK))
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Restaurant not found"));
     }
-    @DeleteMapping(value = "/deleteRestaurant/{id}")
-    public ResponseEntity<Long> deleteRestaurant(@PathVariable Long id) {
+    @PutMapping("/{id}")
+    public ResponseEntity<RestaurantDto> updateRestaurant(
+            @PathVariable long id,
+            @RequestBody RestaurantDto updatedRestaurantDto,
+            @RequestHeader("Authorization") String requestToken) {
+        try {
+            if (!restaurantService.verifyToken(id, requestToken)) {
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            }
 
-        if (!restaurantRepository.existsById(id)) {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "Restaurant not found"
-            );
+            RestaurantDto updatedDto = restaurantService.updateRestaurant(id, updatedRestaurantDto, requestToken);
+            return ResponseEntity.ok(updatedDto);
+
+        } catch (RuntimeException e) {
+            if (e instanceof NoSuchElementException) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            } else {
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
         }
-        restaurantRepository.deleteById(id);
-        return new ResponseEntity<>(id, HttpStatus.OK);
 
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Long> deleteRestaurant(@PathVariable Long id,
+                                                 @RequestHeader("Authorization") String requestToken) {
+        try {
+            if (!restaurantService.verifyToken(id, requestToken)) {
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            }
+
+            restaurantService.deleteRestaurant(id);
+            return new ResponseEntity<>(id, HttpStatus.OK);
+
+        } catch (RuntimeException e) {
+            if (e instanceof NoSuchElementException) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            } else {
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }
+
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<RestaurantDto> patchRestaurant(
+            @PathVariable Long id,
+            @RequestBody RestaurantDto restaurantDto,
+            @RequestHeader("Authorization") String requestToken) {
+
+        try {
+            if (!restaurantService.verifyToken(id, requestToken)) {
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            }
+
+            RestaurantDto patchedRestaurant = restaurantService.patchRestaurant(id, restaurantDto);
+            return ResponseEntity.ok(patchedRestaurant);
+
+        } catch (RuntimeException e) {
+            if (e instanceof NoSuchElementException) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            } else {
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }
     }
 }

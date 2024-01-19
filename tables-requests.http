@@ -1,0 +1,27 @@
+###
+POST http://localhost:8010/api/tables
+Content-Type: application/json
+
+{"token": "11a234v5678b99009","size": 2, "restaurantId": 1}
+
+###
+GET http://localhost:8010/api/tables
+
+###
+GET http://localhost:8010/api/tables/1
+
+###
+
+GET http://localhost:8010/api/tables/restaurant/1
+
+###
+PATCH http://localhost:8010/api/tables/1
+Authorization: "11a234v5678b99009"
+Content-Type: application/json
+
+{"tableId": 1,"token": "11a234v5678b99009","size": 6, "restaurantId": 1}
+
+###
+DELETE http://localhost:8010/api/tables/1
+Authorization: "11a234v5678b99009"
+Content-Type: application/json

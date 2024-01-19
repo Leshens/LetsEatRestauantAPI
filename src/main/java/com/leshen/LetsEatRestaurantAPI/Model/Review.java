@@ -5,16 +5,29 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity @Data
+import java.time.LocalDate;
+import java.util.Date;
+
+@Entity
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Tables {
+public class Review {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long tableId;
+    private Long reviewId;
+
     private String token;
-    private Short size;
+    private String comment;
+
+    private LocalDate date;
 
     @ManyToOne
     private Restaurant restaurant;
+
+    private int service;
+    private int food;
+    private int atmosphere;
+
 }

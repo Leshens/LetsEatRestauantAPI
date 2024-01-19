@@ -1,0 +1,120 @@
+###
+POST http://localhost:8010/api/restaurants
+Content-Type: application/json
+
+{
+  "token": "11a234v5678b99009",
+  "restaurantName": "Kanm's Restrant",
+  "location": "Sebastiana Klonowicza 71A, 80-408 Gdańsk",
+  "restaurantCategory": "AMERICAN",
+  "openingHours":"1AM - 6PM",
+  "photoLink":"http://dummyimage.com/232x100.png/dddddd/000000",
+  "websiteLink":"https://mapquest.com",
+  "longitude": 18.63118184501924,
+  "latitude": 54.389664259311665,
+  "phoneNumber":"6025076729"
+}
+###
+POST http://localhost:8010/api/restaurants
+Content-Type: application/json
+
+{
+  "token": "11a234v5678b99009",
+  "restaurantName": "Lidl",
+  "location": "Bolesława Chrobrego 75, 80-414 Gdańsk",
+  "restaurantCategory": "AMERICAN",
+  "openingHours":"1AM - 6PM",
+  "photoLink":"http://dummyimage.com/232x100.png/dddddd/000000",
+  "websiteLink":"https://mapquest.com",
+  "longitude": 18.619154555526286,
+  "latitude": 54.39013564180321,
+  "phoneNumber":"6025076729"
+}
+
+###
+POST http://localhost:8010/api/restaurants
+Content-Type: application/json
+
+{
+  "token": "11a234v5678b99009",
+  "restaurantName": "Gildia Gdańska S.A.",
+  "location": "aleja Rzeczypospolitej 33B, 80-463 Gdańsk",
+  "restaurantCategory": "AMERICAN",
+  "openingHours":"1AM - 6PM",
+  "photoLink":"http://dummyimage.com/232x100.png/dddddd/000000",
+  "websiteLink":"https://mapquest.com",
+  "longitude": 18.611865777114193,
+  "latitude": 54.390447657821795,
+  "phoneNumber":"6025076729"
+}
+###
+GET http://localhost:8010/api/restaurants
+
+###
+GET http://localhost:8010/api/restaurants/token/11234567899009
+
+###
+GET http://localhost:8010//api/restaurants/1
+
+###
+PUT http://localhost:8010/api/restaurants/2
+Authorization: "11a234v5678b99009"
+Content-Type: application/json
+
+{
+  "token": "11a234v5678b99009",
+  "restaurantName": "Kamm's Restant",
+  "location": "Klonowicza 71A",
+  "restaurantCategory": "AMERICAN",
+  "openingHours":"2AM - 8PM",
+  "photoLink":"http://dummyimage.com/232x100.png/dddddd/000000",
+  "websiteLink":"https://mapquest.com",
+  "longitude": 18.63118184501924,
+  "latitude": 54.389664259311665,
+  "phoneNumber":"6025076729"
+}
+
+###
+PATCH http://localhost:8010/api/restaurants/1
+Authorization: "11a234v5678b99009"
+Content-Type: application/json
+
+{
+  "token": "11a234v5678b99009",
+  "restaurantName": "Kamm's Restant",
+  "location": "Klonowicza 71A",
+  "restaurantCategory": "MEXICAN",
+  "openingHours":"2AM - 8PM",
+  "photoLink":"http://dummyimage.com/232x100.png/dddddd/000000",
+  "websiteLink":"https://mapquest.com",
+  "longitude": 18.63118184501924,
+  "latitude": 54.389664259311665,
+  "phoneNumber":"6025076729"
+}
+###
+GET http://localhost:8010/api/restaurants/panel/1
+
+// tylko Kanm's Restrant
+###
+GET http://localhost:8010/api/restaurants/search?latitude=54.389664259311665&longitude=18.63118184501924&radius=0.5
+
+// tylko Kanm's Restrant i Lidl
+###
+GET http://localhost:8010/api/restaurants/search?latitude=54.389664259311665&longitude=18.63118184501924&radius=1
+
+//Kanm's Restrant i Lidl i Gildia Gdańska S.A.
+###
+GET http://localhost:8010/api/restaurants/search?latitude=54.389664259311665&longitude=18.63118184501924&radius=2
+
+
+//bad token
+###
+DELETE http://localhost:8010/api/restaurants/1
+Authorization: "36627189ba"
+
+
+//good token
+###
+DELETE http://localhost:8010/api/restaurants/1
+Authorization: "11a234v5678b99009"
+

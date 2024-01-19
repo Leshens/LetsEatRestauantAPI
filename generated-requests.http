@@ -1,5 +1,5 @@
 ###
-POST http://localhost:8080/restaurant
+POST http://localhost:8010/restaurant
 Content-Type: application/json
 
 {
@@ -13,13 +13,13 @@ Content-Type: application/json
 <> 2023-12-05T145746.200.json
 
 ###
-GET http://localhost:8080/restaurants
+GET http://localhost:8010/restaurants
 
 <> 2023-12-05T145916.200.json
 <> 2023-12-05T145358.200.json
 
 ###
-PUT http://localhost:8080/updateRestaurant/102
+PUT http://localhost:8010/updateRestaurant/10
 Content-Type: application/json
 
 {
@@ -30,21 +30,21 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:8080/restaurant/102
+GET http://localhost:8010/restaurant/102
 
 <> 2023-12-07T141749.200.json
 <> 2023-12-05T145944.200.json
 <> 2023-12-05T145358-1.200.json
 
 ###
-DELETE http://localhost:8080/deleteRestaurant/102
+DELETE http://localhost:8010/deleteRestaurant/102
 
 <> 2023-12-07T141755.200.json
 <> 2023-12-05T145358-2.200.json
 
 ####################################
 ###
-POST http://localhost:8080/menu
+POST http://localhost:8010/menu
 Content-Type: application/json
 
 {
@@ -57,13 +57,13 @@ Content-Type: application/json
 <> 2023-12-07T141806.200.json
 
 ###
-GET http://localhost:8080/menu/105
+GET http://localhost:8010/menu/105
 
 <> 2023-12-07T144148.200.json
 <> 2023-12-07T144046.404.json
 
 ###
-PUT http://localhost:8080/updateMenu/2
+PUT http://localhost:8010/updateMenu/2
 Content-Type: application/json
 
 {
@@ -76,12 +76,12 @@ Content-Type: application/json
 <> 2023-12-07T144212.200.json
 
 ###
-DELETE http://localhost:8080/deleteMenu/2
+DELETE http://localhost:8010/deleteMenu/2
 
 <> 2023-12-07T144223.200.json
 ################################
 ###
-POST http://localhost:8080/table
+POST http://localhost:8010/table
 Content-Type: application/json
 
 {
@@ -97,13 +97,13 @@ Content-Type: application/json
 <> 2023-12-07T144240.200.json
 
 ###
-GET http://localhost:8080/tables
+GET http://localhost:8010/tables
 
 ###
-GET http://localhost:8080/table/1
+GET http://localhost:8010/table/1
 
 ###
-PUT http://localhost:8080/updateTables/3
+PUT http://localhost:8010/updateTables/3
 Content-Type: application/json
 
 {
@@ -115,9 +115,61 @@ Content-Type: application/json
   "eightOs": 7
 }
 ###
-DELETE http://localhost:8080/deleteTable/1
+DELETE http://localhost:8010/deleteTable/1
 
 
 
 ###
-GET http://localhost:8080/menu/1
+GET http://localhost:8010/menu/1
+
+###
+GET http://localhost:8010/search?latitude=23.723418&longitude=114.255942&radius=10
+
+###
+GET http://localhost:8010/restaurants
+
+###
+POST http://localhost:8010/table
+Content-Type: application/json
+
+{"restaurantId": 5,
+  "token": 1520218166,
+  "twoOs": 2,
+  "fourOs": 4,
+  "sixOs": 6,
+  "eightOs": 8
+}
+
+###
+DELETE http://localhost:8010/deleteTable/2
+
+###
+POST http://localhost:8010/table
+Content-Type: application/json
+
+{
+  "size": 3,
+  "tableId": 6,
+  "restaurantId": 5,
+  "token": 1520218166
+}
+
+###
+GET http://localhost:8010/tables
+
+###
+GET http://localhost:8010/panel/5
+
+
+###
+POST http://localhost:8010/menu
+Content-Type: application/json
+
+{
+  "token": 1520218166,
+  "restaurantId": 5,
+  "name": "Pizza",
+  "price": 10.00
+}
+
+

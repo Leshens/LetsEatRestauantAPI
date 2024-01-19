@@ -1,9 +1,6 @@
 package com.leshen.LetsEatRestaurantAPI.Model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,8 +12,19 @@ public class Menu {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long menuId;
-    private Long restaurantId;
-    private Long token;
+    private String token;
     private String name;
     private Float price;
+    @ManyToOne
+    private Restaurant restaurant;
+
+    @Override
+    public String toString() {
+        return "Menu{" +
+                "menuId=" + menuId +
+                ", token=" + token +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                '}';
+    }
 }

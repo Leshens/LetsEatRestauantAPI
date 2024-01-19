@@ -1,75 +1,93 @@
 package com.leshen.LetsEatRestaurantAPI.Controller;
 
-import com.leshen.LetsEatRestaurantAPI.Model.Tables;
-import com.leshen.LetsEatRestaurantAPI.Repository.TablesRepository;
+import com.leshen.LetsEatRestaurantAPI.Contract.RestaurantDto;
+import com.leshen.LetsEatRestaurantAPI.Contract.ReviewDto;
+import com.leshen.LetsEatRestaurantAPI.Service.TableService;
+import com.leshen.LetsEatRestaurantAPI.Contract.TableDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.net.URI;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @RestController
 @CrossOrigin("http://localhost:3000")
+@RequestMapping("/api/tables")
 public class TablesController {
 
     @Autowired
-    private TablesRepository tablesRepository;
+    private TableService tableService;
 
-    @PostMapping("/table")
-    Tables newTables(@RequestBody Tables newTables){
-        return tablesRepository.save(newTables);
+    @PostMapping
+    public ResponseEntity<Long> newTable(@RequestBody TableDto newTableDto) {
+        Long id = tableService.createTable(newTableDto);
+        return ResponseEntity.created(URI.create("/table/" + id)).build();
     }
 
-    @GetMapping("/tables")
-    public ResponseEntity<List<Tables>> getAllTables(){
-        return new ResponseEntity<>(tablesRepository.findAll(), HttpStatus.OK);
+    @GetMapping
+    public ResponseEntity<List<TableDto>> getAllTables() {
+        List<TableDto> tableDtos = tableService.getAllTables();
+        return new ResponseEntity<>(tableDtos, HttpStatus.OK);
     }
 
-    @GetMapping("/table/{id}")
-    public ResponseEntity<Tables> getById(@PathVariable long id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<TableDto> getById(@PathVariable long id) {
+        Optional<TableDto> tableDto = tableService.getTableById(id);
+        return tableDto.map(dto -> new ResponseEntity<>(dto, HttpStatus.OK))
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Table not found"));
+    }
 
-        Optional<Tables> tables = tablesRepository.findById(id);
-        if (tables.isPresent()) {
-            return new ResponseEntity<>(tables.get(), HttpStatus.OK);
-        } else {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "Table not found"
-            );
+    @GetMapping("/restaurant/{restaurantId}")
+    public ResponseEntity<List<TableDto>> getTablesForRestaurant(@PathVariable Long restaurantId) {
+        List<TableDto> tables = tableService.getTablesForRestaurant(restaurantId);
+        return new ResponseEntity<>(tables, HttpStatus.OK);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<TableDto> patchTable(
+            @PathVariable Long id,
+            @RequestBody TableDto tableDto,
+            @RequestHeader("Authorization") String requestToken) {
+        try {
+            if (!tableService.verifyToken(id, requestToken)) {
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            }
+
+            TableDto patchedTable = tableService.patchTable(id, tableDto);
+            return ResponseEntity.ok(patchedTable);
+
+        } catch (RuntimeException e) {
+            if (e instanceof NoSuchElementException) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            } else {
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
         }
     }
 
-    @PutMapping("updateTables/{id}")
-    public ResponseEntity<Tables> updateTables(@PathVariable long id,@RequestBody Tables tables) {
-        Tables updateTables = tablesRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(
-                        HttpStatus.NOT_FOUND, "Table not found"
-                ));
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Long> deleteTable(
+            @PathVariable Long id,
+            @RequestHeader("Authorization") String requestToken) {
+        try {
+            if (!tableService.verifyToken(id, requestToken)) {
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            }
 
-        updateTables.setToken(tables.getToken());
-        updateTables.setRestaurantId(tables.getRestaurantId());
-        updateTables.setTwoOs(tables.getTwoOs());
-        updateTables.setFourOs(tables.getFourOs());
-        updateTables.setSixOs(tables.getSixOs());
-        updateTables.setEightOs(tables.getEightOs());
+            tableService.deleteTable(id);
+            return new ResponseEntity<>(id, HttpStatus.OK);
 
-        tablesRepository.save(updateTables);
-
-        return ResponseEntity.ok(updateTables);
-    }
-
-    @DeleteMapping(value = "/deleteTable/{id}")
-    public ResponseEntity<Long> deleteTable(@PathVariable Long id) {
-
-        if (!tablesRepository.existsById(id)) {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "Table not found"
-            );
+        } catch (RuntimeException e) {
+            if (e instanceof NoSuchElementException) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            } else {
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
         }
-        tablesRepository.deleteById(id);
-        return new ResponseEntity<>(id, HttpStatus.OK);
-
     }
 }
