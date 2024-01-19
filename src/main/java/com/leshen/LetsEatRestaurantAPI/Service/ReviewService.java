@@ -7,7 +7,6 @@ import com.leshen.LetsEatRestaurantAPI.Repository.RestaurantRepository;
 import com.leshen.LetsEatRestaurantAPI.Repository.ReviewRepository;
 import com.leshen.LetsEatRestaurantAPI.Service.Mappers.RestaurantMapper;
 import com.leshen.LetsEatRestaurantAPI.Service.Mappers.ReviewMapper;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;

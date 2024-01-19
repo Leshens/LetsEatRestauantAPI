@@ -39,13 +39,13 @@ Content-Type: application/json
 
 
 ###
-PATCH  http://localhost:8010/api/reviews/1
-Authorization: 11234567899009
+PATCH  http://localhost:8010/api/reviews/5
+Authorization: 11234567899002
 Content-Type: application/json
 
 {
   "restaurantId": 1,
-  "token": 11234567899009,
+  "token": 11234567899002,
   "atmosphere": 5,
   "comment": "excellent",
   "food": 5,
@@ -53,5 +53,10 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:8010/api/reviews/1
+DELETE http://localhost:8010/api/reviews/4
 Authorization: 11234567899009
+//401
+###
+DELETE http://localhost:8010/api/reviews/4
+Authorization: 11234567899002
+//200
