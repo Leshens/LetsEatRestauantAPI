@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -53,7 +54,7 @@ public class ReviewService {
     }
 
     private boolean isReviewWithinHalfYear(ReviewDto reviewDto) {
-        LocalDateTime halfYearAgo = LocalDateTime.now().minusMonths(6);
+        LocalDate halfYearAgo = LocalDate.now().minusMonths(6);
         List<Review> reviewsWithSameToken = reviewRepository.findByTokenAndDateAfter(
                 reviewDto.getToken(), halfYearAgo);
 
