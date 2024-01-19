@@ -54,7 +54,9 @@ public class TableService {
                 .map(tableMapper::toDto)
                 .collect(Collectors.toList());
     }
-    public List<TableDto> getTablesForRestaurant(Restaurant restaurant) {
+    public List<TableDto> getTablesForRestaurant(Long restaurantId) {
+        Restaurant restaurant = new Restaurant();
+        restaurant.setRestaurantId(restaurantId);
         List<Tables> tablesEntities = tablesRepository.findByRestaurant(restaurant);
         return tablesEntities.stream()
                 .map(tableMapper::toDto)

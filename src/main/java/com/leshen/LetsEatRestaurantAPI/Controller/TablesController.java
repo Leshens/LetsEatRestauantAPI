@@ -1,6 +1,7 @@
 package com.leshen.LetsEatRestaurantAPI.Controller;
 
 import com.leshen.LetsEatRestaurantAPI.Contract.RestaurantDto;
+import com.leshen.LetsEatRestaurantAPI.Contract.ReviewDto;
 import com.leshen.LetsEatRestaurantAPI.Service.TableService;
 import com.leshen.LetsEatRestaurantAPI.Contract.TableDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,11 +42,11 @@ public class TablesController {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Table not found"));
     }
 
-//    @PutMapping("/{id}")
-//    public ResponseEntity<TableDto> updateTables(@PathVariable long id, @RequestBody TableDto tableDto) {
-//        tableService.updateTable(id, tableDto);
-//        return ResponseEntity.ok().build();
-//    }
+    @GetMapping("/restaurant/{restaurantId}")
+    public ResponseEntity<List<TableDto>> getTablesForRestaurant(@PathVariable Long restaurantId) {
+        List<TableDto> tables = tableService.getTablesForRestaurant(restaurantId);
+        return new ResponseEntity<>(tables, HttpStatus.OK);
+    }
 
     @PatchMapping("/{id}")
     public ResponseEntity<TableDto> patchTable(

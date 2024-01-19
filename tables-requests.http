@@ -11,6 +11,10 @@ GET http://localhost:8010/api/tables
 GET http://localhost:8010/api/tables/1
 
 ###
+
+GET http://localhost:8010/api/tables/restaurant/1
+
+###
 PATCH http://localhost:8010/api/tables/1
 Authorization: "11a234v5678b99009"
 Content-Type: application/json
