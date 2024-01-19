@@ -3,7 +3,7 @@ POST http://localhost:8010/api/menus
 Content-Type: application/json
 
 {
-  "token": 11234567899009,
+  "token": "11a234v5678b99009",
   "price": 10.20,
   "name": "Pizza",
   "restaurantId": 1
@@ -16,16 +16,16 @@ GET http://localhost:8010/api/menus/1
 
 ###
 DELETE http://localhost:8010/api/menus/1
-Authorization: 11234567899009
+Authorization: "11a234v5678b99009"
 Content-Type: application/json
 
 ###
 PATCH http://localhost:8010/api/menus/1
-Authorization: 11234567899009
+Authorization: "11a234v5678b99009"
 Content-Type: application/json
 
 {
-  "token": 11234567899009,
+  "token": "11a234v5678b99009",
   "price": 15.5,
   "name": "Spaghetti",
   "restaurantId": 1

@@ -17,7 +17,7 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long reviewId;
 
-    private Long token;
+    private String token;
     private String comment;
 
     @Temporal(TemporalType.TIMESTAMP)

@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
-    Optional<Restaurant> findByToken(Long token);
+    Optional<Restaurant> findByToken(String token);
     @Query(value = "SELECT r.*, "
             + " (6371 * acos( "
             + " cos(radians(:search_latitude)) * cos(radians(r.latitude)) "

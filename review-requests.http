@@ -17,7 +17,7 @@ Content-Type: application/json
 
 {
   "restaurantId": 1,
-  "token": 11234567899002,
+  "token": "11a234v5678b99009",
   "atmosphere": 1,
   "comment": "bad",
   "food": 1,
@@ -30,7 +30,7 @@ Content-Type: application/json
 
 {
   "restaurantId": 1,
-  "token": 11234567899002,
+  "token": "11a234v5678b99009",
   "atmosphere": 5,
   "comment": "weird taste",
   "food": 3,
@@ -40,12 +40,12 @@ Content-Type: application/json
 
 ###
 PATCH  http://localhost:8010/api/reviews/1
-Authorization: 11234567899009
+Authorization: "11a234v5678b99009"
 Content-Type: application/json
 
 {
   "restaurantId": 1,
-  "token": 11234567899009,
+  "token": "11a234v5678b99009",
   "atmosphere": 5,
   "comment": "excellent",
   "food": 5,
@@ -54,4 +54,4 @@ Content-Type: application/json
 
 ###
 DELETE http://localhost:8010/api/reviews/1
-Authorization: 11234567899009
+Authorization: "11a234v5678b99009"

@@ -17,7 +17,7 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     Optional<Double> findAverageRatingByRestaurant(@Param("restaurant") Restaurant restaurant);
 
     @Query("SELECT r.token, MAX(r.date) FROM Review r WHERE r.token = :token")
-    Optional<Object[]> findLatestReviewTokenDate(@Param("token") Long token);
+    Optional<Object[]> findLatestReviewTokenDate(@Param("token") String token);
 
-    List<Review> findByTokenAndDateAfter(Long token, LocalDateTime date);
+    List<Review> findByTokenAndDateAfter(String token, LocalDateTime date);
 }

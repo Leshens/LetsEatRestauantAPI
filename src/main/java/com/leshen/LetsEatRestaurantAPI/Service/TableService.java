@@ -61,7 +61,7 @@ public class TableService {
                 .collect(Collectors.toList());
     }
 
-    public boolean verifyToken(Long tableId, Long requestToken) {
+    public boolean verifyToken(Long tableId, String requestToken) {
         try {
             Tables tables = tablesRepository.findById(tableId).get();
             return tables.getToken().equals(requestToken);

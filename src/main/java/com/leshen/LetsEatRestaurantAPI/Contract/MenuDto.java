@@ -6,7 +6,7 @@ import lombok.*;
 public class MenuDto {
 
     private Long restaurantId;
-    private Long token;
+    private String token;
     private String name;
     private Float price;
 }

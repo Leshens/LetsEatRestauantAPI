@@ -12,6 +12,6 @@ import lombok.Setter;
 public class TableDto {
     private Long tableId;
     private Long restaurantId;
-    private Long token;
+    private String token;
     private Short size;
 }

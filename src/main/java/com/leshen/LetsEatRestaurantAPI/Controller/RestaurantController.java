@@ -76,7 +76,7 @@ public class RestaurantController {
         }
     }
     @GetMapping("/token/{token}")
-    public ResponseEntity<RestaurantDto> getByToken(@PathVariable Long token) {
+    public ResponseEntity<RestaurantDto> getByToken(@PathVariable String token) {
         Optional<RestaurantDto> restaurant = restaurantService.getRestaurantByToken(token);
         return restaurant.map(dto -> new ResponseEntity<>(dto, HttpStatus.OK))
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Restaurant not found"));
@@ -85,7 +85,7 @@ public class RestaurantController {
     public ResponseEntity<RestaurantDto> updateRestaurant(
             @PathVariable long id,
             @RequestBody RestaurantDto updatedRestaurantDto,
-            @RequestHeader("Authorization") Long requestToken) {
+            @RequestHeader("Authorization") String requestToken) {
         try {
             if (!restaurantService.verifyToken(id, requestToken)) {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
@@ -105,7 +105,7 @@ public class RestaurantController {
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<Long> deleteRestaurant(@PathVariable Long id,
-                                                 @RequestHeader("Authorization") Long requestToken) {
+                                                 @RequestHeader("Authorization") String requestToken) {
         try {
             if (!restaurantService.verifyToken(id, requestToken)) {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
@@ -128,7 +128,7 @@ public class RestaurantController {
     public ResponseEntity<RestaurantDto> patchRestaurant(
             @PathVariable Long id,
             @RequestBody RestaurantDto restaurantDto,
-            @RequestHeader("Authorization") Long requestToken) {
+            @RequestHeader("Authorization") String requestToken) {
 
         try {
             if (!restaurantService.verifyToken(id, requestToken)) {

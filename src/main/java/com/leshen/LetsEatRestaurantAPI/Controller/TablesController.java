@@ -51,7 +51,7 @@ public class TablesController {
     public ResponseEntity<TableDto> patchTable(
             @PathVariable Long id,
             @RequestBody TableDto tableDto,
-            @RequestHeader("Authorization") Long requestToken) {
+            @RequestHeader("Authorization") String requestToken) {
         try {
             if (!tableService.verifyToken(id, requestToken)) {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
@@ -72,7 +72,7 @@ public class TablesController {
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Long> deleteTable(
             @PathVariable Long id,
-            @RequestHeader("Authorization") Long requestToken) {
+            @RequestHeader("Authorization") String requestToken) {
         try {
             if (!tableService.verifyToken(id, requestToken)) {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);

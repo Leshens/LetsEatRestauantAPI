@@ -23,14 +23,11 @@ import java.util.stream.Collectors;
 public class ReviewService {
 
     private final ReviewRepository reviewRepository;
-    private final RestaurantRepository restaurantRepository;
     private final ReviewMapper reviewMapper = ReviewMapper.INSTANCE;
-    private final RestaurantMapper restaurantMapper = RestaurantMapper.INSTANCE;
 
     @Autowired
-    public ReviewService(ReviewRepository reviewRepository, RestaurantRepository restaurantRepository){
-        this.reviewRepository = reviewRepository;
-        this.restaurantRepository = restaurantRepository;}
+    public ReviewService(ReviewRepository reviewRepository){
+        this.reviewRepository = reviewRepository;}
 
     public List<ReviewDto> getReviewsForRestaurant(Long restaurantId) {
         Restaurant restaurant = new Restaurant();
@@ -51,19 +48,6 @@ public class ReviewService {
         Review review = reviewMapper.toEntity(reviewDto);
         return reviewMapper.toDto(reviewRepository.save(review));
     }
-
-//    public void updateReview(Long id, ReviewDto reviewDto) {
-//        Review existingReview = reviewRepository.findById(id)
-//                .orElseThrow(() -> new ResponseStatusException(
-//                        HttpStatus.NOT_FOUND, "Review not found"
-//                ));
-//        existingReview.setService(reviewDto.getService());
-//        existingReview.setFood(reviewDto.getFood());
-//        existingReview.setAtmosphere(reviewDto.getAtmosphere());
-//        existingReview.setComment(reviewDto.getComment());
-//
-//        reviewRepository.save(existingReview);
-//    }
 
     public void deleteReview(Long id) {
         reviewRepository.deleteById(id);
@@ -94,7 +78,7 @@ public class ReviewService {
         return reviewMapper.toDto(reviewRepository.save(patchedReview));
     }
 
-    public boolean verifyToken(Long reviewId, Long requestToken) {
+    public boolean verifyToken(Long reviewId, String requestToken) {
         try {
             Review review = reviewRepository.findById(reviewId).get();
             return review.getToken().equals(requestToken);

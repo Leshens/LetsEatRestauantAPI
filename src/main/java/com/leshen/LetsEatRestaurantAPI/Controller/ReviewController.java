@@ -49,7 +49,7 @@ public class ReviewController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Long> deleteReview(
             @PathVariable Long id,
-            @RequestHeader("Authorization") Long requestToken) {
+            @RequestHeader("Authorization") String requestToken) {
         try {
             if (!reviewService.verifyToken(id, requestToken)) {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
@@ -71,7 +71,7 @@ public class ReviewController {
     public ResponseEntity<ReviewDto> patchReview(
             @PathVariable Long id,
             @RequestBody ReviewDto reviewDto,
-            @RequestHeader("Authorization") Long requestToken) {
+            @RequestHeader("Authorization") String requestToken) {
 
         try {
             if (!reviewService.verifyToken(id, requestToken)) {

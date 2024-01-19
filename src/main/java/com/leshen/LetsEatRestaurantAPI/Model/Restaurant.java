@@ -15,7 +15,7 @@ public class Restaurant {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long restaurantId;
-    private Long token;
+    private String token;
     private String restaurantName;
     private String location;
 

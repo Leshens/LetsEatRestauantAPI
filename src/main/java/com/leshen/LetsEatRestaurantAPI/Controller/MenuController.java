@@ -43,7 +43,7 @@ public class MenuController {
     public ResponseEntity<MenuDto> updateMenu(
             @PathVariable long id,
             @RequestBody MenuDto menuDto,
-            @RequestHeader("Authorization") Long requestToken) {
+            @RequestHeader("Authorization") String requestToken) {
         try {
             if (!menuService.verifyToken(id, requestToken)) {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
@@ -63,7 +63,7 @@ public class MenuController {
     public ResponseEntity<MenuDto> patchMenu(
             @PathVariable Long id,
             @RequestBody MenuDto menuDto,
-            @RequestHeader("Authorization") Long requestToken) {
+            @RequestHeader("Authorization") String requestToken) {
         try {
             if (!menuService.verifyToken(id, requestToken)) {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
@@ -82,7 +82,7 @@ public class MenuController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Long> deleteMenu(
             @PathVariable Long id,
-            @RequestHeader("Authorization") Long requestToken) {
+            @RequestHeader("Authorization") String requestToken) {
         try {
             if (!menuService.verifyToken(id, requestToken)) {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);

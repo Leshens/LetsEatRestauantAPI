@@ -12,7 +12,7 @@ public class Menu {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long menuId;
-    private Long token;
+    private String token;
     private String name;
     private Float price;
     @ManyToOne

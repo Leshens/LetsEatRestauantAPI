@@ -78,11 +78,11 @@ public class RestaurantService {
         return restaurantRepository.findById(id).map(restaurantMapper::toDto);
     }
 
-    public Optional<RestaurantDto> getRestaurantByToken(long token) {
+    public Optional<RestaurantDto> getRestaurantByToken(String token) {
         return restaurantRepository.findByToken(token).map(restaurantMapper::toDto);
     }
 
-    public RestaurantDto updateRestaurant(long id, RestaurantDto restaurantDto, Long requestToken) {
+    public RestaurantDto updateRestaurant(long id, RestaurantDto restaurantDto, String requestToken) {
         Restaurant existingRestaurant = restaurantRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Restaurant not found"));
 
@@ -135,7 +135,7 @@ public class RestaurantService {
                 .orElse(0) * 10) / 10;
     }
 
-    public boolean verifyToken(Long restaurantId, Long requestToken) {
+    public boolean verifyToken(Long restaurantId, String requestToken) {
         try {
             Restaurant restaurant = restaurantRepository.findById(restaurantId).get();
             return restaurant.getToken().equals(requestToken);

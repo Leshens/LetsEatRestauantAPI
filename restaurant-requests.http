@@ -3,7 +3,7 @@ POST http://localhost:8010/api/restaurants
 Content-Type: application/json
 
 {
-  "token": 11234567899009,
+  "token": "11a234v5678b99009",
   "restaurantName": "Kanm's Restrant",
   "location": "Sebastiana Klonowicza 71A, 80-408 Gdańsk",
   "restaurantCategory": "AMERICAN",
@@ -19,7 +19,7 @@ POST http://localhost:8010/api/restaurants
 Content-Type: application/json
 
 {
-  "token": 11234567899009,
+  "token": "11a234v5678b99009",
   "restaurantName": "Lidl",
   "location": "Bolesława Chrobrego 75, 80-414 Gdańsk",
   "restaurantCategory": "AMERICAN",
@@ -36,7 +36,7 @@ POST http://localhost:8010/api/restaurants
 Content-Type: application/json
 
 {
-  "token": 11234567899009,
+  "token": "11a234v5678b99009",
   "restaurantName": "Gildia Gdańska S.A.",
   "location": "aleja Rzeczypospolitej 33B, 80-463 Gdańsk",
   "restaurantCategory": "AMERICAN",
@@ -58,11 +58,11 @@ GET http://localhost:8010//api/restaurants/1
 
 ###
 PUT http://localhost:8010/api/restaurants/2
-Authorization: 11234567899009
+Authorization: "11a234v5678b99009"
 Content-Type: application/json
 
 {
-  "token": 11234567899009,
+  "token": "11a234v5678b99009",
   "restaurantName": "Kamm's Restant",
   "location": "Klonowicza 71A",
   "restaurantCategory": "AMERICAN",
@@ -76,11 +76,11 @@ Content-Type: application/json
 
 ###
 PATCH http://localhost:8010/api/restaurants/1
-Authorization: 11234567899009
+Authorization: "11a234v5678b99009"
 Content-Type: application/json
 
 {
-  "token": 11234567899009,
+  "token": "11a234v5678b99009",
   "restaurantName": "Kamm's Restant",
   "location": "Klonowicza 71A",
   "restaurantCategory": "MEXICAN",
@@ -106,11 +106,15 @@ GET http://localhost:8010/api/restaurants/search?latitude=54.389664259311665&lon
 ###
 GET http://localhost:8010/api/restaurants/search?latitude=54.389664259311665&longitude=18.63118184501924&radius=2
 
-###
-DELETE http://localhost:8010/api/restaurants/1
-Authorization: 7545897939
 
+//bad token
 ###
 DELETE http://localhost:8010/api/restaurants/1
-Authorization: 11234567899009
+Authorization: "36627189ba"
+
+
+//good token
+###
+DELETE http://localhost:8010/api/restaurants/1
+Authorization: "11a234v5678b99009"
 

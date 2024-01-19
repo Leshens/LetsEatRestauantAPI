@@ -12,7 +12,7 @@ public class Tables {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long tableId;
-    private Long token;
+    private String token;
     private Short size;
 
     @ManyToOne

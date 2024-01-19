@@ -12,7 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class RestaurantDto {
 
-    private Long token;
+    private String token;
     private String restaurantName;
     private String location;
     private RestaurantCategory restaurantCategory;

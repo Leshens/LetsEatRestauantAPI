@@ -13,7 +13,7 @@ import java.util.Date;
 @AllArgsConstructor
 public class ReviewDto {
     private Long reviewId;
-    private Long token;
+    private String token;
     private String comment;
     private Date date;
     private Long restaurantId;

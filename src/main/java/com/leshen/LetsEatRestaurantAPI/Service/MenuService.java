@@ -37,7 +37,7 @@ public class MenuService {
         return menuRepository.findById(id).map(menuMapper::toDto);
     }
 
-    public MenuDto updateMenu(long id, MenuDto menuDto, Long requestToken) {
+    public MenuDto updateMenu(long id, MenuDto menuDto, String requestToken) {
         Menu existingMenu = menuRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Menu not found"));
 
@@ -60,7 +60,7 @@ public class MenuService {
         menuRepository.deleteById(id);
     }
 
-    public boolean verifyToken(Long menuId, Long requestToken) {
+    public boolean verifyToken(Long menuId, String requestToken) {
         try {
             Menu menu = menuRepository.findById(menuId).get();
             return menu.getToken().equals(requestToken);
