@@ -1,8 +1,5 @@
 package com.leshen.LetsEatRestaurantAPI.Controller;
 
-import com.leshen.LetsEatRestaurantAPI.Contract.MenuDto;
-import com.leshen.LetsEatRestaurantAPI.Contract.RestaurantDto;
-import com.leshen.LetsEatRestaurantAPI.Contract.ReviewDto;
 import com.leshen.LetsEatRestaurantAPI.Service.TableService;
 import com.leshen.LetsEatRestaurantAPI.Contract.TableDto;
 import io.swagger.v3.oas.annotations.Operation;
@@ -55,7 +52,9 @@ public class TablesController {
     @ApiResponse(responseCode = "400", description = "Bad request", content = @Content)
     @ApiResponse(responseCode = "404", description = "Table not found", content = @Content)
     @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content)
-    public ResponseEntity<TableDto> getById(@Parameter(description="Identifier of the table") @PathVariable long id) {
+    public ResponseEntity<TableDto> getById(
+            @Parameter(description="Identifier of the table")
+            @PathVariable long id) {
         Optional<TableDto> tableDto = tableService.getTableById(id);
         return tableDto.map(dto -> new ResponseEntity<>(dto, HttpStatus.OK))
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Table not found"));
@@ -67,7 +66,9 @@ public class TablesController {
     @ApiResponse(responseCode = "400", description = "Bad request", content = @Content)
     @ApiResponse(responseCode = "404", description = "Tables not found", content = @Content)
     @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content)
-    public ResponseEntity<List<TableDto>> getTablesForRestaurant(@Parameter(description="Identifier of the restaurant") @PathVariable Long restaurantId) {
+    public ResponseEntity<List<TableDto>> getTablesForRestaurant(
+            @Parameter(description="Identifier of the restaurant")
+            @PathVariable Long restaurantId) {
         List<TableDto> tables = tableService.getTablesForRestaurant(restaurantId);
         return new ResponseEntity<>(tables, HttpStatus.OK);
     }

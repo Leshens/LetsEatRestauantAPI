@@ -1,9 +1,7 @@
 package com.leshen.LetsEatRestaurantAPI.Service;
 
-import com.leshen.LetsEatRestaurantAPI.Contract.TableDto;
 import com.leshen.LetsEatRestaurantAPI.Model.Menu;
 import com.leshen.LetsEatRestaurantAPI.Model.Restaurant;
-import com.leshen.LetsEatRestaurantAPI.Model.Tables;
 import com.leshen.LetsEatRestaurantAPI.Repository.MenuRepository;
 import com.leshen.LetsEatRestaurantAPI.Service.Mappers.MenuMapper;
 import com.leshen.LetsEatRestaurantAPI.Contract.MenuDto;
@@ -48,14 +46,6 @@ public class MenuService {
         return menuRepository.findById(id).map(menuMapper::toDto);
     }
 
-    public MenuDto updateMenu(long id, MenuDto menuDto, String requestToken) {
-        Menu existingMenu = menuRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Menu not found"));
-
-        menuMapper.updateMenuFromDto(menuDto, existingMenu);
-
-        return menuMapper.toDto(menuRepository.save(existingMenu));
-    }
 
     public MenuDto patchMenu(long id, MenuDto menuDto) {
         Menu existingMenu = menuRepository.findById(id)

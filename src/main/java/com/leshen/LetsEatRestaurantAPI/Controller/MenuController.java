@@ -1,7 +1,6 @@
 package com.leshen.LetsEatRestaurantAPI.Controller;
 
 import com.leshen.LetsEatRestaurantAPI.Contract.MenuDto;
-import com.leshen.LetsEatRestaurantAPI.Contract.TableDto;
 import com.leshen.LetsEatRestaurantAPI.Service.MenuService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -53,7 +52,9 @@ public class MenuController {
     @ApiResponse(responseCode = "400", description = "Bad request", content = @Content)
     @ApiResponse(responseCode = "404", description = "Menu not found", content = @Content)
     @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content)
-    public ResponseEntity<MenuDto> getById(@Parameter(description="Identifier of the desired menu") @PathVariable long id) {
+    public ResponseEntity<MenuDto> getById(
+            @Parameter(description="Identifier of the desired menu")
+            @PathVariable long id) {
         MenuDto menu = menuService.getMenuById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Menu not found"));
         return new ResponseEntity<>(menu, HttpStatus.OK);
@@ -65,7 +66,9 @@ public class MenuController {
     @ApiResponse(responseCode = "400", description = "Bad request", content = @Content)
     @ApiResponse(responseCode = "404", description = "Menu not found", content = @Content)
     @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content)
-    public ResponseEntity<List<MenuDto>> getMenuForRestaurant(@Parameter(description="Identifier of the restaurant") @PathVariable Long restaurantId) {
+    public ResponseEntity<List<MenuDto>> getMenuForRestaurant(
+            @Parameter(description="Identifier of the restaurant")
+            @PathVariable Long restaurantId) {
         List<MenuDto> menus = menuService.getMenuForRestaurant(restaurantId);
         return new ResponseEntity<>(menus, HttpStatus.OK);
     }
