@@ -26,7 +26,7 @@ public class ReviewDto {
     @Schema(description = "Date of the review")
     private LocalDate date;
 
-    @Schema(description = "Identifier for the restaurant to which the menu belongs")
+    @Schema(description = "Identifier for the restaurant to which the review belongs")
     private Long restaurantId;
 
     @Schema(description = "Service rating", minimum = "1", maximum = "5", example = "4", defaultValue = "4")
