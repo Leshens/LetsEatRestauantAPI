@@ -4,7 +4,7 @@ import lombok.*;
 
 @Data
 public class MenuDto {
-    private Long reviewId;
+    private Long menuId;
     private Long restaurantId;
     private String token;
     private String name;
