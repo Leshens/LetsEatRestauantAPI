@@ -56,23 +56,6 @@ GET http://localhost:8010/api/restaurants/token/11234567899009
 ###
 GET http://localhost:8010//api/restaurants/1
 
-###
-PUT http://localhost:8010/api/restaurants/2
-Authorization: "11a234v5678b99009"
-Content-Type: application/json
-
-{
-  "token": "11a234v5678b99009",
-  "restaurantName": "Kamm's Restant",
-  "location": "Klonowicza 71A",
-  "restaurantCategory": "AMERICAN",
-  "openingHours":"2AM - 8PM",
-  "photoLink":"http://dummyimage.com/232x100.png/dddddd/000000",
-  "websiteLink":"https://mapquest.com",
-  "longitude": 18.63118184501924,
-  "latitude": 54.389664259311665,
-  "phoneNumber":"6025076729"
-}
 
 ###
 PATCH http://localhost:8010/api/restaurants/1

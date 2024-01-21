@@ -1,6 +1,7 @@
 package com.leshen.LetsEatRestaurantAPI.Controller;
 
 import com.leshen.LetsEatRestaurantAPI.Contract.MenuDto;
+import com.leshen.LetsEatRestaurantAPI.Contract.TableDto;
 import com.leshen.LetsEatRestaurantAPI.Service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -39,24 +40,11 @@ public class MenuController {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Menu not found"));
         return new ResponseEntity<>(menu, HttpStatus.OK);
     }
-    @PutMapping("/{id}")
-    public ResponseEntity<MenuDto> updateMenu(
-            @PathVariable long id,
-            @RequestBody MenuDto menuDto,
-            @RequestHeader("Authorization") String requestToken) {
-        try {
-            if (!menuService.verifyToken(id, requestToken)) {
-                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-            }
-            MenuDto updatedMenu = menuService.updateMenu(id, menuDto, requestToken);
-            return ResponseEntity.ok(updatedMenu);
-        } catch (RuntimeException e) {
-            if (e instanceof NoSuchElementException) {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            } else {
-                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-        }
+
+    @GetMapping("/restaurant/{restaurantId}")
+    public ResponseEntity<List<MenuDto>> getMenuForRestaurant(@PathVariable Long restaurantId) {
+        List<MenuDto> menus = menuService.getMenuForRestaurant(restaurantId);
+        return new ResponseEntity<>(menus, HttpStatus.OK);
     }
 
     @PatchMapping("/{id}")

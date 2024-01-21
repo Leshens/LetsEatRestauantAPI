@@ -81,28 +81,7 @@ public class RestaurantController {
         return restaurant.map(dto -> new ResponseEntity<>(dto, HttpStatus.OK))
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Restaurant not found"));
     }
-    @PutMapping("/{id}")
-    public ResponseEntity<RestaurantDto> updateRestaurant(
-            @PathVariable long id,
-            @RequestBody RestaurantDto updatedRestaurantDto,
-            @RequestHeader("Authorization") String requestToken) {
-        try {
-            if (!restaurantService.verifyToken(id, requestToken)) {
-                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-            }
 
-            RestaurantDto updatedDto = restaurantService.updateRestaurant(id, updatedRestaurantDto, requestToken);
-            return ResponseEntity.ok(updatedDto);
-
-        } catch (RuntimeException e) {
-            if (e instanceof NoSuchElementException) {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            } else {
-                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-        }
-
-    }
     @DeleteMapping("/{id}")
     public ResponseEntity<Long> deleteRestaurant(@PathVariable Long id,
                                                  @RequestHeader("Authorization") String requestToken) {

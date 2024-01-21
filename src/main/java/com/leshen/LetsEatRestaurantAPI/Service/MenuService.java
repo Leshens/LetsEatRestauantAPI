@@ -1,7 +1,9 @@
 package com.leshen.LetsEatRestaurantAPI.Service;
 
+import com.leshen.LetsEatRestaurantAPI.Contract.TableDto;
 import com.leshen.LetsEatRestaurantAPI.Model.Menu;
 import com.leshen.LetsEatRestaurantAPI.Model.Restaurant;
+import com.leshen.LetsEatRestaurantAPI.Model.Tables;
 import com.leshen.LetsEatRestaurantAPI.Repository.MenuRepository;
 import com.leshen.LetsEatRestaurantAPI.Service.Mappers.MenuMapper;
 import com.leshen.LetsEatRestaurantAPI.Contract.MenuDto;
@@ -26,6 +28,15 @@ public class MenuService {
     public MenuDto createMenu(MenuDto menuDto) {
         Menu newMenu = menuMapper.toEntity(menuDto);
         return menuMapper.toDto(menuRepository.save(newMenu));
+    }
+
+    public List<MenuDto> getMenuForRestaurant(Long restaurantId) {
+        Restaurant restaurant = new Restaurant();
+        restaurant.setRestaurantId(restaurantId);
+        List<Menu> menus = menuRepository.findByRestaurant(restaurant);
+        return menus.stream()
+                .map(menuMapper::toDto)
+                .collect(Collectors.toList());
     }
 
     public List<MenuDto> getAllMenus() {

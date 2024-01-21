@@ -52,7 +52,6 @@ public class RestaurantService {
         List<Restaurant> restaurants = restaurantRepository.findRestaurantsInRadius(latitude, longitude, radius);
         System.out.println("restaurants"+restaurants);
 
-        // Fetch tables for each restaurant and map to TableDto
         List<RestaurantListDto> restaurantListDtos = restaurantListMapper.toDtoList(restaurants);
         for (int i = 0; i < restaurants.size(); i++) {
             List<TableDto> tables = tablesRepository.findByRestaurant(restaurants.get(i))
@@ -82,14 +81,6 @@ public class RestaurantService {
         return restaurantRepository.findByToken(token).map(restaurantMapper::toDto);
     }
 
-    public RestaurantDto updateRestaurant(long id, RestaurantDto restaurantDto, String requestToken) {
-        Restaurant existingRestaurant = restaurantRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Restaurant not found"));
-
-        restaurantMapper.updateRestaurantFromDto(restaurantDto, existingRestaurant);
-
-        return restaurantMapper.toDto(restaurantRepository.save(existingRestaurant));
-    }
     public RestaurantDto patchRestaurant(long id, RestaurantDto restaurantDto) {
         Restaurant existingRestaurant = restaurantRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Restaurant not found"));
