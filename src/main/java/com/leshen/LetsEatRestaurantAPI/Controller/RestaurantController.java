@@ -1,11 +1,17 @@
 package com.leshen.LetsEatRestaurantAPI.Controller;
 
+import com.leshen.LetsEatRestaurantAPI.Contract.MenuDto;
 import com.leshen.LetsEatRestaurantAPI.Contract.RestaurantDto;
 import com.leshen.LetsEatRestaurantAPI.Contract.RestaurantListDto;
 import com.leshen.LetsEatRestaurantAPI.Contract.RestaurantPanelDto;
 import com.leshen.LetsEatRestaurantAPI.Model.Restaurant;
 import com.leshen.LetsEatRestaurantAPI.Repository.RestaurantRepository;
 import com.leshen.LetsEatRestaurantAPI.Service.RestaurantService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +31,10 @@ public class RestaurantController {
 
     private final RestaurantService restaurantService;
     @PostMapping
+    @Operation(summary = "Create a new restaurant")
+    @ApiResponse(responseCode = "200", description = "Restaurant created", content = @Content(mediaType = "application/json", schema = @Schema(implementation = RestaurantDto.class)))
+    @ApiResponse(responseCode = "400", description = "Bad request", content = @Content)
+    @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content)
     public ResponseEntity<Long> newRestaurant(@RequestBody RestaurantDto newRestaurantDto){
        Long id = restaurantService.createRestaurant(newRestaurantDto);
 
@@ -38,14 +48,25 @@ public class RestaurantController {
 
     }
     @GetMapping
+    @Operation(summary = "Get all restaurants")
+    @ApiResponse(responseCode = "200", description = "Menus found", content = @Content(mediaType = "application/json", schema = @Schema(implementation = RestaurantDto.class)))
+    @ApiResponse(responseCode = "400", description = "Bad request", content = @Content)
+    @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content)
     public ResponseEntity<List<RestaurantDto>> getAllRestaurants(){
         List<RestaurantDto> restaurants = restaurantService.getAllRestaurants();
         return new ResponseEntity<>(restaurants, HttpStatus.OK);
     }
     @GetMapping("/search")
+    @Operation(summary = "Get restaurants in radius")
+    @ApiResponse(responseCode = "200", description = "Restaurants found", content = @Content(mediaType = "application/json", schema = @Schema(implementation = RestaurantDto.class)))
+    @ApiResponse(responseCode = "400", description = "Bad request", content = @Content)
+    @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content)
     public ResponseEntity<List<RestaurantListDto>> searchRestaurantsInRadius(
+            @Parameter(description="Latitude")
             @RequestParam double latitude,
+            @Parameter(description="Longitude")
             @RequestParam double longitude,
+            @Parameter(description="Radius in km")
             @RequestParam double radius) {
         System.out.println("Latitude: " + latitude);
         System.out.println("Longitude: " + longitude);
@@ -60,13 +81,27 @@ public class RestaurantController {
         return new ResponseEntity<>(restaurants, HttpStatus.OK);
     }
     @GetMapping("/{id}")
-    public ResponseEntity<RestaurantDto> getById(@PathVariable long id) {
+    @Operation(summary = "Get a restaurant by ID")
+    @ApiResponse(responseCode = "200", description = "Restaurant found", content = @Content(mediaType = "application/json", schema = @Schema(implementation = RestaurantDto.class)))
+    @ApiResponse(responseCode = "400", description = "Bad request", content = @Content)
+    @ApiResponse(responseCode = "404", description = "Restaurant not found", content = @Content)
+    @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content)
+    public ResponseEntity<RestaurantDto> getById(
+            @Parameter(description="Identifier of the Restaurant")
+            @PathVariable long id) {
         Optional<RestaurantDto> restaurant = restaurantService.getRestaurantById(id);
         return restaurant.map(dto -> new ResponseEntity<>(dto, HttpStatus.OK))
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Restaurant not found"));
     }
     @GetMapping("/panel/{id}")
-    public ResponseEntity<RestaurantPanelDto> getRestaurant(@PathVariable Long id) {
+    @Operation(summary = "Get panel info about restaurant by ID")
+    @ApiResponse(responseCode = "200", description = "Restaurant found", content = @Content(mediaType = "application/json", schema = @Schema(implementation = RestaurantDto.class)))
+    @ApiResponse(responseCode = "400", description = "Bad request", content = @Content)
+    @ApiResponse(responseCode = "404", description = "Restaurant not found", content = @Content)
+    @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content)
+    public ResponseEntity<RestaurantPanelDto> getRestaurant(
+            @Parameter(description="Identifier of the Restaurant")
+            @PathVariable Long id) {
         RestaurantPanelDto restaurantPanelDto = restaurantService.getRestaurantPanelById(id);
 
         if (restaurantPanelDto != null) {
@@ -76,15 +111,31 @@ public class RestaurantController {
         }
     }
     @GetMapping("/token/{token}")
-    public ResponseEntity<RestaurantDto> getByToken(@PathVariable String token) {
+    @Operation(summary = "Get a restaurant by Token")
+    @ApiResponse(responseCode = "200", description = "Restaurant found", content = @Content(mediaType = "application/json", schema = @Schema(implementation = RestaurantDto.class)))
+    @ApiResponse(responseCode = "400", description = "Bad request", content = @Content)
+    @ApiResponse(responseCode = "404", description = "Restaurant not found", content = @Content)
+    @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content)
+    public ResponseEntity<RestaurantDto> getByToken(
+            @Parameter(description="Authorization token")
+            @PathVariable String token) {
         Optional<RestaurantDto> restaurant = restaurantService.getRestaurantByToken(token);
         return restaurant.map(dto -> new ResponseEntity<>(dto, HttpStatus.OK))
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Restaurant not found"));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Long> deleteRestaurant(@PathVariable Long id,
-                                                 @RequestHeader("Authorization") String requestToken) {
+    @Operation(summary = "Delete a restaurant")
+    @ApiResponse(responseCode = "200", description = "Restaurant deleted", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Long.class)))
+    @ApiResponse(responseCode = "400", description = "Bad request", content = @Content)
+    @ApiResponse(responseCode = "401", description = "Unauthorized, bad token", content = @Content)
+    @ApiResponse(responseCode = "404", description = "Restaurant not found", content = @Content)
+    @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content)
+    public ResponseEntity<Long> deleteRestaurant(
+            @Parameter(description="Identifier of the Restaurant")
+            @PathVariable Long id,
+            @Parameter(description="Authorization token")
+            @RequestHeader("Authorization") String requestToken) {
         try {
             if (!restaurantService.verifyToken(id, requestToken)) {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
@@ -104,9 +155,17 @@ public class RestaurantController {
     }
 
     @PatchMapping("/{id}")
+    @Operation(summary = "Update a restaurant")
+    @ApiResponse(responseCode = "200", description = "Restaurant updated", content = @Content(mediaType = "application/json", schema = @Schema(implementation = RestaurantDto.class)))
+    @ApiResponse(responseCode = "400", description = "Bad request", content = @Content)
+    @ApiResponse(responseCode = "401", description = "Unauthorized, bad token", content = @Content)
+    @ApiResponse(responseCode = "404", description = "Restaurant not found", content = @Content)
+    @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content)
     public ResponseEntity<RestaurantDto> patchRestaurant(
+            @Parameter(description="Identifier of the Restaurant")
             @PathVariable Long id,
             @RequestBody RestaurantDto restaurantDto,
+            @Parameter(description="Authorization token")
             @RequestHeader("Authorization") String requestToken) {
 
         try {
