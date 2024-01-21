@@ -57,7 +57,7 @@ public class RestaurantController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        return new ResponseEntity<>(restaurants, HttpStatus.FOUND);
+        return new ResponseEntity<>(restaurants, HttpStatus.OK);
     }
     @GetMapping("/{id}")
     public ResponseEntity<RestaurantDto> getById(@PathVariable long id) {

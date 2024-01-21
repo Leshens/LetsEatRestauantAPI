@@ -13,7 +13,7 @@ import java.util.List;
 public interface RestaurantMapper {
     RestaurantMapper INSTANCE = Mappers.getMapper(RestaurantMapper.class);
 
-    @Mapping(target = "restaurantId", ignore = true)
+    @Mapping(target = "restaurantId", source = "restaurantDto.restaurantId")
     @Mapping(target = "token", source = "restaurantDto.token")
     @Mapping(target = "restaurantName", source = "restaurantDto.restaurantName")
     @Mapping(target = "location", source = "restaurantDto.location")
@@ -29,7 +29,7 @@ public interface RestaurantMapper {
     RestaurantDto toDto(Restaurant restaurant);
     List<RestaurantDto> toDtoList(List<Restaurant> restaurants);
 
-    @Mapping(target = "restaurantId", ignore = true)
+    @Mapping(target = "restaurantId", source = "restaurantDto.restaurantId")
     @Mapping(target = "token", source = "restaurantDto.token")
     @Mapping(target = "restaurantName", source = "restaurantDto.restaurantName")
     @Mapping(target = "location", source = "restaurantDto.location")
@@ -42,7 +42,7 @@ public interface RestaurantMapper {
     @Mapping(target = "phoneNumber", source = "restaurantDto.phoneNumber")
     Restaurant updateRestaurantFromDto(RestaurantDto restaurantDto, Restaurant restaurant);
 
-    @Mapping(target = "restaurantId", ignore = true)
+    @Mapping(target = "restaurantId", source = "restaurantDto.restaurantId")
     @Mapping(target = "token", source = "restaurantDto.token")
     @Mapping(target = "restaurantName", source = "restaurantDto.restaurantName")
     @Mapping(target = "location", source = "restaurantDto.location")
