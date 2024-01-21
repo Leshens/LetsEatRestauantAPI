@@ -29,12 +29,12 @@ public class ReviewDto {
     @Schema(description = "Identifier for the restaurant to which the review belongs")
     private Long restaurantId;
 
-    @Schema(description = "Service rating", minimum = "1", maximum = "5", example = "4", defaultValue = "4")
+    @Schema(description = "Service rating", minimum = "1", maximum = "5", example = "5", defaultValue = "5")
     private int service;
 
-    @Schema(description = "Food rating", minimum = "1", maximum = "5", example = "4", defaultValue = "5")
+    @Schema(description = "Food rating", minimum = "1", maximum = "5", example = "5", defaultValue = "5")
     private int food;
 
-    @Schema(description = "Atmosphere rating", minimum = "1", maximum = "5", example = "4", defaultValue = "4")
+    @Schema(description = "Atmosphere rating", minimum = "1", maximum = "5", example = "5", defaultValue = "5")
     private int atmosphere;
 }

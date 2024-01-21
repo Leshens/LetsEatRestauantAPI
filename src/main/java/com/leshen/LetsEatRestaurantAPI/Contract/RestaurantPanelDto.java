@@ -41,12 +41,12 @@ public class RestaurantPanelDto {
     @Schema(description = "Reviews of the restaurant")
     private List<ReviewDto> reviews;
 
-    @Schema(description = "Calculated average rating of food in restaurant")
+    @Schema(description = "Calculated average rating of food in restaurant", minimum = "1", maximum = "5")
     private Double averageFood;
 
-    @Schema(description = "Calculated average rating of service in restaurant")
+    @Schema(description = "Calculated average rating of service in restaurant", minimum = "1", maximum = "5")
     private Double averageService;
 
-    @Schema(description = "Calculated average rating of atmosphere in restaurant")
+    @Schema(description = "Calculated average rating of atmosphere in restaurant", minimum = "1", maximum = "5")
     private Double averageAtmosphere;
 }

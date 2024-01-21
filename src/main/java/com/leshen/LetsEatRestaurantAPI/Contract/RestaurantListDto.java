@@ -36,6 +36,6 @@ public class RestaurantListDto {
 
     @Setter
     @Getter
-    @Schema(description = "Calculated rating of restaurant")
+    @Schema(description = "Calculated rating of restaurant", minimum = "1", maximum = "5")
     private double stars;
 }

@@ -58,7 +58,7 @@ public class RestaurantController {
     }
     @GetMapping("/search")
     @Operation(summary = "Get restaurants in radius")
-    @ApiResponse(responseCode = "200", description = "Restaurants found", content = @Content(mediaType = "application/json", schema = @Schema(implementation = RestaurantDto.class)))
+    @ApiResponse(responseCode = "200", description = "Restaurants found", content = @Content(mediaType = "application/json", schema = @Schema(implementation = RestaurantListDto.class)))
     @ApiResponse(responseCode = "400", description = "Bad request", content = @Content)
     @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content)
     public ResponseEntity<List<RestaurantListDto>> searchRestaurantsInRadius(
@@ -95,7 +95,7 @@ public class RestaurantController {
     }
     @GetMapping("/panel/{id}")
     @Operation(summary = "Get panel info about restaurant by ID")
-    @ApiResponse(responseCode = "200", description = "Restaurant found", content = @Content(mediaType = "application/json", schema = @Schema(implementation = RestaurantDto.class)))
+    @ApiResponse(responseCode = "200", description = "Restaurant found", content = @Content(mediaType = "application/json", schema = @Schema(implementation = RestaurantPanelDto.class)))
     @ApiResponse(responseCode = "400", description = "Bad request", content = @Content)
     @ApiResponse(responseCode = "404", description = "Restaurant not found", content = @Content)
     @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content)
