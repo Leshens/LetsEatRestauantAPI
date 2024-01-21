@@ -13,11 +13,8 @@ import com.leshen.LetsEatRestaurantAPI.Repository.ReviewRepository;
 import com.leshen.LetsEatRestaurantAPI.Repository.TablesRepository;
 import com.leshen.LetsEatRestaurantAPI.Service.Mappers.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -45,25 +42,7 @@ public class RestaurantService {
         this.menuRepository = menuRepository;
         this.tablesRepository = tablesRepository;
     }
-    public List<RestaurantListDto> findRestaurantsInRadius(double latitude, double longitude, double radius) {
-        System.out.println(latitude);
-        System.out.println(longitude);
-        System.out.println(radius);
-        List<Restaurant> restaurants = restaurantRepository.findRestaurantsInRadius(latitude, longitude, radius);
-        System.out.println("restaurants"+restaurants);
 
-        // Fetch tables for each restaurant and map to TableDto
-        List<RestaurantListDto> restaurantListDtos = restaurantListMapper.toDtoList(restaurants);
-        for (int i = 0; i < restaurants.size(); i++) {
-            List<TableDto> tables = tablesRepository.findByRestaurant(restaurants.get(i))
-                    .stream()
-                    .map(tablesMapper::toDto)
-                    .collect(Collectors.toList());
-            restaurantListDtos.get(i).setTables(tables);
-        }
-        System.out.println("restaurantListDtos"+restaurantListDtos);
-        return restaurantListDtos;
-    }
     public Long createRestaurant(RestaurantDto restaurantDto) {
         Restaurant newRestaurant = restaurantMapper.toEntity(restaurantDto);
         return restaurantRepository.save(newRestaurant).getRestaurantId();
@@ -82,29 +61,25 @@ public class RestaurantService {
         return restaurantRepository.findByToken(token).map(restaurantMapper::toDto);
     }
 
-    public RestaurantDto updateRestaurant(long id, RestaurantDto restaurantDto, String requestToken) {
-        Restaurant existingRestaurant = restaurantRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Restaurant not found"));
+    public List<RestaurantListDto> findRestaurantsInRadius(double latitude, double longitude, double radius) {
+        System.out.println(latitude);
+        System.out.println(longitude);
+        System.out.println(radius);
+        List<Restaurant> restaurants = restaurantRepository.findRestaurantsInRadius(latitude, longitude, radius);
+        System.out.println("restaurants"+restaurants);
 
-        restaurantMapper.updateRestaurantFromDto(restaurantDto, existingRestaurant);
-
-        return restaurantMapper.toDto(restaurantRepository.save(existingRestaurant));
-    }
-    public RestaurantDto patchRestaurant(long id, RestaurantDto restaurantDto) {
-        Restaurant existingRestaurant = restaurantRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Restaurant not found"));
-
-        Restaurant patchedRestaurant = restaurantMapper.patchRestaurantFromDto(restaurantDto, existingRestaurant);
-
-        return restaurantMapper.toDto(restaurantRepository.save(patchedRestaurant));
-    }
-
-    public void deleteRestaurant(Long id) {
-        if (!restaurantRepository.existsById(id)) {
-            throw new RuntimeException("Restaurant not found");
+        List<RestaurantListDto> restaurantListDtos = restaurantListMapper.toDtoList(restaurants);
+        for (int i = 0; i < restaurants.size(); i++) {
+            List<TableDto> tables = tablesRepository.findByRestaurant(restaurants.get(i))
+                    .stream()
+                    .map(tablesMapper::toDto)
+                    .collect(Collectors.toList());
+            restaurantListDtos.get(i).setTables(tables);
         }
-        restaurantRepository.deleteById(id);
+        System.out.println("restaurantListDtos"+restaurantListDtos);
+        return restaurantListDtos;
     }
+
     public RestaurantPanelDto getRestaurantPanelById(Long id) {
         return restaurantRepository.findById(id)
                 .map(restaurantPanelMapper::toDto)
@@ -126,6 +101,22 @@ public class RestaurantService {
                     return restaurantPanelDto;
                 })
                 .orElse(null);
+    }
+
+    public RestaurantDto patchRestaurant(long id, RestaurantDto restaurantDto) {
+        Restaurant existingRestaurant = restaurantRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Restaurant not found"));
+
+        Restaurant patchedRestaurant = restaurantMapper.patchRestaurantFromDto(restaurantDto, existingRestaurant);
+
+        return restaurantMapper.toDto(restaurantRepository.save(patchedRestaurant));
+    }
+
+    public void deleteRestaurant(Long id) {
+        if (!restaurantRepository.existsById(id)) {
+            throw new RuntimeException("Restaurant not found");
+        }
+        restaurantRepository.deleteById(id);
     }
 
     private double calculateAverageRating(List<Review> reviews, ToIntFunction<Review> ratingExtractor) {

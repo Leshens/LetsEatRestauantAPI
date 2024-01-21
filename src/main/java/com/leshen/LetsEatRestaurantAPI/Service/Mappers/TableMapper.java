@@ -1,8 +1,6 @@
 package com.leshen.LetsEatRestaurantAPI.Service.Mappers;
 
-import com.leshen.LetsEatRestaurantAPI.Contract.RestaurantListDto;
 import com.leshen.LetsEatRestaurantAPI.Contract.TableDto;
-import com.leshen.LetsEatRestaurantAPI.Model.Restaurant;
 import com.leshen.LetsEatRestaurantAPI.Model.Tables;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

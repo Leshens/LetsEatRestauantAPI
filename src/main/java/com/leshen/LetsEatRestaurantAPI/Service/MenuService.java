@@ -28,6 +28,15 @@ public class MenuService {
         return menuMapper.toDto(menuRepository.save(newMenu));
     }
 
+    public List<MenuDto> getMenuForRestaurant(Long restaurantId) {
+        Restaurant restaurant = new Restaurant();
+        restaurant.setRestaurantId(restaurantId);
+        List<Menu> menus = menuRepository.findByRestaurant(restaurant);
+        return menus.stream()
+                .map(menuMapper::toDto)
+                .collect(Collectors.toList());
+    }
+
     public List<MenuDto> getAllMenus() {
         List<Menu> menus = menuRepository.findAll();
         return menus.stream().map(menuMapper::toDto).collect(Collectors.toList());
@@ -37,14 +46,6 @@ public class MenuService {
         return menuRepository.findById(id).map(menuMapper::toDto);
     }
 
-    public MenuDto updateMenu(long id, MenuDto menuDto, String requestToken) {
-        Menu existingMenu = menuRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Menu not found"));
-
-        menuMapper.updateMenuFromDto(menuDto, existingMenu);
-
-        return menuMapper.toDto(menuRepository.save(existingMenu));
-    }
 
     public MenuDto patchMenu(long id, MenuDto menuDto) {
         Menu existingMenu = menuRepository.findById(id)
