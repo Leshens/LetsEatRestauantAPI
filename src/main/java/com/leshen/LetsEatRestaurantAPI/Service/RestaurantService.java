@@ -62,22 +62,41 @@ public class RestaurantService {
     }
 
     public List<RestaurantListDto> findRestaurantsInRadius(double latitude, double longitude, double radius) {
-        System.out.println(latitude);
-        System.out.println(longitude);
-        System.out.println(radius);
         List<Restaurant> restaurants = restaurantRepository.findRestaurantsInRadius(latitude, longitude, radius);
-        System.out.println("restaurants"+restaurants);
-
         List<RestaurantListDto> restaurantListDtos = restaurantListMapper.toDtoList(restaurants);
+
         for (int i = 0; i < restaurants.size(); i++) {
-            List<TableDto> tables = tablesRepository.findByRestaurant(restaurants.get(i))
+            Restaurant restaurant = restaurants.get(i);
+
+            // Calculate distance for each restaurant
+            double distance = calculateDistance(latitude, longitude, restaurant.getLatitude(), restaurant.getLongitude());
+            String formattedDistance = String.format("%.2f km", distance);
+            restaurantListDtos.get(i).setDistance(formattedDistance);
+
+            // Fetch and set tables
+            List<TableDto> tables = tablesRepository.findByRestaurant(restaurant)
                     .stream()
                     .map(tablesMapper::toDto)
                     .collect(Collectors.toList());
             restaurantListDtos.get(i).setTables(tables);
         }
-        System.out.println("restaurantListDtos"+restaurantListDtos);
+
         return restaurantListDtos;
+    }
+
+    private double calculateDistance(double userLatitude, double userLongitude, double restaurantLatitude, double restaurantLongitude) {
+        //Haversine formula
+        double earthRadius = 6371; // Earth radius in kilometers
+        double dLat = Math.toRadians(restaurantLatitude - userLatitude);
+        double dLon = Math.toRadians(restaurantLongitude - userLongitude);
+
+        double a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                Math.cos(Math.toRadians(userLatitude)) * Math.cos(Math.toRadians(restaurantLatitude)) *
+                        Math.sin(dLon / 2) * Math.sin(dLon / 2);
+
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+        return earthRadius * c;
     }
 
     public RestaurantPanelDto getRestaurantPanelById(Long id) {
