@@ -14,6 +14,7 @@ public class RestaurantListDto {
     private String photoLink;
     private Double longitude;
     private Double latitude;
+    private String distance;
     private List<TableDto> tables;
     @Setter
     @Getter

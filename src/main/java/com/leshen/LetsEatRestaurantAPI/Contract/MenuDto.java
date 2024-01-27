@@ -1,6 +1,6 @@
 package com.leshen.LetsEatRestaurantAPI.Contract;
 
-import lombok.*;
+import lombok.Data;
 
 @Data
 public class MenuDto {

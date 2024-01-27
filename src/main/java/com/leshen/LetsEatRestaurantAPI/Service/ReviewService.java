@@ -55,10 +55,14 @@ public class ReviewService {
 
     private boolean isReviewWithinHalfYear(ReviewDto reviewDto) {
         LocalDate halfYearAgo = LocalDate.now().minusMonths(6);
-        List<Review> reviewsWithSameToken = reviewRepository.findByTokenAndDateAfter(
-                reviewDto.getToken(), halfYearAgo);
+        Restaurant restaurant = new Restaurant();
+        restaurant.setRestaurantId(reviewDto.getRestaurantId());
 
-        return !reviewsWithSameToken.isEmpty();
+        List<Review> reviewsForRestaurantWithinHalfYear = reviewRepository.findByRestaurantAndDateAfter(
+                restaurant, halfYearAgo);
+
+        return reviewsForRestaurantWithinHalfYear.stream()
+                .anyMatch(review -> review.getToken().equals(reviewDto.getToken()));
     }
 
     public List<ReviewDto> getAllReviews() {

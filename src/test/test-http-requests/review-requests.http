@@ -18,10 +18,10 @@ Content-Type: application/json
 {
   "restaurantId": 1,
   "token": "11a234v5678b99009",
-  "atmosphere": 1,
+  "atmosphere": 2,
   "comment": "bad",
   "food": 1,
-  "service": 1
+  "service": 2
 }
 
 ###
@@ -30,11 +30,11 @@ Content-Type: application/json
 
 {
   "restaurantId": 1,
-  "token": "11a234v5678b99009",
+  "token": "11a234v5678b99008",
   "atmosphere": 5,
   "comment": "weird taste",
-  "food": 3,
-  "service": 5
+  "food": 2,
+  "service": 4
 }
 
 
@@ -44,7 +44,7 @@ Authorization: "11a234v5678b99009"
 Content-Type: application/json
 
 {
-  "restaurantId": 1,
+  "restaurantId": 2,
   "token": "11a234v5678b99009",
   "atmosphere": 5,
   "comment": "excellent",
